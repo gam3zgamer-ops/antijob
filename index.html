@@ -1,0 +1,1687 @@
+	<html lang="th">
+<head>
+<meta charset="UTF-8"></meta>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"></meta>
+<title>แบบฟอร์มส่งงานช่าง</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&amp;display=swap" rel="stylesheet"></link>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" type="text/javascript"></script>
+<style>
+* { box-sizing: border-box; }
+html { width: 100%; overflow-x: hidden; }
+body { margin: 0; background: #f8f9fa; padding: 0 !important; font-family: 'Sarabun', 'Kanit', -apple-system, sans-serif; width: 100% !important; max-width: 100vw !important; }
+input, textarea, button, label, select { font-family: 'Sarabun', 'Kanit', -apple-system, sans-serif; font-size: 16px !important; }
+/* ===== BLOGSPOT - ซ่อนเฉพาะ header/nav/sidebar/footer ===== */
+#header-wrapper, #Header1, .navbar, #navbar, #Navbar1,
+#sidebar-wrapper, #sidebar, .sidebar,
+#footer-wrapper, #footer, .footer-outer,
+.blog-pager, .post-footer, .post-header,
+.post-title, h3.post-title, .date-header, .post-timestamp,
+.post-share-buttons, .post-labels, .post-icons,
+.blog-feeds, .feed-links, .post-comment-link,
+.tabs-outer, .tabs-inner, #crosscol-wrapper {
+display: none !important;
+}
+/* ขยาย container ให้เต็มจอ */
+#outer-wrapper, .outer-wrapper, #wrapper, .content-wrapper,
+.content-outer, .content-inner, .main-outer, .main-inner,
+.blog-posts, .post-outer, .post, .post-body, article,
+.entry-content, .widget-content, .page-body,
+#main, #main-wrapper, .fauxcolumn-outer,
+.column-right-outer, .column-left-outer {
+max-width: 100% !important; width: 100% !important;
+padding: 0 !important; margin: 0 !important;
+border: none !important; box-shadow: none !important;
+float: none !important;
+}
+/* ===== END BLOGSPOT ===== */
+#service-app { width: 100% !important; max-width: 100vw !important; }
+/* Prevent zoom on input focus (iOS) */
+input[type="text"], input[type="number"], textarea, select { font-size: 16px !important; }
+/* Touch-friendly tap targets */
+input[type="radio"], input[type="checkbox"] { width: 20px; height: 20px; min-width: 20px; min-height: 20px; }
+label { min-height: 36px; }
+/* Responsive font sizes */
+@media (max-width: 480px) {
+.part-name, .ac-label { min-width: 120px !important; font-size: 14px !important; }
+h3 { font-size: 20px !important; }
+}
+.ac-diag-row { display:flex;align-items:center;flex-wrap:wrap;margin-bottom:6px;padding:6px 8px;background:#fff;border-radius:8px;border:1px solid #e8f5e9; }
+.ac-diag-row .ac-label { font-size:13px;font-weight:700;color:#1b5e20;min-width:150px;margin-right:6px; }
+.ac-diag-row label { display:inline-flex;align-items:center;gap:4px;cursor:pointer;padding:3px 8px;border-radius:8px;margin:2px;font-size:13px; }
+.ac-diag-row label.ok-opt { border:1px solid #eee; }
+.ac-diag-row label.bad-opt { border:1px solid #ffcdd2; }
+/* ============================================================
+FIX: ac-sol-row — เพิ่ม flex-wrap:wrap เพื่อให้ radio
+บนมือถือแสดงครบทุกตัว ไม่ถูกตัดออกนอกหน้าจอ
+============================================================ */
+.ac-sol-row { display:flex;align-items:flex-start;flex-wrap:wrap;padding:5px 4px;border-bottom:1px solid #e8f5e9;gap:4px; }
+.ac-sol-row label.sol-main { display:inline-flex;align-items:center;gap:8px;cursor:pointer;width:100%;font-size:13px;font-weight:600;color:#2e7d32;margin-bottom:2px; }
+.ac-sol-row label.sol-sub { display:inline-flex;align-items:center;gap:4px;cursor:pointer;padding:3px 8px;border-radius:6px;border:1px solid #b2dfdb;margin-left:4px;margin-top:2px;font-size:12px;flex-shrink:0; }
+</style>
+</head>
+<body>
+<div id="service-app" style="background: #f8f9fa; color: #333333; min-height: 100vh; padding: 15px; width: 100%;">
+<h3 style="color: #0056b3; font-size: 22px; font-weight: 600; margin-bottom: 20px; margin-top: 5px; text-align: center;">📋 แบบฟอร์มส่งงานช่าง</h3>
+<!-- รุ่นรถ / ทะเบียน -->
+<div style="background: white; border-radius: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 15px; padding: 15px;">
+<div style="margin-bottom: 12px;">
+<b style="font-size: 16px; font-weight: 700;">🚗 ยี่ห้อ/รุ่นรถ :</b>
+<input id="m_input" placeholder="ระบุยี่ห้อ/รุ่นรถ" style="background: #fdfdfd; border-radius: 10px; border: 1px solid #ddd; font-size: 16px; margin-top: 5px; padding: 12px; width: 100%;" type="text" />
+</div>
+<div>
+<b style="font-size: 16px; font-weight: 700;">📋 ทะเบียนรถ :</b>
+<input id="p_input" placeholder="เลขทะเบียน" style="background: #fdfdfd; border-radius: 10px; border: 1px solid #ddd; font-size: 16px; margin-top: 5px; padding: 12px; width: 100%;" type="text" />
+</div>
+</div>
+<!-- ========== รายการเช็คห้ามข้ามหมวดนี้ ========== -->
+<div id="chk20_section" style="margin-bottom: 15px;">
+<div id="hdr_chk20" onclick="toggleSection('chk20')" style="align-items: center; background: #fff; border-radius: 15px; border: 2px solid #ff8a80; cursor: pointer; display: flex; gap: 10px; padding: 14px 15px; user-select: none;">
+<span style="color: #d32f2f; flex: 1; font-size: 17px; font-weight: 700;">🚨 รายการเช็คห้ามข้ามหมวดนี้</span>
+<span id="chk20_arrow" style="color: #d32f2f; font-size: 16px; transition: transform 0.3s;">▼</span>
+</div>
+<div id="chk20_content" style="background: #fff5f5; border-radius: 0 0 15px 15px; border: 2px solid #ff8a80; display: none; margin-top: 4px;">
+<div style="padding: 14px;">
+<div id="chk20_warning" style="background: #ffcdd2; border-radius: 8px; color: #b71c1c; display: none; font-size: 14px; font-weight: 700; margin-bottom: 10px; padding: 10px; text-align: center;">⚠️ กรุณากรอกรายการเช็คให้ครบก่อนส่ง!</div>
+<b style="color: #d32f2f; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">❗️เช็คระยะ 20 รายการ ทำทุกคัน❗️</b>
+<div id="chk20_diag_area"></div>
+<div style="border-top: 2px solid #ff8a80; margin-top: 12px; padding-top: 12px;">
+<b style="color: #2e7d32; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">🟢 รายการนำเสนอ (ติ๊กถูกรายการที่ต้องใช้)</b>
+<div id="chk20_sol_area"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== ระบบแอร์ (A/C System) ========== -->
+<div id="ac_section" style="margin-bottom: 15px;">
+<div id="hdr_ac" onclick="toggleSection('ac')" style="align-items: center; background: #fff; border-radius: 15px; border: 2px solid #c8e6c9; cursor: pointer; display: flex; gap: 10px; padding: 14px 15px; user-select: none;">
+<span style="color: #2e7d32; flex: 1; font-size: 17px; font-weight: 700;">❄️ ระบบแอร์ (A/C System)</span>
+<span id="ac_arrow" style="color: #2e7d32; font-size: 16px; transition: transform 0.3s;">▼</span>
+</div>
+<div id="ac_content" style="background: #f9fff9; border-radius: 0 0 15px 15px; border: 1px solid #c8e6c9; display: none; margin-top: 4px;">
+<div style="padding: 14px;">
+<!-- 💢 อาการเสียระบบแอร์ -->
+<b style="color: #d32f2f; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">💢 อาการเสียระบบแอร์</b>
+<div id="ac_diag_area"></div>
+<!-- ♻️ วิธีแก้ไข/นำเสนอลูกค้า(ระบบแอร์) -->
+<div style="border-top: 2px solid #c8e6c9; margin-top: 12px; padding-top: 12px;">
+<b style="color: #2e7d32; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">♻️ วิธีแก้ไข/นำเสนอลูกค้า(ระบบแอร์)</b>
+<div id="ac_sol_area" style="border-radius: 10px; border: 1px solid #c8e6c9; margin-bottom: 8px; overflow: hidden;"></div>
+<div style="margin-bottom: 8px; margin-top: 10px;">
+<div style="align-items: center; display: flex; gap: 10px;">
+<label style="align-items: center; cursor: pointer; display: inline-flex; font-size: 13px; gap: 8px; min-width: 120px;">
+<input id="nut_valve_chk" style="height: 16px; width: 16px;" type="checkbox" onchange="autoCheckSection('ac')" /> น็อตวาล์ว
+</label>
+<input id="nut_valve_qty" min="1" style="border-radius: 8px; border: 1px solid #ddd; padding: 5px; text-align: center; width: 48px;" type="number" value="2" oninput="autoCheckSection('ac')" /> ตัว
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; padding-left: 24px; margin-top: 4px;">
+<label style="display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 3px 8px; border-radius: 6px; border: 1px solid #b2dfdb; font-size: 12px; color: #00796b;">
+<input type="checkbox" id="nut_valve_sub_front" name="nut_valve_sub" value="ตู้หน้า" onchange="autoNutValveCheck(this)" style="accent-color: #00796b;"> ตู้หน้า
+</label>
+<label style="display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 3px 8px; border-radius: 6px; border: 1px solid #b2dfdb; font-size: 12px; color: #00796b;">
+<input type="checkbox" id="nut_valve_sub_rear" name="nut_valve_sub" value="ตู้หลัง" onchange="autoNutValveCheck(this)" style="accent-color: #00796b;"> ตู้หลัง
+</label>
+</div>
+</div>
+<div style="margin-bottom: 8px;">
+<div style="align-items: center; display: flex; gap: 10px;">
+<label style="align-items: center; cursor: pointer; display: inline-flex; font-size: 13px; gap: 8px; min-width: 120px;">
+<input id="valve_core_chk" style="height: 16px; width: 16px;" type="checkbox" onchange="autoCheckSection('ac')" /> ไส้ศร
+</label>
+<input id="valve_core_qty" min="1" style="border-radius: 8px; border: 1px solid #ddd; padding: 5px; text-align: center; width: 48px;" type="number" value="2" oninput="autoCheckSection('ac')" /> ตัว
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; padding-left: 24px; margin-top: 4px;">
+<label style="display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 3px 8px; border-radius: 6px; border: 1px solid #b2dfdb; font-size: 12px; color: #00796b;">
+<input type="radio" name="valve_core_sub" value="134a" onchange="autoValveCoreCheck(this)" style="accent-color: #00796b;"> 134a
+</label>
+<label style="display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 3px 8px; border-radius: 6px; border: 1px solid #b2dfdb; font-size: 12px; color: #00796b;">
+<input type="radio" name="valve_core_sub" value="R12" onchange="autoValveCoreCheck(this)" style="accent-color: #00796b;"> R12
+</label>
+<label style="display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 3px 8px; border-radius: 6px; border: 1px solid #b2dfdb; font-size: 12px; color: #00796b;">
+<input type="radio" name="valve_core_sub" value="ยุโรป" onchange="autoValveCoreCheck(this)" style="accent-color: #00796b;"> ยุโรป
+</label>
+</div>
+</div>
+<div>
+<div style="color: #444444; font-size: 13px; font-weight: bold; margin-bottom: 6px;">📍 รายการโอริง เบอร์ 1-5:</div>
+<table style="background: white; border-collapse: collapse; font-size: 13px; text-align: center; width: 100%;">
+<tr style="background: #e8f5e9;"><th style="border: 1px solid #a5d6a7; padding: 4px;">เบอร์</th><th style="border: 1px solid #a5d6a7; padding: 4px;">แบบบาง</th><th style="border: 1px solid #a5d6a7; padding: 4px;">แบบหนา</th></tr>
+<tbody id="oring_tbody"></tbody>
+</table>
+</div>
+<div style="display: flex; gap: 8px; margin-top: 8px;">
+<input id="add_part" placeholder="+ เพิ่มอะไหล่อื่นๆ" style="border-radius: 10px; border: 1px solid #ddd; flex-grow: 1; font-size: 14px; padding: 10px;" type="text" />
+<button onclick="handleAdd('add_part','dyn_parts','\uD83D\uDCE6','ex_part')" style="background: #666; border-radius: 10px; border: none; color: white; cursor: pointer; font-weight: bold; padding: 0 14px;">เพิ่ม</button>
+</div>
+<div id="dyn_parts" style="margin-top: 8px;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== ช่วงล่าง (Suspension) ========== -->
+<div id="susp_section" style="margin-bottom: 15px;">
+<div id="hdr_susp" onclick="toggleSection('susp')" style="align-items: center; background: #fff; border-radius: 15px; border: 2px solid #e3d0ff; cursor: pointer; display: flex; gap: 10px; padding: 14px 15px; user-select: none;">
+<span style="color: #673ab7; flex: 1; font-size: 17px; font-weight: 700;">🔩 ช่วงล่าง (Suspension)</span>
+<span id="susp_arrow" style="color: #673ab7; font-size: 16px; transition: transform 0.3s;">▼</span>
+</div>
+<div id="susp_content" style="background: #fdf8ff; border-radius: 0 0 15px 15px; border: 1px solid #e3d0ff; display: none; margin-top: 4px;">
+<div style="padding: 14px;">
+<b style="color: #d32f2f; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">⚠️ อาการเสียช่วงล่าง</b>
+<div id="susp_diag_area"></div>
+<div style="border-top: 2px solid #e3d0ff; margin-top: 12px; padding-top: 12px;">
+<b style="color: #673ab7; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">♻️ วิธีแก้ไข/นำเสนอลูกค้า(ช่วงล่าง)</b>
+<div id="susp_sol_area" style="border-radius: 10px; border: 1px solid #e3d0ff; overflow: hidden;"></div>
+<div style="display: flex; gap: 8px; margin-top: 8px;"><input id="add_susp" placeholder="+ เพิ่มเติม" style="border-radius: 10px; border: 2px dashed #e3d0ff; flex-grow: 1; font-size: 14px; padding: 10px;" type="text" /><button onclick="handleAdd('add_susp','dyn_susp','\u2705','ex_susp')" style="background: #673ab7; border-radius: 10px; border: none; color: white; cursor: pointer; font-weight: bold; padding: 0 16px;">เพิ่ม</button></div>
+<div id="dyn_susp" style="margin-top: 8px;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== ระบบเบรก (Brake) ========== -->
+<div id="brake_section" style="margin-bottom: 15px;">
+<div id="hdr_brake" onclick="toggleSection('brake')" style="align-items: center; background: #fff; border-radius: 15px; border: 2px solid #ffcdd2; cursor: pointer; display: flex; gap: 10px; padding: 14px 15px; user-select: none;">
+<span style="color: #b71c1c; flex: 1; font-size: 17px; font-weight: 700;">🛑 ระบบเบรก (Brake)</span>
+<span id="brake_arrow" style="color: #b71c1c; font-size: 16px; transition: transform 0.3s;">▼</span>
+</div>
+<div id="brake_content" style="background: #fff5f5; border-radius: 0 0 15px 15px; border: 1px solid #ffcdd2; display: none; margin-top: 4px;">
+<div style="padding: 14px;">
+<b style="color: #d32f2f; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">⚠️ อาการเสียระบบเบรก</b>
+<div id="brake_diag_area"></div>
+<div style="border-top: 2px solid #ffcdd2; margin-top: 12px; padding-top: 12px;">
+<b style="color: #b71c1c; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">♻️ วิธีแก้ไข/นำเสนอลูกค้า(ระบบเบรก)</b>
+<div id="brake_sol_area" style="border-radius: 10px; border: 1px solid #ffcdd2; overflow: hidden;"></div>
+<div style="display: flex; gap: 8px; margin-top: 8px;"><input id="add_brake" placeholder="+ เพิ่มเติม" style="border-radius: 10px; border: 2px dashed #ffcdd2; flex-grow: 1; font-size: 14px; padding: 10px;" type="text" /><button onclick="handleAdd('add_brake','dyn_brake','\u2705','ex_brake')" style="background: #b71c1c; border-radius: 10px; border: none; color: white; cursor: pointer; font-weight: bold; padding: 0 16px;">เพิ่ม</button></div>
+<div id="dyn_brake" style="margin-top: 8px;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== เครื่องยนต์เบนซิน ========== -->
+<div id="eng_p_section" style="margin-bottom: 15px;">
+<div id="hdr_eng_p" onclick="toggleSection('eng_p')" style="align-items: center; background: #fff; border-radius: 15px; border: 2px solid #ffccbc; cursor: pointer; display: flex; gap: 10px; padding: 14px 15px; user-select: none;">
+<span style="color: #bf360c; flex: 1; font-size: 17px; font-weight: 700;">🔧 เครื่องยนต์เบนซิน (Benzene Engine)</span>
+<span id="eng_p_arrow" style="color: #bf360c; font-size: 16px; transition: transform 0.3s;">▼</span>
+</div>
+<div id="eng_p_content" style="background: #fff8f5; border-radius: 0 0 15px 15px; border: 1px solid #ffccbc; display: none; margin-top: 4px;">
+<div style="padding: 14px;">
+<b style="color: #d32f2f; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">⚠️ อาการเสียเครื่องยนต์เบนซิน</b>
+<div id="eng_p_diag_area"></div>
+<div style="border-top: 2px solid #ffccbc; margin-top: 12px; padding-top: 12px;">
+<b style="color: #bf360c; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">♻️ วิธีแก้ไข/นำเสนอลูกค้า(เครื่องยนต์เบนซิน)</b>
+<div id="eng_p_sol_area" style="border-radius: 10px; border: 1px solid #ffccbc; overflow: hidden;"></div>
+<div style="display: flex; gap: 8px; margin-top: 8px;">
+<input id="add_eng_p" placeholder="+ รายการเพิ่มเติม" style="border-radius: 10px; border: 2px dashed #ffccbc; flex-grow: 1; font-size: 14px; padding: 10px;" type="text" />
+<button onclick="handleAdd('add_eng_p','dyn_eng_p','\u2705','ex_eng_p')" style="background: #bf360c; border-radius: 10px; border: none; color: white; cursor: pointer; font-weight: bold; padding: 0 16px;">เพิ่ม</button>
+</div>
+<div id="dyn_eng_p" style="margin-top: 8px;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== เครื่องยนต์ดีเซล ========== -->
+<div id="eng_d_section" style="margin-bottom: 15px;">
+<div id="hdr_eng_d" onclick="toggleSection('eng_d')" style="align-items: center; background: #fff; border-radius: 15px; border: 2px solid #bbdefb; cursor: pointer; display: flex; gap: 10px; padding: 14px 15px; user-select: none;">
+<span style="color: #1565c0; flex: 1; font-size: 17px; font-weight: 700;">⛽ เครื่องยนต์ดีเซล (Diesel Engine)</span>
+<span id="eng_d_arrow" style="color: #1565c0; font-size: 16px; transition: transform 0.3s;">▼</span>
+</div>
+<div id="eng_d_content" style="background: #f5f9ff; border-radius: 0 0 15px 15px; border: 1px solid #bbdefb; display: none; margin-top: 4px;">
+<div style="padding: 14px;">
+<b style="color: #d32f2f; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">⚠️ อาการเสียเครื่องยนต์ดีเซล</b>
+<div id="eng_d_diag_area"></div>
+<div style="border-top: 2px solid #bbdefb; margin-top: 12px; padding-top: 12px;">
+<b style="color: #1565c0; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">♻️ วิธีแก้ไข/นำเสนอลูกค้า(เครื่องยนต์ดีเซล)</b>
+<div id="eng_d_sol_area" style="border-radius: 10px; border: 1px solid #bbdefb; overflow: hidden;"></div>
+<div style="display: flex; gap: 8px; margin-top: 8px;"><input id="add_eng_d" placeholder="+ เพิ่มเติม" style="border-radius: 10px; border: 2px dashed #bbdefb; flex-grow: 1; font-size: 14px; padding: 10px;" type="text" /><button onclick="handleAdd('add_eng_d','dyn_eng_d','\u2705','ex_eng_d')" style="background: #1565c0; border-radius: 10px; border: none; color: white; cursor: pointer; font-weight: bold; padding: 0 16px;">เพิ่ม</button></div>
+<div id="dyn_eng_d" style="margin-top: 8px;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== ระบบระบายความร้อน ========== -->
+<div id="cool_section" style="margin-bottom: 15px;">
+<div id="hdr_cool" onclick="toggleSection('cool')" style="align-items: center; background: #fff; border-radius: 15px; border: 2px solid #b2ebf2; cursor: pointer; display: flex; gap: 10px; padding: 14px 15px; user-select: none;">
+<span style="color: #00838f; flex: 1; font-size: 17px; font-weight: 700;">🌡️ ระบบระบายความร้อน (Cooling)</span>
+<span id="cool_arrow" style="color: #00838f; font-size: 16px; transition: transform 0.3s;">▼</span>
+</div>
+<div id="cool_content" style="background: #f0fdfe; border-radius: 0 0 15px 15px; border: 1px solid #b2ebf2; display: none; margin-top: 4px;">
+<div style="padding: 14px;">
+<b style="color: #d32f2f; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">⚠️ อาการเสียระบบระบายความร้อน</b>
+<div id="cool_diag_area"></div>
+<div style="border-top: 2px solid #b2ebf2; margin-top: 12px; padding-top: 12px;">
+<b style="color: #00838f; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">♻️ วิธีแก้ไข/นำเสนอลูกค้า(ระบบระบายความร้อน)</b>
+<div id="cool_sol_area" style="border-radius: 10px; border: 1px solid #b2ebf2; overflow: hidden;"></div>
+<div style="display: flex; gap: 8px; margin-top: 8px;"><input id="add_cool" placeholder="+ เพิ่มเติม" style="border-radius: 10px; border: 2px dashed #b2ebf2; flex-grow: 1; font-size: 14px; padding: 10px;" type="text" /><button onclick="handleAdd('add_cool','dyn_cool','\u2705','ex_cool')" style="background: #00838f; border-radius: 10px; border: none; color: white; cursor: pointer; font-weight: bold; padding: 0 16px;">เพิ่ม</button></div>
+<div id="dyn_cool" style="margin-top: 8px;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== ยกคลัทช์ ========== -->
+<div id="clutch_section" style="margin-bottom: 15px;">
+<div id="hdr_clutch" onclick="toggleSection('clutch')" style="align-items: center; background: #fff; border-radius: 15px; border: 2px solid #d1c4e9; cursor: pointer; display: flex; gap: 10px; padding: 14px 15px; user-select: none;">
+<span style="color: #4527a0; flex: 1; font-size: 17px; font-weight: 700;">🦴 ระบบส่งกำลังเกียร์ธรรมดา (ชุดคลัทช์)</span>
+<span id="clutch_arrow" style="color: #4527a0; font-size: 16px; transition: transform 0.3s;">▼</span>
+</div>
+<div id="clutch_content" style="background: #f9f7ff; border-radius: 0 0 15px 15px; border: 1px solid #d1c4e9; display: none; margin-top: 4px;">
+<div style="padding: 14px;">
+<b style="color: #d32f2f; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">⚠️ อาการเสียชุดคลัทช์</b>
+<div id="clutch_diag_area"></div>
+<div style="border-top: 2px solid #d1c4e9; margin-top: 12px; padding-top: 12px;">
+<b style="color: #4527a0; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">♻️ วิธีแก้ไข/นำเสนอลูกค้า(ชุดคลัทช์)</b>
+<div id="clutch_sol_area" style="border-radius: 10px; border: 1px solid #d1c4e9; overflow: hidden;"></div>
+<div style="display: flex; gap: 8px; margin-top: 8px;"><input id="add_clutch" placeholder="+ เพิ่มเติม" style="border-radius: 10px; border: 2px dashed #d1c4e9; flex-grow: 1; font-size: 14px; padding: 10px;" type="text" /><button onclick="handleAdd('add_clutch','dyn_clutch','\u2705','ex_clutch')" style="background: #4527a0; border-radius: 10px; border: none; color: white; cursor: pointer; font-weight: bold; padding: 0 16px;">เพิ่ม</button></div>
+<div id="dyn_clutch" style="margin-top: 8px;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== ระบบไดสตาร์ท (Starter System) ========== -->
+<div id="starter_section" style="margin-bottom: 15px;">
+<div id="hdr_starter" onclick="toggleSection('starter')" style="align-items: center; background: #fff; border-radius: 15px; border: 2px solid #fff176; cursor: pointer; display: flex; gap: 10px; padding: 14px 15px; user-select: none;">
+<span style="color: #fbc02d; flex: 1; font-size: 17px; font-weight: 700;">⚡ ระบบไดสตาร์ท (Starter System)</span>
+<span id="starter_arrow" style="color: #fbc02d; font-size: 16px; transition: transform 0.3s;">▼</span>
+</div>
+<div id="starter_content" style="background: #fffde7; border-radius: 0 0 15px 15px; border: 1px solid #fff176; display: none; margin-top: 4px;">
+<div style="padding: 14px;">
+<b style="color: #d32f2f; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">⚠️ อาการเสียระบบไดสตาร์ท</b>
+<div id="starter_diag_area"></div>
+<div style="border-top: 2px solid #fff176; margin-top: 12px; padding-top: 12px;">
+<b style="color: #fbc02d; display: block; font-size: 15px; font-weight: 700; margin-bottom: 8px;">♻️ วิธีแก้ไข/นำเสนอลูกค้า(แก้ชุดรั่วเครื่องยนต์)</b>
+<div id="starter_sol_area" style="border-radius: 10px; border: 1px solid #fff176; overflow: hidden;"></div>
+<div style="display: flex; gap: 8px; margin-top: 8px;"><input id="add_starter" placeholder="+ เพิ่มเติม" style="border-radius: 10px; border: 2px dashed #fff176; flex-grow: 1; font-size: 14px; padding: 10px;" type="text" /><button onclick="handleAdd('add_starter','dyn_starter','\u2705','ex_starter')" style="background: #fbc02d; border-radius: 10px; border: none; color: white; cursor: pointer; font-weight: bold; padding: 0 16px;">เพิ่ม</button></div>
+<div id="dyn_starter" style="margin-top: 8px;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- เวลา / หมายเหตุ -->
+<div style="background: white; border-radius: 15px; border: 1px solid #eee; margin-bottom: 20px; padding: 15px;">
+<div style="margin-bottom: 12px;">
+<b style="font-size: 16px; font-weight: 700;">⏰ ใช้เวลา :</b>
+<input id="t_input" placeholder="เช่น 2 ชม." style="border-radius: 8px; border: 1px solid #ddd; margin-top: 5px; padding: 10px; width: 100%;" type="text" />
+</div>
+<div>
+<b style="font-size: 16px; font-weight: 700;">หมายเหตุ :</b>
+<textarea id="r_input" placeholder="รายละเอียดเพิ่มเติม" rows="2" style="border-radius: 8px; border: 1px solid #ddd; margin-top: 5px; padding: 10px; width: 100%;"></textarea>
+</div>
+</div>
+<!-- Preview Modal -->
+<div id="pv_modal" style="background: rgba(0,0,0,.6); display: none; inset: 0; overflow-y: auto; padding: 16px; position: fixed; z-index: 9999;">
+<div style="background: #fff; border-radius: 20px; margin: 0 auto; max-width: 480px; overflow: hidden;">
+<div style="align-items: center; background: #0056b3; display: flex; justify-content: space-between; padding: 16px 20px;">
+<b style="color: white; font-size: 16px;">👁️ ตัวอย่างผลลัพธ์</b>
+<button onclick="closePV()" style="background: rgba(255,255,255,.2); border-radius: 50%; border: none; color: white; cursor: pointer; font-size: 20px; height: 32px; width: 32px;">×</button>
+</div>
+<div style="padding: 16px;">
+<!-- Tab Navigation -->
+<div style="display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 2px solid #eee; padding-bottom: 8px;">
+<button onclick="switchPvTab('text')" id="pv_tab_text" style="flex: 1; border: none; background: #0056b3; color: white; padding: 8px; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 13px; outline: none;">💬 ข้อความแชท LINE</button>
+<button onclick="switchPvTab('image')" id="pv_tab_image" style="flex: 1; border: none; background: #f0f0f0; color: #555; padding: 8px; font-weight: bold; border-radius: 8px; cursor: pointer; font-size: 13px; outline: none;">📸 รูปสลิปส่งงาน</button>
+</div>
+
+<!-- Tab Content: Text Preview -->
+<div id="pv_tab_content_text">
+<div id="pv_content" style="background: #f8f9fa; border-radius: 12px; border: 1px solid #e0e0e0; font-size: 13px; line-height: 1.9; max-height: 45vh; overflow-y: auto; padding: 16px; white-space: pre-wrap; word-break: break-word;"></div>
+</div>
+
+<!-- Tab Content: Image Preview -->
+<div id="pv_tab_content_image" style="display: none; text-align: center;">
+<div id="pv_slip_image_container" style="background: #f8f9fa; border: 1px dashed #ccc; border-radius: 12px; padding: 10px; display: flex; justify-content: center; align-items: center; min-height: 250px; overflow-y: auto; max-height: 45vh;">
+<span id="pv_slip_loading" style="color: #666; font-size: 13px;">กำลังสร้างรูปภาพสลิป...</span>
+<img id="pv_slip_image" style="display: none; max-width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);" />
+</div>
+<button onclick="downloadSlipImage()" id="download_slip_btn" style="display: none; width: 100%; margin-top: 10px; background: #e53935; border: none; border-radius: 10px; color: white; cursor: pointer; font-size: 15px; font-weight: bold; padding: 12px; align-items: center; justify-content: center; gap: 8px;">💾 บันทึกรูปภาพสลิปลงเครื่อง</button>
+</div>
+
+<div style="display: flex; gap: 10px; margin-top: 14px; border-top: 1px solid #eee; padding-top: 14px;">
+<button onclick="closePV()" style="background: #eee; border-radius: 12px; border: none; cursor: pointer; flex: 1; font-size: 15px; font-weight: bold; padding: 14px;">← แก้ไข</button>
+<button onclick="doSend()" style="background: #06C755; border-radius: 12px; border: none; color: white; cursor: pointer; flex: 2; font-size: 15px; font-weight: bold; padding: 14px;">ยืนยันส่ง LINE 🚀</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Off-screen container for rendering the slip image -->
+<div id="slip_container" style="position: absolute; left: -9999px; top: -9999px; width: 400px; background: #ffffff; font-family: 'Sarabun', 'Kanit', sans-serif; box-sizing: border-box; padding: 0;"></div>
+<img src="โลโก้.png" style="display: none;" id="logo_preload" />
+<button onclick="previewResult()" style="background: #0056b3; border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(0,86,179,.3); color: white; cursor: pointer; font-size: 18px; font-weight: bold; margin-bottom: 12px; padding: 18px; width: 100%;">👁️ ดูตัวอย่างก่อนส่ง</button>
+<button onclick="sendToLine()" style="background: #06C755; border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(6,199,85,0.3); color: white; cursor: pointer; font-size: 18px; font-weight: bold; margin-bottom: 12px; padding: 18px; width: 100%;">ส่งเข้ากลุ่ม LINE ทันที 🚀</button>
+<button onclick="clearAllData()" style="background: transparent; border-radius: 12px; border: 1px solid #ddd; color: #999999; cursor: pointer; font-size: 14px; font-weight: bold; padding: 12px; width: 100%;">🔄 ล้างข้อมูลทั้งหมด</button>
+</div>
+<script>
+// ===================================================================
+// GLOBAL STATE
+// ===================================================================
+var _sectionUsed = {ac:false, susp:false, brake:false, eng_p:false, eng_d:false, cool:false, clutch:false, starter:false};
+function toggleSection(id) {
+var el = document.getElementById(id+'_content');
+var arr = document.getElementById(id+'_arrow');
+if (!el) return;
+var open = el.style.display !== 'none';
+el.style.display = open ? 'none' : 'block';
+if (arr) arr.style.transform = open ? '' : 'rotate(180deg)';
+}
+function autoCheckSection(id) { _sectionUsed[id] = true; }
+// ===================================================================
+// AC DIAGNOSTICS - BUILD UI
+// ===================================================================
+var AC_DIAG = [
+{id:'comp',name:'\u0e04\u0e2d\u0e21\u0e40\u0e1e\u0e23\u0e2a\u0e40\u0e0b\u0e2d\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e14\u0e31\u0e07','\u0e44\u0e21\u0e48\u0e21\u0e35\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2d\u0e31\u0e14','\u0e23\u0e31\u0e48\u0e27','\u0e04\u0e2d\u0e23\u0e39\u0e14']},
+{id:'cond',name:'\u0e41\u0e1c\u0e07\u0e04\u0e2d\u0e23\u0e49\u0e2d\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e2a\u0e01\u0e1b\u0e23\u0e01','\u0e23\u0e31\u0e48\u0e27','\u0e1f\u0e34\u0e19\u0e25\u0e49\u0e21']},
+{id:'evap_f',name:'\u0e04\u0e2d\u0e22\u0e25\u0e4c\u0e40\u0e22\u0e47\u0e19\u0e2b\u0e19\u0e49\u0e32',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e2a\u0e01\u0e1b\u0e23\u0e01','\u0e23\u0e31\u0e48\u0e27']},
+{id:'evap_r',name:'\u0e04\u0e2d\u0e22\u0e25\u0e4c\u0e40\u0e22\u0e47\u0e19\u0e2b\u0e25\u0e31\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e2a\u0e01\u0e1b\u0e23\u0e01','\u0e23\u0e31\u0e48\u0e27']},
+{id:'clutch_ac',name:'\u0e2b\u0e19\u0e49\u0e32\u0e04\u0e25\u0e31\u0e0a',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e40\u0e2a\u0e35\u0e22']},
+{id:'fan_ac',name:'\u0e1e\u0e31\u0e14\u0e25\u0e21\u0e23\u0e30\u0e1a\u0e32\u0e22\u0e04\u0e27\u0e32\u0e21\u0e23\u0e49\u0e2d\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e14\u0e31\u0e07','\u0e40\u0e2a\u0e35\u0e22']},
+{id:'blower',name:'\u0e42\u0e1a\u0e40\u0e27\u0e2d\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e14\u0e31\u0e07','\u0e40\u0e2a\u0e35\u0e22']},
+{id:'motor_fan',name:'\u0e21\u0e2d\u0e40\u0e15\u0e2d\u0e23\u0e4c\u0e1e\u0e31\u0e14\u0e25\u0e21',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e0b\u0e49\u0e32\u0e22','\u0e02\u0e27\u0e32']},
+{id:'flush',name:'\u0e25\u0e49\u0e32\u0e07\u0e23\u0e30\u0e1a\u0e1a',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e15\u0e49\u0e2d\u0e07\u0e25\u0e49\u0e32\u0e07']},
+{id:'pipe_leak',name:'\u0e17\u0e48\u0e2d\u0e19\u0e49\u0e33\u0e22\u0e32\u0e23\u0e31\u0e48\u0e27',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e2a\u0e32\u0e22\u0e43\u0e2b\u0e0d\u0e48','\u0e2a\u0e32\u0e22\u0e01\u0e25\u0e32\u0e07','\u0e2a\u0e32\u0e22\u0e43\u0e2b\u0e0d\u0e48-\u0e01\u0e25\u0e32\u0e07']},
+{id:'evap_bad',name:'\u0e04\u0e2d\u0e22\u0e25\u0e4c\u0e40\u0e22\u0e47\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e1f\u0e38','\u0e15\u0e31\u0e19','\u0e1f\u0e38-\u0e15\u0e31\u0e19']},
+{id:'thermo_sw',name:'\u0e2b\u0e32\u0e07\u0e40\u0e17\u0e2d\u0e23\u0e4c\u0e42\u0e21/\u0e40\u0e1e\u0e23\u0e2a\u0e40\u0e0a\u0e2d\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e35\u0e22']},
+{id:'air_flush',name:'\u0e44\u0e25\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e2d\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e15\u0e49\u0e2d\u0e07\u0e44\u0e25\u0e48\u0e23\u0e30\u0e1a\u0e1a']}
+];
+(function buildAcDiag(){
+var area = document.getElementById('ac_diag_area');
+AC_DIAG.forEach(function(item){
+var row = document.createElement('div');
+row.className = 'ac-diag-row';
+row.setAttribute('data-diag-id', item.id);
+var html = '<span class="ac-label">'+item.name+'</span><span style="display:inline-flex;flex-wrap:wrap;">';
+item.opts.forEach(function(opt, oi){
+var isOk = (opt === '\u0e1b\u0e01\u0e15\u0e34');
+var cls = isOk ? 'ok-opt' : 'bad-opt';
+var chk = isOk ? ' checked' : '';
+var clr = isOk ? '#2e7d32' : (oi===1?'#c62828':'#e65100');
+var fw = isOk ? '' : 'font-weight:700;';
+html += '<label class="'+cls+'"><input type="radio" name="ac_diag_'+item.id+'" value="'+opt+'"'+chk+' onchange="onAcDiagChange(\''+item.id+'\')" style="accent-color:'+clr+';"> <span style="color:'+clr+';'+fw+'">'+opt+'</span></label>';
+});
+html += '</span>';
+row.innerHTML = html;
+area.appendChild(row);
+});
+})();
+function onAcDiagChange(uid) {
+_sectionUsed['ac'] = true;
+}
+// ===================================================================
+// AC SOLUTIONS - BUILD UI
+// ===================================================================
+var AC_SOL = [
+{id:'sol_comp',     name:'\u0e04\u0e2d\u0e21\u0e40\u0e1e\u0e23\u0e2a\u0e40\u0e0b\u0e2d\u0e23\u0e4c'},
+{id:'sol_cond',     name:'\u0e41\u0e1c\u0e07\u0e04\u0e2d\u0e22\u0e23\u0e49\u0e2d\u0e19'},
+{id:'sol_evap',     name:'\u0e04\u0e2d\u0e22\u0e25\u0e4c\u0e40\u0e22\u0e47\u0e19', subs:['\u0e2b\u0e19\u0e49\u0e32','\u0e2b\u0e25\u0e31\u0e07','\u0e2b\u0e19\u0e49\u0e32,\u0e2b\u0e25\u0e31\u0e07']},
+{id:'sol_valve',    name:'\u0e27\u0e32\u0e25\u0e4c\u0e27', subs:['\u0e2b\u0e19\u0e49\u0e32','\u0e2b\u0e25\u0e31\u0e07','\u0e2b\u0e19\u0e49\u0e32,\u0e2b\u0e25\u0e31\u0e07']},
+{id:'sol_thermo',   name:'\u0e2b\u0e32\u0e07\u0e40\u0e17\u0e2d\u0e23\u0e42\u0e21'},
+{id:'sol_motor',    name:'\u0e21\u0e2d\u0e40\u0e15\u0e2d\u0e23\u0e4c\u0e1e\u0e31\u0e14\u0e25\u0e21', subs:['\u0e0b\u0e49\u0e32\u0e22','\u0e02\u0e27\u0e32','\u0e17\u0e31\u0e49\u0e07\u0e04\u0e39\u0e48']},
+{id:'sol_blower',   name:'\u0e42\u0e1a\u0e25\u0e40\u0e27\u0e2d\u0e23\u0e4c', subs:['\u0e2b\u0e19\u0e49\u0e32','\u0e2b\u0e25\u0e31\u0e07','\u0e17\u0e31\u0e49\u0e07\u0e04\u0e39\u0e48']},
+{id:'sol_resist',   name:'\u0e23\u0e35\u0e0b\u0e35\u0e17\u0e41\u0e2a\u0e15\u0e19\u0e17\u0e4c'},
+{id:'sol_dryer',    name:'\u0e14\u0e23\u0e32\u0e22\u0e40\u0e2d\u0e2d\u0e23\u0e4c'},
+{id:'sol_clutch_ac',name:'\u0e0a\u0e38\u0e14\u0e2b\u0e19\u0e49\u0e32\u0e04\u0e25\u0e31\u0e0a'},
+{id:'sol_relay',    name:'\u0e23\u0e35\u0e40\u0e25\u0e22\u0e4c (\u0e04\u0e2d\u0e21)'},
+{id:'sol_wire_big', name:'\u0e2a\u0e32\u0e22\u0e43\u0e2b\u0e0d\u0e48'},
+{id:'sol_wire_mid', name:'\u0e2a\u0e32\u0e22\u0e01\u0e25\u0e32\u0e07'},
+{id:'sol_pipe',     name:'\u0e41\u0e1b\u0e4a\u0e1a'},
+{id:'sol_switch',   name:'\u0e2a\u0e27\u0e34\u0e17\u0e0a\u0e4c\u0e40\u0e1e\u0e23\u0e2a\u0e40\u0e0a\u0e2d\u0e23\u0e4c'},
+{id:'sol_vac',      name:'\u0e41\u0e27\u0e4a\u0e04\u0e04\u0e31\u0e48\u0e21+\u0e40\u0e15\u0e34\u0e21\u0e19\u0e49\u0e33\u0e22\u0e32\u0e41\u0e2d\u0e23\u0e4c'},
+{id:'sol_filter_ac',name:'\u0e01\u0e23\u0e2d\u0e07\u0e41\u0e2d\u0e23\u0e4c'},
+{id:'sol_filter_air',name:'\u0e01\u0e23\u0e2d\u0e07\u0e2d\u0e32\u0e01\u0e32\u0e28'},
+{id:'sol_wash_evap',name:'\u0e25\u0e49\u0e32\u0e07\u0e15\u0e39\u0e49\u0e41\u0e2d\u0e23\u0e4c', subs:['\u0e2a\u0e48\u0e2d\u0e07\u0e01\u0e25\u0e49\u0e2d\u0e07','\u0e16\u0e2d\u0e14\u0e25\u0e49\u0e32\u0e07']},
+{id:'sol_wash_cond',name:'\u0e25\u0e49\u0e32\u0e07\u0e41\u0e1c\u0e07', subs:['\u0e16\u0e2d\u0e14','\u0e44\u0e21\u0e48\u0e16\u0e2d\u0e14']},
+{id:'sol_gel_evap', name:'\u0e15\u0e39\u0e40\u0e08\u0e25'},
+{id:'sol_wash_type',name:'\u0e1b\u0e23\u0e30\u0e40\u0e20\u0e17\u0e25\u0e49\u0e32\u0e07\u0e15\u0e39\u0e49', multi:['\u0e2b\u0e19\u0e49\u0e32','\u0e2b\u0e25\u0e31\u0e07']},
+{id:'sol_oring_eu', name:'\u0e42\u0e2d\u0e23\u0e34\u0e07\u0e22\u0e38\u0e42\u0e23\u0e1b'},
+{id:'sol_gasket',   name:'\u0e1b\u0e23\u0e30\u0e40\u0e01\u0e47\u0e19'},
+{id:'sol_fuse',     name:'\u0e1f\u0e34\u0e27\u0e2a\u0e4c'}
+];
+(function buildAcSol(){
+var area = document.getElementById('ac_sol_area');
+AC_SOL.forEach(function(item){
+var row = document.createElement('div');
+row.className = 'ac-sol-row';
+var html = '<label class="sol-main" onclick="autoCheckSection(\'ac\')"><input type="checkbox" class="ac-sol-chk" data-sol-id="'+item.id+'" style="width:16px;height:16px;accent-color:#2e7d32;flex-shrink:0;"> '+item.name+'</label>';
+if (item.subs) {
+item.subs.forEach(function(sub){
+html += '<label class="sol-sub"><input type="radio" name="ac_'+item.id+'_sub" value="'+sub+'" onchange="autoSolSubCheck(this,\''+item.id+'\')" style="accent-color:#00796b;"> <span style="color:#00796b;">'+sub+'</span></label>';
+});
+}
+if (item.multi) {
+item.multi.forEach(function(m){
+html += '<label class="sol-sub"><input type="checkbox" class="ac-sol-multi" value="'+m+'" onchange="autoSolSubCheck(this,\''+item.id+'\')" style="accent-color:#00796b;"> <span style="color:#00796b;">'+m+'</span></label>';
+});
+}
+row.innerHTML = html;
+area.appendChild(row);
+});
+})();
+function autoSolSubCheck(radio, solId) {
+var chk = document.querySelector('.ac-sol-chk[data-sol-id="'+solId+'"]');
+if (chk && !chk.checked) chk.checked = true;
+_sectionUsed['ac'] = true;
+}
+function autoNutValveCheck(radio) {
+var chk = document.getElementById('nut_valve_chk');
+if (chk && !chk.checked) chk.checked = true;
+_sectionUsed['ac'] = true;
+}
+function autoValveCoreCheck(radio) {
+var chk = document.getElementById('valve_core_chk');
+if (chk && !chk.checked) chk.checked = true;
+_sectionUsed['ac'] = true;
+}
+// ===================================================================
+// COLLECT AC DATA FOR OUTPUT
+// ===================================================================
+function collectACDiag() {
+var lines = [];
+AC_DIAG.forEach(function(item){
+var r = document.querySelector('input[name="ac_diag_'+item.id+'"]:checked');
+if (!r || r.value === '\u0e1b\u0e01\u0e15\u0e34') return;
+lines.push('- '+_dec(item.name)+' - '+_dec(r.value));
+});
+return lines.join('\n');
+}
+function collectACSol() {
+var lines = [];
+document.querySelectorAll('.ac-sol-chk:checked').forEach(function(chk){
+var solId = chk.getAttribute('data-sol-id');
+var name = _dec(chk.parentElement.textContent.trim());
+var res = [];
+var sub = document.querySelector('input[name="ac_'+solId+'_sub"]:checked');
+if (sub) res.push(_dec(sub.value));
+chk.closest('.ac-sol-row').querySelectorAll('.ac-sol-multi:checked').forEach(function(mc){
+res.push(_dec(mc.value));
+});
+var detail = res.length ? ' - ' + res.join(', ') : '';
+lines.push('- '+name+detail);
+});
+document.querySelectorAll('.ex_ac').forEach(function(d){ lines.push('- '+_dec(d.getAttribute('data-val'))); });
+return lines.join('\n');
+}
+function collectACParts() {
+var lines = [];
+if (document.getElementById('nut_valve_chk').checked) {
+var subs = [];
+document.querySelectorAll('input[name="nut_valve_sub"]:checked').forEach(function(cb) {
+subs.push(cb.value);
+});
+var subText = subs.length ? ' (' + subs.join(', ') + ')' : '';
+lines.push('- \u0e19\u0e47\u0e2d\u0e15\u0e27\u0e32\u0e25\u0e4c\u0e27' + subText + ' ' + (document.getElementById('nut_valve_qty').value||'2')+' \u0e15\u0e31\u0e27');
+}
+if (document.getElementById('valve_core_chk').checked) {
+var sub = document.querySelector('input[name="valve_core_sub"]:checked');
+var subText = sub ? ' (' + sub.value + ')' : '';
+lines.push('- \u0e44\u0e2a\u0e49\u0e28\u0e23' + subText + ' ' + (document.getElementById('valve_core_qty').value||'2')+' \u0e15\u0e31\u0e27');
+}
+var oringLines = [];
+document.querySelectorAll('.oring_input').forEach(function(inp){
+var q = parseInt(inp.value);
+if (q > 0) oringLines.push('  - \u0e40\u0e1a\u0e2d\u0e23\u0e4c '+inp.getAttribute('data-no')+' ('+_dec(inp.getAttribute('data-type'))+') : '+q+' \u0e15\u0e31\u0e27');
+});
+if (oringLines.length) { lines.push('- \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e42\u0e2d\u0e23\u0e34\u0e07:'); oringLines.forEach(function(l){lines.push(l);}); }
+document.querySelectorAll('.ex_part').forEach(function(d){ lines.push('- '+_dec(d.getAttribute('data-val'))); });
+return lines.join('\n');
+}
+// ===================================================================
+// GENERIC DIAG+SOL BUILDER (checkbox + radio pattern)
+// ===================================================================
+function buildDiagSection(areaId, items, sectionId) {
+var area = document.getElementById(areaId);
+if (!area) return;
+items.forEach(function(item, i){
+var row = document.createElement('div');
+row.className = sectionId+'-diag-row';
+row.style.cssText = 'margin-bottom:8px;padding:10px 12px;background:#fff;border-radius:10px;border:1px solid #f0f0f0;';
+var hasOk = (item.opts[0] === '\u0e1b\u0e01\u0e15\u0e34');
+var html = '<div class="part-name" style="font-size:14px;font-weight:700;color:#37474f;margin-bottom:6px;">'+item.name+'</div>';
+html += '<div style="display:flex;flex-wrap:wrap;gap:6px;">';
+item.opts.forEach(function(opt, oi){
+var isOk = (opt === '\u0e1b\u0e01\u0e15\u0e34');
+var chk = (isOk && hasOk) ? ' checked' : '';
+var bg = isOk ? '#f0f9f0' : '#fff5f5';
+var bdr = isOk ? '#c8e6c9' : '#ffcdd2';
+var clr = isOk ? '#2e7d32' : '#c62828';
+var fw = isOk ? '600' : '700';
+html += '<label style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:8px 12px;border-radius:10px;border:1px solid '+bdr+';background:'+bg+';font-size:14px;font-weight:'+fw+';color:'+clr+';"><input type="radio" name="'+sectionId+'_diag_'+i+'" value="'+opt+'"'+chk+' onchange="autoCheckSection(\''+sectionId+'\')" style="accent-color:'+clr+';">'+opt+'</label>';
+});
+html += '</div>';
+row.innerHTML = html;
+area.appendChild(row);
+});
+}
+function buildSolSection(areaId, items, sectionId, accentColor) {
+var area = document.getElementById(areaId);
+if (!area) return;
+items.forEach(function(item){
+var row = document.createElement('div');
+row.style.cssText = 'padding:10px 8px;border-bottom:1px solid #f0f0f0;';
+var hasSub = item.subs || item.multi || item.extraInput;
+var html = '<label style="display:flex;align-items:center;gap:8px;margin-bottom:'+(hasSub?'6':'0')+'px;cursor:pointer;">';
+html += '<input type="checkbox" class="'+sectionId+'-sol-chk" data-sol-id="'+item.id+'" data-sol-name="'+item.name+'" style="accent-color:'+accentColor+';flex-shrink:0;" onchange="autoCheckSection(\''+sectionId+'\')">';
+html += '<span style="font-size:14px;font-weight:600;color:'+accentColor+';">'+item.name+'</span></label>';
+if (item.subs) {
+html += '<div style="display:flex;flex-wrap:wrap;gap:6px;padding-left:28px;">';
+item.subs.forEach(function(sub){
+html += '<label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:6px 12px;border-radius:8px;border:1px solid #ddd;background:#fafafa;font-size:13px;color:#555;"><input type="radio" name="'+sectionId+'_sol_'+item.id+'_sub" value="'+sub+'" onchange="autoSolCheck(this,\''+sectionId+'\',\''+item.id+'\')" style="accent-color:'+accentColor+';">'+sub+'</label>';
+});
+html += '</div>';
+}
+if (item.multi) {
+html += '<div style="display:flex;flex-wrap:wrap;gap:6px;padding-left:28px;">';
+item.multi.forEach(function(m){
+html += '<label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:6px 12px;border-radius:8px;border:1px solid #ddd;background:#fafafa;font-size:13px;color:#555;"><input type="checkbox" class="'+sectionId+'-sol-multi" value="'+m+'" onchange="autoSolMultiCheck(this,\''+sectionId+'\')" style="accent-color:'+accentColor+';">'+m+'</label>';
+});
+html += '</div>';
+}
+if (item.extraInput) {
+html += '<div style="padding-left:28px;margin-top:6px;"><input type="text" class="'+sectionId+'-sol-extra" placeholder="+ เพิ่มเติม" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:8px;font-size:13px;" oninput="autoSolMultiCheck(this,\''+sectionId+'\')" /></div>';
+}
+row.innerHTML = html;
+area.appendChild(row);
+});
+}
+function autoSolCheck(radio, sectionId, solId) {
+var subsDiv = radio.closest('div');
+var row = subsDiv.parentElement;
+if (!row) return;
+var chk = row.querySelector('.'+sectionId+'-sol-chk');
+if (chk && !chk.checked) chk.checked = true;
+_sectionUsed[sectionId] = true;
+}
+function autoSolMultiCheck(el, sectionId) {
+var row = el.parentElement;
+while (row) {
+if (row.querySelector('.' + sectionId + '-sol-chk')) {
+var chk = row.querySelector('.' + sectionId + '-sol-chk');
+if (chk && !chk.checked) chk.checked = true;
+break;
+}
+row = row.parentElement;
+}
+_sectionUsed[sectionId] = true;
+}
+function collectDiag(sectionId) {
+if (!_sectionUsed[sectionId]) return '';
+var lines = [];
+document.querySelectorAll('#'+sectionId+'_diag_area .'+sectionId+'-diag-row').forEach(function(row){
+var r = row.querySelector('input[type="radio"]:checked');
+if (!r) return;
+if (r.value === '\u0e1b\u0e01\u0e15\u0e34') return;
+var nm = row.querySelector('.part-name');
+lines.push('- '+_dec(nm?nm.textContent.trim():'')+' - '+_dec(r.value));
+});
+return lines.join('\n');
+}
+function collectSol(sectionId) {
+if (!_sectionUsed[sectionId]) return '';
+var lines = [];
+document.querySelectorAll('.'+sectionId+'-sol-chk:checked').forEach(function(chk){
+var name = _dec(chk.getAttribute('data-sol-name'));
+var row = chk.closest('div');
+var sub = row.querySelector('input[type="radio"]:checked');
+var detail = sub ? ' - '+_dec(sub.value) : '';
+if (!sub) {
+var multiVals = [];
+row.querySelectorAll('.'+sectionId+'-sol-multi:checked').forEach(function(mc){
+multiVals.push(_dec(mc.value));
+});
+var extraInp = row.querySelector('.'+sectionId+'-sol-extra');
+if (extraInp && extraInp.value.trim()) multiVals.push(_dec(extraInp.value.trim()));
+if (multiVals.length) detail = ' - '+multiVals.join(', ');
+}
+lines.push('- '+name+detail);
+});
+document.querySelectorAll('.ex_'+sectionId).forEach(function(d){ lines.push('- '+_dec(d.getAttribute('data-val'))); });
+return lines.join('\n');
+}
+// ===================================================================
+// SUSPENSION DATA
+// ===================================================================
+var SUSP_DIAG = [
+{name:'\u0e42\u0e0a\u0e49\u0e04\u0e2d\u0e31\u0e1e\u0e2b\u0e19\u0e49\u0e32',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e40\u0e1a\u0e49\u0e32\u0e42\u0e0a\u0e49\u0e04',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e14\u0e31\u0e07']},
+{name:'\u0e22\u0e32\u0e07\u0e23\u0e2d\u0e07\u0e2b\u0e31\u0e27\u0e42\u0e0a\u0e49\u0e04\u0e2b\u0e25\u0e31\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e1a\u0e19','\u0e25\u0e48\u0e32\u0e07','\u0e1a\u0e19-\u0e25\u0e48\u0e32\u0e07']},
+{name:'\u0e22\u0e32\u0e07\u0e23\u0e2d\u0e07\u0e2a\u0e1b\u0e23\u0e34\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e2b\u0e19\u0e49\u0e32','\u0e2b\u0e25\u0e31\u0e07','\u0e2b\u0e19\u0e49\u0e32-\u0e2b\u0e25\u0e31\u0e07']},
+{name:'\u0e25\u0e39\u0e01\u0e1b\u0e37\u0e19\u0e40\u0e1a\u0e49\u0e32\u0e42\u0e0a\u0e49\u0e04',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e01\u0e23\u0e30\u0e41\u0e17\u0e01',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e1d\u0e38\u0e48\u0e19\u0e42\u0e0a\u0e49\u0e04',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0e01\u0e31\u0e19\u0e42\u0e04\u0e23\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e14\u0e31\u0e07']},
+{name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e42\u0e04\u0e23\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0000\u0e04\u0e31\u0e19\u0e0a\u0e31\u0e01\u0e19\u0e2d\u0e01',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e2b\u0e25\u0e27\u0e21']},
+{name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0e41\u0e23\u0e47\u0e04',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e2b\u0e25\u0e27\u0e21']},
+{name:'\u0e41\u0e23\u0e47\u0e04\u0e1e\u0e27\u0e07\u0e21\u0e32\u0e25\u0e31\u0e22',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e14\u0e31\u0e07','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e1d\u0e38\u0e48\u0e19\u0e41\u0e23\u0e47\u0e04',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e02\u0e32\u0e14']},
+{name:'\u0e1b\u0e35\u0e01\u0e19\u0e01\u0e1a\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14']},
+{name:'\u0e1b\u0e35\u0e01\u0e19\u0e01\u022e\u0e25\u0e48\u0e32\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14']},
+{name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0e1b\u0e35\u0e01\u0e19\u0e01\u0e1a\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14','\u0e2b\u0e25\u0e27\u0e21']},
+{name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0e1b\u0e35\u0e01\u0e19\u0e01\u0e25\u0e48\u0e32\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14','\u0e2b\u0e25\u0e27\u0e21']},
+{name:'\u0e25\u0e39\u0e01\u0e1b\u0e37\u0e19\u0e25\u0e49\u0e2d\u0e2b\u0e19\u0e49\u0e32',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01','\u0e2b\u0e25\u0e27\u0e21','\u0e14\u0e31\u0e07']},
+{name:'\u0e25\u0e39\u0e01\u0e1b\u0e37\u0e19\u0e25\u0e49\u0e2d\u0e2b\u0e25\u0e31\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01','\u0e2b\u0e25\u0e27\u0e21','\u0e14\u0e31\u0e07']},
+{name:'\u0e40\u0e1e\u0e25\u0e32\u0e02\u0e31\u0e1a',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e14\u0e31\u0e07','\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e1f\u0e38\u0e48\u0e19\u0e02\u0e32\u0e14']},
+{name:'\u0e41\u0e17\u0e48\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 L',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01']},
+{name:'\u0e41\u0e17\u0e48\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 R',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01']},
+{name:'\u0e41\u0e17\u0e48\u0e19\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e02\u0e32\u0e14']},
+{name:'\u0e42\u0e0a\u0e49\u0e04\u0e2d\u0e31\u0e1e\u0e2b\u0e25\u0e31\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e1a\u0e39\u0e0a\u0e04\u0e32\u0e19\u0e2b\u0e25\u0e31\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14']},
+{name:'\u0e22\u0e32\u0e07\u0e2b\u0e39\u0e41\u0e2b\u0e19\u0e1a',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14']},
+{name:'\u0e15\u0e38\u0e4a\u0e01\u0e15\u0e32\u0e40\u0e1e\u0e25\u0e32\u0e01\u0e25\u0e32\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14']},
+{name:'\u0e22\u0e2d\u0e22\u0e01\u0e32\u0e01\u0e1a\u0e32\u0e21\u0e40\u0e1e\u0e25\u0e34\u0e01\u0e25\u0e32\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01','\u0e14\u0e31\u0e07']}
+];
+var LR = ['\u0e0b\u0e49\u0e32\u0e22','\u0e02\u0e27\u0e32','\u0e17\u0e31\u0e49\u0e07\u0e04\u0e39\u0e48'];
+var SUSP_SOL = [
+{id:'ss0',name:'\u0e42\u0e0a\u0e49\u0e04\u0e2d\u0e31\u0e1e\u0e2b\u0e19\u0e49\u0e32',subs:LR},
+{id:'ss1',name:'\u0e40\u0e1a\u0e49\u0e32\u0e42\u0e0a\u0e49\u0e04',subs:LR},
+{id:'ss2',name:'\u0e25\u0e39\u0e01\u0e1b\u0e37\u0e19\u0e40\u0e1a\u0e49\u0e32\u0e42\u0e0a\u0e49\u0e04',subs:LR},
+{id:'ss3',name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e01\u0e23\u0e30\u0e41\u0e17\u0e01',subs:LR},
+{id:'ss4',name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e1d\u0e38\u0e48\u0e19\u0e42\u0e0a\u0e49\u0e04',subs:LR},
+{id:'ss5',name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0e01\u0e31\u0e19\u0e42\u0e04\u0e23\u0e07',subs:LR},
+{id:'ss6',name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e42\u0e04\u0e23\u0e07',subs:LR},
+{id:'ss7',name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0e04\u0e31\u0e19\u0e0a\u0e31\u0e01\u0e19\u0e2d\u0e01',subs:LR},
+{id:'ss8',name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0e41\u0e23\u0e47\u0e04',subs:LR},
+{id:'ss9',name:'\u0e41\u0e23\u0e47\u0e04\u0e1e\u0e27\u0e07\u0e21\u0e32\u0e25\u0e31\u0e22\u0e22\u0e01\u0e40\u0e2a\u0e49\u0e19',multi:['\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19','\u0e44\u0e1f\u0e1f\u0e49\u0e32']},
+{id:'ss10',name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e1d\u0e38\u0e48\u0e19\u0e41\u0e23\u0e47\u0e04',subs:LR},
+{id:'ss11',name:'\u0e1b\u0e35\u0e01\u0e19\u0e01\u0e1a\u0e19',subs:['\u0e2d\u0e31\u0e14\u0e1a\u0e39\u0e0a','\u0e22\u0e01\u0e1b\u0e35\u0e01']},
+{id:'ss12',name:'\u0e1b\u0e35\u0e01\u0e19\u0e01\u0e25\u0e48\u0e32\u0e07',subs:['\u0e2d\u0e31\u0e14\u0e1a\u0e39\u0e0a','\u0e22\u0e01\u0e1b\u0e35\u0e01']},
+{id:'ss13',name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0e1b\u0e35\u0e01\u0e19\u0e01\u0e1a\u0e19',subs:['\u0e2d\u0e31\u0e14\u022e\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01','\u0e21\u0e32\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e1b\u0e35\u0e01']},
+{id:'ss14',name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0e1b\u0e35\u0e01\u0e19\u0e01\u0e25\u0e48\u0e32\u0e07',subs:['\u0e2d\u0e31\u0e14\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01','\u0e21\u0e32\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e1b\u0e35\u0e01']},
+{id:'ss15',name:'\u0e25\u0e39\u0e01\u0e1b\u0e37\u0e19\u0e25\u0e49\u0e2d\u0e2b\u0e19\u0e49\u0e32',subs:LR},
+{id:'ss16',name:'\u0e25\u0e39\u0e01\u0e1b\u0e37\u0e19\u0e25\u0e49\u0e2d\u0e2b\u0000\u0e25\u0e31\u0e07',subs:LR},
+{id:'ss17',name:'\u0e40\u0e1e\u0e25\u0e32\u0e02\u0e31\u0e1a',multi:['\u0e22\u0e01\u0e40\u0e2a\u0e49\u0e19 R','\u0e22\u0e01\u0e40\u0e2a\u0e49\u0e19 L','\u0e22\u0e01\u0e40\u0e2a\u0e49\u0e19 RL','\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e1d\u0e38\u0e48\u0e19 L','\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e1d\u0e38\u0e48\u0e19 R','\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e1d\u0e38\u0e48\u0e19 RL']},
+{id:'ss18',name:'\u0e41\u0e17\u0e48\u0e19\u0e40\u0000\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 L'},
+{id:'ss19',name:'\u0e41\u0e17\u0e48\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 R'},
+{id:'ss20',name:'\u0e41\u0e17\u0e48\u0e19\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c'},
+{id:'ss21',name:'\u0e42\u0e0a\u0e49\u0e04\u0e2d\u0e31\u0e1e\u0e2b\u0e25\u0e31\u0e07',subs:LR},
+{id:'ss22',name:'\u0e1a\u0e39\u0e04\u0e32\u0e19\u0e2b\u0e25\u0e31\u0e07',subs:LR},
+{id:'ss23',name:'\u0e25\u0e39\u0e01\u0e2b\u0e21\u0e32\u0e01\u0e01\u0e31\u0e19\u0e42\u0e04\u0e23\u0e07\u0e2b\u0e25\u0e31\u0e07',subs:LR},
+{id:'ss24',name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e42\u0e04\u0e23\u0e07\u0e2b\u0e25\u0e31\u0e07',subs:LR},
+{id:'ss25',name:'\u0e22\u0e32\u0e07\u0e2b\u0e39\u0e41\u0e2b\u0e19\u0e1a',subs:['8 \u0e15\u0e31\u0e27']},
+{id:'ss26',name:'\u0e22\u0e32\u0e07\u0e23\u0e2d\u0e07\u0e2a\u0e1b\u0e23\u0e34\u0e07\u0e42\u0e0a\u0e49\u0e04',multi:['\u0e2b\u0e19\u0e49\u0e32','\u0e2b\u0e25\u0e31\u0e07']},
+{id:'ss27',name:'\u0e22\u0e32\u0e07\u0e23\u0e2d\u0e07\u0e2b\u0e31\u0e27\u0e42\u0e0a\u0e49\u0e04\u0e2b\u0e25\u0e31\u0e07',multi:['\u0e1a\u0e19','\u0e25\u0e48\u0e32\u0e07']},
+{id:'ss28',name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e1d\u0e38\u0e48\u0e19\u0e42\u0e0a\u0e49\u0e04\u0e2b\u0e25\u0e31\u0e07'},
+{id:'ss29',name:'\u0e22\u0e32\u0e07\u0e01\u0e31\u0e19\u0e01\u0e23\u0e30\u0e41\u0e17\u0e01\u0e42\u0e0a\u0e49\u0e04\u0e2b\u0e25\u0e31\u0e07'},
+{id:'ss30',name:'\u0e15\u0e31\u0e49\u0e07\u0e28\u0e39\u0e19\u0e22\u0e4c'}
+];
+buildDiagSection('susp_diag_area', SUSP_DIAG, 'susp');
+buildSolSection('susp_sol_area', SUSP_SOL, 'susp', '#673ab7');
+// ===================================================================
+// BRAKE DATA
+// ===================================================================
+var BRAKE_DIAG = [
+{name:'\u0e1c\u0e49\u0e32\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e19\u0e49\u0e32',opts:['\u0e1b\u0e01\u0e15\u0e34','<3\u0e21\u0e34\u0e25','<5\u0e21\u0e34\u0e25','<7\u0e21\u0e34\u0e25','<10\u0e21\u0e34\u0e25']},
+{name:'\u0e08\u0e32\u0e19\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e19\u0e49\u0e32',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e1b\u0e47\u0e19\u0e23\u0e2d\u0e22','\u0e1a\u0e32\u0e07']},
+{name:'\u0e04\u0e32\u0e25\u0e34\u0e1b\u0e40\u0e1b\u0e2d\u0e23\u0e4c\u0e2b\u0e19\u0e49\u0e32',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e25\u0e39\u0e01\u0e22\u0e32\u0e07\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14','\u0e25\u0e39\u0e01\u0e2a\u0e39\u0e1a\u0e15\u0e34\u0e14']},
+{name:'\u0e2a\u0e32\u0e22\u0e2d\u0e48\u0e2d\u0e19\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e19\u0e49\u0e32',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e41\u0e21\u0e48\u0e1b\u0e31\u0e4a\u0e21\u0e40\u0e1a\u0e23\u0e01\u0e1a\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e2b\u0e21\u0e49\u0e2d\u0e25\u0e21\u0e40\u0e1a\u0e23\u0e01',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e1c\u0e49\u0e32\u0e14\u0e34\u0e2a\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e25\u0e31\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','<3\u0e21\u0e34\u0e25','<5\u0e21\u0e34\u0e25','<7\u0e21\u0e34\u0e25','<10\u0e21\u0e34\u0e25']},
+{name:'\u0e04\u0e32\u0e25\u0e34\u0e1b\u0e40\u0e1b\u0e2d\u0e23\u0e4c\u0e2b\u0e25\u0e31\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e25\u0e39\u0e01\u0e22\u0e32\u0e07\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14','\u0e25\u0e39\u0e01\u0e2a\u0e39\u0e1a\u0e15\u0e34\u0e14']},
+{name:'\u0e01\u0e23\u0e30\u0e1a\u0e2d\u0e01\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e25\u0e31\u0e07 (\u0e14\u0e23\u0e31\u0e21)',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e14\u0e23\u0e31\u0e21\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e25\u0e31\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','<1\u0e21\u0e34\u0e25','<1.5\u0e21\u0e34\u0e25','<3\u0e21\u0e34\u0e25']},
+{name:'\u0e08\u0e32\u0e19\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e25\u0e31\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e1b\u0e47\u0e19\u0e23\u0e48\u0e2d\u0e07']},
+{name:'\u0e2a\u0e32\u0e22\u0e2d\u0e48\u0e2d\u0e19\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e25\u0e31\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01']},
+{name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e1a\u0e23\u0e01',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']}
+];
+var BRAKE_SOL = [
+{id:'bs0',name:'\u0e1c\u0e49\u0e32\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e19\u0e49\u0e32'},
+{id:'bs1',name:'\u0e08\u0e32\u0e19\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e19\u0e49\u0e32',subs:['\u0e40\u0e08\u0e35\u0e22\u0e23\u0e08\u0e32\u0e19','\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e08\u0e32\u0e19']},
+{id:'bs2',name:'\u0e04\u0e32\u0e25\u0e34\u0e1b\u0e40\u0e1b\u0e2d\u0e23\u0e4c\u0e2b\u0e19\u0e49\u0e32',subs:['\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e0a\u0e38\u0e14\u0e0b\u0e48\u0e2d\u0e21']},
+{id:'bs3',name:'\u0e25\u0e39\u0e01\u0e2a\u0e39\u0e1a\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e19\u0e49\u0e32',subs:['\u0e02\u0e31\u0e14','\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19']},
+{id:'bs4',name:'\u0e19\u0e47\u0e2d\u0e15\u0e2a\u0e25\u0e31\u0e01\u0e2a\u0e44\u0e25\u0e14\u0e4c',subs:['\u0e1a\u0e19','\u0e25\u0e48\u0e32\u0e07','\u0e17\u0e31\u0e49\u0e07\u0e04\u0e39\u0e48']},
+{id:'bs5',name:'\u0e41\u0e21\u0e48\u0e1b\u0e31\u0e4a\u0e21\u0e40\u0e1a\u0e23\u0e01\u0e1a\u0e19'},
+{id:'bs6',name:'\u0e2b\u0e21\u0e49\u0e2d\u0e25\u0e21\u0e40\u0e1a\u0e23\u0e01'},
+{id:'bs7',name:'\u0e2a\u0e32\u0e22\u0e2d\u0e48\u0e2d\u0e19\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e19\u0e49\u0e32',subs:LR},
+{id:'bs8',name:'\u0e1c\u0e49\u0e32\u0e14\u0e34\u0e2a\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e25\u0e31\u0e07',subs:['\u0e14\u0e34\u0e2a\u0e40\u0e1a\u0e23\u0e01','\u0e14\u0e23\u0e31\u0e21\u0e40\u0e1a\u0e23\u0e01']},
+{id:'bs9',name:'\u0e01\u0e23\u0e30\u0e1a\u0e2d\u0e01\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e25\u0e31\u0e07 (\u0e14\u0e23\u0e31\u0e21)'},
+{id:'bs10',name:'\u0e04\u0e32\u0e25\u0e34\u0e1b\u0e40\u0e1b\u0e2d\u0e23\u0e4c\u0e2b\u0e25\u0e31\u0e07',subs:['\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e0a\u0e38\u0e14\u0e0b\u0e48\u0e2d\u0e21']},
+{id:'bs11',name:'\u0e25\u0e39\u0e01\u0e2a\u0e39\u0e1a\u0e40\u0e1a\u0e23\u0000\u0e04\u0e2b\u0e25\u0e31\u0e07',subs:['\u0e02\u0e31\u0e14','\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19']},
+{id:'bs12',name:'\u0e19\u0e47\u0e2d\u0e15\u0e2a\u0e25\u0e31\u0e01\u0e2a\u0e44\u0e25\u0e14\u0e4c\u0e2b\u0e25\u0e31\u0e07',subs:['\u0e1a\u0e19','\u0e25\u0e48\u0e32\u0e07','\u0e17\u0e31\u0e49\u0e07\u0000\u0e04\u0e39\u0e48']},
+{id:'bs13',name:'\u0e08\u0e32\u0e19\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e25\u0e31\u0e07',subs:['\u0e40\u0e08\u0e35\u0e22\u0e23\u0e08\u0e32\u0e19','\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e08\u0e32\u0e19']},
+{id:'bs14',name:'\u0e2a\u0e32\u0e22\u0e2d\u0e48\u0e2d\u0e19\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e25\u0e31\u0e07',subs:LR},
+{id:'bs15',name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e1a\u0e23\u0e01',subs:['DOT3','DOT4']}
+];
+buildDiagSection('brake_diag_area', BRAKE_DIAG, 'brake');
+buildSolSection('brake_sol_area', BRAKE_SOL, 'brake', '#b71c1c');
+// ===================================================================
+// ENGINE PETROL DATA
+// ===================================================================
+var ENG_P_DIAG = [
+{name:'\u0e04\u0e2d\u0e22\u0e25\u0e4c\u0e08\u0e38\u0e14\u0e23\u0e30\u0e40\u0e1a\u0e34\u0e14',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e40\u0e2a\u0e35\u0e22','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e2b\u0e31\u0e27\u0e40\u0e17\u0e35\u0e22\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e40\u0e2a\u0e35\u0e22']},
+{name:'\u0e2b\u0e31\u0e27\u0e09\u0e35\u0e14',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e40\u0e2a\u0e35\u0e22']},
+{name:'\u0e25\u0e34\u0e49\u0e19\u0e1b\u0e35\u0e01\u0e1c\u0e35\u0e40\u0e2a\u0e37\u0e49\u0e2d / \u0e40\u0e0b\u0e19\u0e40\u0e0b\u0e2d\u0e23\u0e4c AIR FLOW',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e2a\u0e01\u0e1b\u0e23\u0e01','\u0e40\u0e2a\u0e35\u0e22']},
+{name:'\u0e1b\u0e31\u0e4a\u0e21\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 / \u0e01\u0e23\u0e2d\u0e07\u0e40\u0e1a\u0e19\u0e0b\u0e34\u0e25',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e40\u0e2a\u0e35\u0e22']},
+{name:'\u0e17\u0e48\u0e2d\u0e2d\u0e32\u0e01\u0e32\u0e28\u0e15\u0e48\u0e32\u0e07\u0e46',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e09\u0e35\u0e01\u0e02\u0e32\u0e14']},
+{name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e1e\u0e32\u0e40\u0e27\u0e2d\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e1b\u0e25\u0e31\u0e4a\u0e01\u0000\u0e04\u0e2d\u0e22\u0e25\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e15\u0e01']}
+];
+var ENG_P_SOL = [
+{id:'ep0',name:'\u0e04\u0e2d\u0e22\u0e25\u0e4c\u0e08\u0e38\u0e14\u0e23\u0e30\u0e40\u0e1a\u0e34\u0e14',subs:['1','2','3','4']},
+{id:'ep1',name:'\u0e2b\u0e31\u0e27\u0e40\u0e17\u0e35\u0e22\u0e19'},
+{id:'ep2',name:'\u0e2b\u0e31\u0e27\u0e09\u0e35\u0e14',subs:['\u0e40\u0e17\u0e2a\u0e25\u0e49\u0e32\u0e07\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e0a\u0e38\u0e14\u0e0b\u0e48\u0e2d\u0e21','\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e22\u0e01\u0e0a\u0e38\u0e14']},
+{id:'ep3',name:'\u0e25\u0e34\u0e49\u0e19\u0e1b\u0e35\u0e01\u0e1c\u0e35\u0e40\u0e2a\u0e37\u0e49\u0e2d',subs:['\u0e25\u0e49\u0e32\u0e07','\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19']},
+{id:'ep4',name:'\u0e40\u0e0b\u0e19\u0e40\u0e0b\u0e2d\u0e23\u0e4c AIR FLOW',subs:['\u0e25\u0e49\u0e32\u0e07','\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19']},
+{id:'ep5',name:'\u0e1b\u0e31\u0e4a\u0e21\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e0a\u0e37\u0e49\u0e2d\u0e40\u0e1e\u0e25\u0e34\u0e07'},
+{id:'ep6',name:'\u0e01\u0e23\u0e2d\u0e07\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e0a\u0e37\u0e49\u0e2d\u0e40\u0e1e\u0e25\u0e34\u0e07'},
+{id:'ep7',name:'\u0e17\u0e48\u0e2d\u0e2d\u0e32\u0e01\u0e32\u0e28\u0e40\u0e02\u0e49\u0e32\u0e01\u0e23\u0e2d\u0e07'},
+{id:'ep8',name:'\u0e17\u0e48\u0e2d\u0e41\u0e27\u0e47\u0e04\u0e04\u0e31\u0e48\u0e21'},
+{id:'ep9',name:'\u0e22\u0e32\u0e07\u0e1d\u0e32\u0e27\u0e32\u0e25\u0e4c\u0e27'},
+{id:'ep10',name:'\u0e22\u0e32\u0e07\u0e40\u0e1a\u0e49\u0e32\u0e2b\u0e31\u0e27\u0e40\u0e17\u0e35\u0e22\u0e19'},
+{id:'ep11',name:'\u0e42\u0e2d\u0e23\u0e34\u0e07\u0e27\u0e35\u0e40\u0e17\u0000\u0e04'},
+{id:'ep12',name:'\u0e1d\u0e32\u0e1e\u0e25\u0e32\u0e2a\u0e15\u0e34\u0e01\u0e1b\u0e34\u0e14\u0e41\u0e04\u0e21'},
+{id:'ep13',name:'\u0e42\u0e2d\u0e23\u0e34\u0e07\u0e1e\u0e32\u0e27\u0e40\u0e27\u0e2d\u0e23\u0e4c'},
+{id:'ep14',name:'\u0e1a\u0e23\u0e34\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e27\u0e32\u0e25\u0e4c\u0e27'},
+{id:'ep15',name:'\u0e0b\u0e35\u0e25\u0e2b\u0e19\u0e49\u0e32\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07'},
+{id:'ep16',name:'\u0e41\u0e01\u0e49\u0e23\u0e31\u0e48\u0e27\u0e1d\u0e32\u0e2b\u0e19\u0e49\u0e32\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07'},
+{id:'ep17',name:'\u0e41\u0e01\u0e49\u0e23\u0e31\u0e48\u0e27\u0e2d\u0e48\u0e32\u0e07\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07'},
+{id:'ep18',name:'\u0e0b\u0e35\u0e25\u0e17\u0e49\u0e32\u0e22\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07'},
+{id:'ep19',name:'\u0e0b\u0e35\u0e25\u0e17\u0e2d\u0e23\u0e4c\u0e04\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c'},
+{id:'ep20',name:'\u0e0b\u0e35\u0e25\u0e04\u0e31\u0e19\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c'},
+{id:'ep21',name:'\u0e0b\u0e35\u0e25\u0e40\u0e1e\u0e25\u0e32\u0e02\u0e31\u0e1a'},
+{id:'ep22',name:'\u0e01\u0e23\u0e30\u0e1b\u0e38\u0e01\u0e40\u0e1e\u0e32\u0e40\u0e27\u0e2d\u0e23\u0e4c'},
+{id:'ep23',name:'\u0e17\u0e48\u0e2d\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e02\u0e49\u0e32\u0e01\u0e23\u0e30\u0e1b\u0e38\u0e01\u0e1e\u0e32\u0e40\u0e27\u0e2d\u0e23\u0e4c'},
+{id:'ep24',name:'\u0e1b\u0e25\u0e31\u0e4a\u0e01\u0e04\u0e2d\u0e22\u0e25\u0e4c'},
+{id:'ep25',name:'\u0e1b\u0e25\u0e31\u0e4a\u0e01\u0e2b\u0e31\u0e27\u0e09\u0e35\u0e14'},
+{id:'ep26',name:'\u0e1b\u0e25\u0e31\u0e4a\u0e01 AIR'},
+{id:'ep27',name:'\u0e1b\u0e25\u0e31\u0e4a\u0e01 VTEC'}
+];
+buildDiagSection('eng_p_diag_area', ENG_P_DIAG, 'eng_p');
+buildSolSection('eng_p_sol_area', ENG_P_SOL, 'eng_p', '#bf360c');
+// ===================================================================
+// ENGINE DIESEL DATA
+// ===================================================================
+var ENG_D_DIAG = [
+{name:'\u0e01\u0e23\u0e2d\u0e07\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e0a\u0e37\u0e49\u0e2d\u0e40\u0e1e\u0e25\u0e34\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e16\u0e36\u0e07\u0e23\u0e30\u0e22\u0e30 20,000','\u0e15\u0e31\u0e19\u0e2b\u0e19\u0e31\u0e01\u0e21\u0e32\u0e01']},
+{name:'\u0e2b\u0e31\u0e27\u0e09\u0e35\u0e14\u0e14\u0e35\u0e40\u0e0b\u0e25 (Injector)',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e40\u0e0a\u0e47\u0e04\u0e23\u0e30\u0e22\u0e30 80,000']},
+{name:'\u0e1b\u0e31\u0e4a\u0e21\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e0a\u0e37\u0e49\u0e2d\u0e40\u0e1e\u0e25\u0e34\u0e07 / \u0e1b\u0e31\u0e4a\u0e21\u0e41\u0e23\u0e07\u0e14\u0e31\u0e19\u0e2a\u0e39\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e40\u0e0a\u0e47\u0e04\u0e23\u0e30\u0e22\u0e30 80,000']},
+{name:'\u0e22\u0e32\u0e27\u0e32\u0e25\u0e4c\u0e27\u0e04\u0e27\u0e1a\u0e04\u0e38\u0e21\u0e41\u0e23\u0e07\u0e14\u0e31\u0e19 (SCV/PCV)',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e35\u0e22']},
+{name:'\u0e17\u0e48\u0e2d\u0e44\u0e2b\u0e25\u0e01\u0e25\u0e31\u0e1a\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e40\u0e17\u0e2d\u0e23\u0e4c\u0e42\u0e1a (Turbo)',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27','\u0e14\u0e31\u0e07']},
+{name:'\u0e2d\u0e34\u0e19\u0e40\u0e15\u0e2d\u0e23\u0e04\u0e39\u0e25\u0e40\u0e25\u0e2d\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27','\u0e14\u0e31\u0e07']},
+{name:'\u0e17\u0e48\u0e2d\u0e2d\u0e34\u0e19\u0e40\u0e15\u0e2d\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e17\u0e48\u0e2d\u0e41\u0e27\u0e47\u0e04\u0000\u0e04\u0e31\u0e48\u0e21\u0e41\u0e25\u0e30\u0e17\u0e48\u0e2d\u0e2d\u0e32\u0e01\u0e32\u0e28',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e17\u0e48\u0e2d\u0e44\u0e2d\u0e14\u0e35',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e15\u0e31\u0e19']},
+{name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0000\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27']}
+];
+var ENG_D_SOL = [
+{id:'ed0',name:'\u0e01\u0e23\u0e2d\u0e07\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e14\u0e35\u0e40\u0e0b\u0e25'},
+{id:'ed1',name:'\u0e2b\u0e31\u0e27\u0e09\u0e35\u0e14\u0e14\u0e35\u0e40\u0e0b\u0e25',subs:['\u0e40\u0e0a\u0e47\u0e04\u0e25\u0e49\u0e32\u0e07','\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e1b\u0e25\u0e32\u0e22']},
+{id:'ed2',name:'\u0e1b\u0e31\u0e4a\u0e21\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e0a\u0e37\u0e49\u0e2d\u0e40\u0e1e\u0e25\u0e34\u0e07',subs:['\u0e40\u0e0a\u0e47\u0e04\u0e25\u0e49\u0e32\u0e07','\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e17\u0e31\u0e49\u0e07\u0e25\u0e39\u0e01']},
+{id:'ed3',name:'\u0e27\u0e32\u0e25\u0e4c\u0e27\u0e04\u0e27\u0e1a\u0e04\u0e38\u0e21\u0e41\u0e23\u0e07\u0e14\u0e31\u0e19 (SCV/PCV)'},
+{id:'ed4',name:'\u0e17\u0e48\u0e2d\u0e44\u0e2b\u0e25\u0e01\u0e25\u0e31\u0e1a\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e14\u0e35\u0e40\u0e0b\u0e25'},
+{id:'ed5',name:'\u0e40\u0e1f\u0e2d\u0e23\u0e4c\u0e42\u0e1a (Turbo)',subs:['\u0e40\u0e1f\u0e2a\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e0a\u0e38\u0e14\u0e0b\u0e48\u0e2d\u0e21','\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e22\u0e01\u0e25\u0e39\u0e01']},
+{id:'ed6',name:'\u0e2d\u0e34\u0e19\u0e40\u0e15\u0e2d\u0e23\u0e04\u0e39\u0e25\u0e40\u0e25\u0e2d\u0e23\u0e4c'},
+{id:'ed7',name:'\u0e17\u0e48\u0e2d\u0e2d\u0e34\u0e19\u0e40\u0e15\u0e2d\u0e23\u0e4c',subs:LR},
+{id:'ed8',name:'\u0e17\u0e48\u0e2d\u0e41\u0e27\u0e47\u0e04\u0e04\u0e31\u0e48\u0e21\u0e41\u0e25\u0e30\u0e17\u0e48\u0e2d\u0e2d\u0e32\u0e01\u0e32\u0e28'},
+{id:'ed9',name:'\u0e25\u0e49\u0e32\u0e07\u0e17\u0e48\u0e2d\u0e44\u0e2d\u0e14\u0e35+\u0e1b\u0e23\u0e30\u0e40\u0e01\u0e47\u0e19\u0e44\u0e2d\u0e14\u0e35'},
+{id:'ed10',name:'\u0e41\u0e01\u0e49\u0e23\u0e31\u0e48\u0e27\u0e0a\u0e38\u0e14\u0e1d\u0e32\u0e27\u0e32\u0e25\u0e4c\u0e27'},
+{id:'ed11',name:'\u0e41\u0e01\u0e49\u0e23\u0e31\u0e48\u0e27\u0e0a\u0e38\u0e14\u0e1d\u0e32\u0e2b\u0e19\u0e49\u0e32'}
+];
+buildDiagSection('eng_d_diag_area', ENG_D_DIAG, 'eng_d');
+buildSolSection('eng_d_sol_area', ENG_D_SOL, 'eng_d', '#1565c0');
+// ===================================================================
+// COOLING DATA
+// ===================================================================
+var COOL_DIAG = [
+{name:'\u0e2b\u0e21\u0e49\u0e2d\u0e19\u0e49\u0e33',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27','\u0e15\u0e31\u0e19']},
+{name:'\u0e1d\u0e32\u0e2b\u0e21\u0e49\u0e2d\u0e19\u0e49\u0e33',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e23\u0e07\u0e14\u0e31\u0e19\u0e23\u0e31\u0e48\u0e27','\u0e40\u0e2a\u0e35\u0e22\u0e0a\u0e35\u0e27\u0e34\u0e15']},
+{name:'\u0e27\u0e32\u0e25\u0e4c\u0e27\u0e19\u0e49\u0e33 (Thermostat)',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e1b\u0e4a\u0e31\u0e21\u0e19\u0e49\u0e33',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e04\u0e2d\u0e27\u0e32\u0e25\u0e4c\u0e27\u0e19\u0e49\u0e33',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e23\u0e31\u0e48\u0e27']},
+{name:'\u0e17\u0e48\u0e2d\u0e19\u0e49\u0e33\u0e1a\u0e19/\u0e25\u0e48\u0e32\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e41\u0e02\u0e47\u0e07','\u0e1a\u0e27\u0e21']},
+{name:'\u0e1e\u0e31\u0e14\u0e25\u0e21\u0e2b\u0e21\u0e49\u0e2d\u0e19\u0e49\u0e33',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e2b\u0e25\u0e27\u0e21','\u0e14\u0e31\u0e07','\u0e25\u0e21\u0e44\u0e21\u0e48\u0e41\u0e23\u0e07']},
+{name:'\u0e16\u0e31\u0e07\u0e1e\u0e31\u0e01\u0e19\u0e49\u0e33',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e23\u0e31\u0e48\u0e27','\u0e2a\u0e01\u0e1b\u0e23\u0e01']}
+];
+var COOL_SOL = [
+{id:'cl0',name:'\u0e2b\u0e21\u0e49\u0e2d\u0e19\u0e49\u0e33'},
+{id:'cl1',name:'\u0e1d\u0e32\u0e2b\u0e21\u0e49\u0e2d\u0e19\u0e49\u0e33'},
+{id:'cl2',name:'\u0e27\u0e32\u0e25\u0e4c\u0e27\u0e19\u0e49\u0e33+\u0e42\u0e2d\u0e23\u0e34\u0e07 (Thermostat)'},
+{id:'cl3',name:'\u0e1b\u0e4a\u0e31\u0e21\u0e19\u0e49\u0e33'},
+{id:'cl4',name:'\u0e04\u0e2d\u0e27\u0e32\u0e25\u0e4c\u0e27\u0e19\u0e49\u0e33',multi:['\u0e1a\u0e19','\u0e25\u0e48\u0e32\u0e07','\u0e2a\u0e32\u0e21\u0e17\u0e32\u0e07\u0e1a\u0e19']},
+{id:'cl5',name:'\u0e17\u0e48\u0e2d\u0e19\u0e49\u0e33',multi:['\u0e1a\u0e19','\u0e25\u0e48\u0e32\u0e07','\u0e1a\u0e192','\u0e1a\u0e19,\u0e25\u0e48\u0e32\u0e07']},
+{id:'cl6',name:'\u0e1e\u0e31\u0e14\u0e25\u0e21\u0e2b\u0e21\u0e49\u0e2d\u0e19\u0e49\u0e33',subs:['\u0e0b\u0e49\u0e32\u0e22','\u0e02\u0e27\u0e32','\u0e17\u0e31\u0e49\u0e07\u0e04\u0e39\u0e48','\u0e1e\u0e31\u0e14\u0e25\u0e21\u0e1f\u0e23\u0e35\u0e1b\u0e31\u0e4a\u0e21']},
+{id:'cl7',name:'\u0e16\u0e31\u0e07\u0e1e\u0e31\u0e01\u0e19\u0e49\u0e33',subs:['\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19','\u0e25\u0e49\u0e32\u0e07']},
+{id:'cl8',name:'\u0e17\u0e48\u0e2d\u0e40\u0e02\u0e49\u0e32\u0e01\u0e23\u0e30\u0e1b\u0e38\u0e01\u0e1e\u0e31\u0e01\u0e19\u0e49\u0e33'}
+];
+buildDiagSection('cool_diag_area', COOL_DIAG, 'cool');
+buildSolSection('cool_sol_area', COOL_SOL, 'cool', '#00838f');
+// ===================================================================
+// CLUTCH DATA
+// ===================================================================
+var CLUTCH_DIAG = [
+{name:'\u0e0a\u0e38\u0e14\u0e04\u0e25\u0e31\u0e17\u0e0b\u0e4c (\u0e08\u0e32\u0e19+\u0e2b\u0e27\u0e35+\u0e25\u0e39\u0e01\u0e1b\u0e37\u0e19)',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e2b\u0e21\u0e14\u0e40\u0e01\u0e25\u0e35\u0e49\u0e22\u0e07']},
+{name:'\u0e23\u0e30\u0e1a\u0e1a\u0e44\u0e2e\u0e14\u0e23\u0e2d\u0e25\u0e34\u0e04',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e1b\u0e4a\u0e31\u0e21\u0e04\u0e25\u0e31\u0e17\u0e0b\u0e4c\u0e1a\u0e19','\u0e1b\u0e4a\u0e31\u0e21\u0e04\u0e25\u0e31\u0e17\u0e0b\u0e4c\u0e25\u0e48\u0e32\u0e07','\u0e1b\u0e31\u0e4a\u0e21\u0e04\u0e25\u0e31\u0e0a\u0e1a\u0e19,\u0e25\u0e48\u0e32\u0e07','\u0e2a\u0e32\u0e22\u0e2d\u0e48\u0e2d\u0e19','\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e14\u0e33']},
+{name:'\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c\u0e01\u0e49\u0e32\u0e21\u0e1b\u0e39',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e35\u0e22']},
+{name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e23\u0e31\u0e48\u0e27',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07','\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c']}
+];
+var CLUTCH_SOL = [
+{id:'ct0',name:'\u0e08\u0e32\u0e19\u0e04\u0e25\u0e31\u0e17\u0e0b\u0e4c'},
+{id:'ct1',name:'\u0e2b\u0e27\u0e35\u0e04\u0e25\u0e31\u0e17\u0e0b\u0e4c'},
+{id:'ct2',name:'\u0e25\u0e39\u0e01\u0e1b\u0e37\u0e19\u0e01\u0e14\u0e04\u0e25\u0e31\u0e0a'},
+{id:'ct3',name:'\u0e25\u0e39\u0e01\u0e1b\u0e37\u0e19\u0e1b\u0e25\u0e32\u0e22\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c'},
+{id:'ct4',name:'\u0e40\u0e08\u0e35\u0e22\u0e23\u0e1f\u0e25\u0e32\u0e22\u0e27\u0e35\u0e25'},
+{id:'ct5',name:'\u0e1b\u0e4a\u0e31\u0e21\u0e04\u0e25\u0e31\u0e17\u0e0b\u0e4c\u0e1a\u0e19'},
+{id:'ct6',name:'\u0e1b\u0e4a\u0e31\u0e21\u0e04\u0e25\u0e31\u0e17\u0e0b\u0e4c\u0e25\u0e48\u0e32\u0e07'},
+{id:'ct7',name:'\u0e2a\u0e32\u0e22\u0e2d\u0e48\u0e2d\u0e19'},
+{id:'ct8',name:'\u0e01\u0e49\u0e32\u0e21\u0e1b\u0e39\u0e01\u0e14\u0e04\u0e25\u0e31\u0e17\u0e0b\u0e4c'},
+{id:'ct9',name:'\u0e0b\u0e35\u0e25\u0e02\u0e49\u0e2d\u0e40\u0e2b\u0e27\u0e35\u0e48\u0e22\u0e07\u0e2b\u0e25\u0e31\u0e07 (Rear Crankshaft Seal)'},
+{id:'ct10',name:'\u0e0b\u0e35\u0e25\u0e2b\u0e19\u0e49\u0e32\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c (Front Transmission Seal)'},
+{id:'ct11',name:'\u0e0b\u0e35\u0e25\u0e17\u0e49\u0e32\u0e22\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c (Rear Transmission Seal)'}
+];
+buildDiagSection('clutch_diag_area', CLUTCH_DIAG, 'clutch');
+buildSolSection('clutch_sol_area', CLUTCH_SOL, 'clutch', '#4527a0');
+// ===================================================================
+// STARTER DATA
+// ===================================================================
+var STARTER_DIAG = [
+{name:'\u0e44\u0e14\u0e0a\u0e32\u0e23\u0e4c\u0e08',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e40\u0e2a\u0e35\u0e22']},
+{name:'\u0e44\u0e14\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e40\u0e2a\u0e35\u0e22']},
+{name:'\u0e44\u0e25\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e44\u0e1f',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e1c\u0e34\u0e14\u0e1b\u0e01\u0e15\u0e34']},
+{name:'\u0e41\u0e01\u0e49\u0e44\u0e02\u0e0a\u0e38\u0e14\u0e2a\u0e32\u0e22\u0e44\u0e1f',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e35\u0e22\u0e2b\u0e32\u0e22']}
+];
+var STARTER_SOL = [
+{id:'st0',name:'\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e22\u0e32\u0e07\u0e40\u0e1a\u0e49\u0e32\u0e2b\u0e31\u0e27\u0e09\u0e35\u0e14'},
+{id:'st1',name:'\u0e22\u0e32\u0e07\u0e41\u0e1b\u0e4a\u0e1b\u0e2b\u0e31\u0e27\u0e09\u0e35\u0e14'},
+{id:'st2',name:'\u0e22\u0e32\u0e07\u0e27\u0e07\u0e40\u0e14\u0e37\u0e2d\u0e19'},
+{id:'st3',name:'\u0e0b\u0e35\u0e25\u0e2b\u0e19\u0e49\u0e32\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07'},
+{id:'st4',name:'\u0e42\u0e2d\u0e23\u0e34\u0e07\u0e1d\u0e32\u0e2b\u0e19\u0e49\u0e32\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07'},
+{id:'st5',name:'\u0e0b\u0e35\u0e25\u0e17\u0e49\u0e32\u0e22\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07'}
+];
+buildDiagSection('starter_diag_area', STARTER_DIAG, 'starter');
+buildSolSection('starter_sol_area', STARTER_SOL, 'starter', '#fbc02d');
+// ===================================================================
+// ORING TABLE
+// ===================================================================
+(function buildOring(){
+var tbody = document.getElementById('oring_tbody');
+for (var i=1;i<=5;i++) {
+var tr = document.createElement('tr');
+tr.innerHTML = '<td style="padding:8px;border:1px solid #a5d6a7;font-weight:bold;background:#fff;">'+i+'</td>'
++'<td style="padding:5px;border:1px solid #a5d6a7;background:#fff;"><input type="number" class="oring_input" data-no="'+i+'" data-type="\u0e1a\u0e32\u0e07" placeholder="0" min="0" style="width:45px;padding:5px;border:1px solid #ccc;border-radius:5px;text-align:center;"></td>'
++'<td style="padding:5px;border:1px solid #a5d6a7;background:#fff;"><input type="number" class="oring_input" data-no="'+i+'" data-type="\u0e2b\u0e19\u0e32" placeholder="0" min="0" style="width:45px;padding:5px;border:1px solid #ccc;border-radius:5px;text-align:center;"></td>';
+tbody.appendChild(tr);
+}
+})();
+// ===================================================================
+// CHK20 - MANDATORY 20-ITEM CHECK
+// ===================================================================
+var CHK20_DIAG = [
+{name:'\u0e44\u0e1f\u0e23\u0e2d\u0e1a\u0e04\u0e31\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e1c\u0e34\u0e14\u0e1b\u0e01\u0e15\u0e34']},
+{name:'\u0e43\u0e1a\u0e1b\u0e31\u0e14\u0e19\u0e49\u0e33\u0e1d\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e']},
+{name:'\u0e01\u0e23\u0e2d\u0e07\u0e41\u0e2d\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e2a\u0e01\u0e1b\u0e23\u0e01']},
+{name:'\u0e01\u0e23\u0e2d\u0e07\u0e2d\u0e32\u0e01\u0e32\u0e28',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e2a\u0e01\u0e1b\u0e23\u0e01']},
+{name:'\u0e2b\u0e25\u0e48\u0e2d\u0e40\u0e22\u0e47\u0e19',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e19\u0e49\u0e33\u0e02\u0e32\u0e14']},
+{name:'\u0e2a\u0e32\u0e22\u0e1e\u0e32\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e41\u0e15\u0e01\u0e23\u0e32\u0e27']},
+{name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e01\u0e34\u0e19\u0e23\u0e30\u0e22\u0e30','\u0e44\u0e21\u0e48\u0e16\u0e36\u0e07\u0e02\u0e35\u0e14'], liters:true},
+{name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e02\u0e32\u0e14','\u0e40\u0e01\u0e34\u0e19\u0e23\u0e30\u0e22\u0e30']},
+{name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e1a\u0e23\u0e01',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e14\u0e33','\u0e1e\u0e23\u0e48\u0e2d\u0e07']},
+{name:'\u0e41\u0e1a\u0e15\u0e40\u0e15\u0e2d\u0e23\u0e35\u0e48',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e37\u0e48\u0e2d\u0e21\u0e2a\u0e20\u0e32\u0e1e','\u0e02\u0e31\u0e49\u0e27\u0e08\u0e21']},
+{name:'\u0e21\u0e2d\u0e40\u0e15\u0e2d\u0e23\u0e4c\u0e09\u0e35\u0e14\u0e01\u0e23\u0e30\u0e08\u0e01',opts:['\u0e1b\u0e01\u0e15\u0e34','\u0e40\u0e2a\u0e35\u0e22']},
+{name:'\u0e44\u0e1f\u0e42\u0e0a\u0e27\u0e4c\u0e2b\u0e19\u0e49\u0e32\u0e1b\u0e31\u0e14',multi:['\u0e44\u0e1f\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07','ABS','SRS']},
+{name:'\u0e23\u0e2d\u0e22\u0e02\u0e31\u0e14\u0e02\u0e48\u0e27\u0e19',opts:['\u0e44\u0e21\u0e48\u0e21\u0e35','\u0e21\u0e35']},
+{name:'\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e40\u0e15\u0e34\u0e21\u0e23\u0e32\u0e22\u0e25\u0e30\u0e40\u0e2d\u0e35\u0e22\u0e14',extraInput:true}
+];
+(function buildChk20Diag(){
+var area = document.getElementById('chk20_diag_area');
+CHK20_DIAG.forEach(function(item, i){
+var row = document.createElement('div');
+row.className = 'chk20-diag-row';
+row.style.cssText = 'margin-bottom:8px;padding:10px 12px;background:#fff;border-radius:10px;border:1px solid #ffcdd2;';
+row.setAttribute('data-chk-name', item.name);
+var html = '<label style="display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer;">';
+html += '<input type="checkbox" class="chk20-cb" style="accent-color:#d32f2f;flex-shrink:0;">';
+html += '<span class="part-name" style="font-size:15px;font-weight:700;color:#37474f;">'+item.name+'</span></label>';
+html += '<div style="display:flex;flex-wrap:wrap;gap:6px;padding-left:28px;">';
+if (item.opts) {
+item.opts.forEach(function(opt){
+var isOk = (opt === '\u0e1b\u0e01\u0e15\u0e34' || opt === '\u0e44\u0e21\u0e48\u0e21\u0e35');
+var bg = isOk ? '#f0f9f0' : '#fff5f5';
+var bdr = isOk ? '#c8e6c9' : '#ffcdd2';
+var clr = isOk ? '#2e7d32' : '#c62828';
+var fw = isOk ? '600' : '700';
+html += '<label style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:8px 14px;border-radius:10px;border:1px solid '+bdr+';background:'+bg+';font-size:14px;font-weight:'+fw+';color:'+clr+';"><input type="radio" name="chk20_'+i+'" value="'+opt+'" onchange="onChk20Change(this)" style="accent-color:'+clr+';">'+opt+'</label>';
+});
+if (item.liters) {
+html += '<div style="display:flex;align-items:center;gap:6px;margin-top:4px;width:100%;">';
+html += '<input type="number" id="chk20_liters_'+i+'" placeholder="จำนวน" min="0" step="0.5" style="width:70px;padding:6px;border:1px solid #ddd;border-radius:8px;font-size:13px;" oninput="onChk20Change(this)">';
+html += '<span style="font-size:13px;">ลิตร</span></div>';
+}
+}
+if (item.multi) {
+item.multi.forEach(function(m){
+html += '<label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:6px 10px;border-radius:8px;border:1px solid #ffcdd2;background:#fff5f5;font-size:13px;color:#c62828;"><input type="checkbox" class="chk20-multi" value="'+m+'" onchange="onChk20Change(this)" style="accent-color:#d32f2f;">'+m+'</label>';
+});
+}
+if (item.extraInput) {
+html += '<textarea class="chk20-extra" placeholder="รายละเอียด..." rows="2" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:8px;font-size:13px;margin-top:5px;" oninput="onChk20Change(this)"></textarea>';
+}
+html += '</div>';
+row.innerHTML = html;
+area.appendChild(row);
+});
+})();
+function onChk20Change(radio) {
+var row = radio.closest('.chk20-diag-row');
+var cb = row.querySelector('.chk20-cb');
+if (cb && !cb.checked) cb.checked = true;
+}
+var CHK20_SOL = [
+{id:'cs0',name:'\u0e44\u0e1f\u0e23\u0e2d\u0e1a\u0e04\u0e31\u0e19',multi:['\u0e44\u0e1f\u0e2b\u0e19\u0e49\u0e32','\u0e44\u0e1f\u0e2a\u0e39\u0e07','\u0e44\u0e1f\u0e15\u0e31\u0e14\u0e2b\u0e21\u0e2d\u0e01','\u0e44\u0e1f\u0e2b\u0e23\u0e35\u0e48','\u0e44\u0e1f\u0e40\u0e25\u0e35\u0e49\u0e22\u0e27\u0e2b\u0e19\u0e49\u0e32 L','\u0e44\u0e1f\u0e40\u0e25\u0e35\u0e49\u0e22\u0e27\u0e2b\u0e19\u0e49\u0e32 R','\u0e44\u0e1f\u0e2b\u0e23\u0e35\u0e48\u0e2b\u0e25\u0e31\u0e07','\u0e44\u0e1f\u0e40\u0e1a\u0e23\u0e01','\u0e44\u0e1f\u0e16\u0e2d\u0e22','\u0e44\u0e1f\u0e40\u0e25\u0e35\u0e49\u0e22\u0e27\u0e2b\u0e25\u0e31\u0e07 L','\u0e44\u0e1f\u0e40\u0e25\u0e35\u0e49\u0e22\u0e27\u0e2b\u0e25\u0e31\u0e07 R','\u0e44\u0e1f\u0e2a\u0e48\u0e2d\u0e07\u0e1b\u0e49\u0e32\u0e22']},
+{id:'cs1',name:'\u0e43\u0e1a\u0e1b\u0e31\u0e14\u0e19\u0e49\u0e33\u0e1d\u0e19',multi:['12','13','14','15','16','17','18','19','20','21','22','23','24','25','26']},
+{id:'cs2',name:'\u0e01\u0e23\u0e2d\u0e07\u0e41\u0e2d\u0e23\u0e4c'},
+{id:'cs3',name:'\u0e01\u0e23\u0e2d\u0e07\u0e2d\u0e32\u0e01\u0e32\u0e28'},
+{id:'cs4',name:'\u0e2b\u0e25\u0e48\u0e2d\u0e40\u0e22\u0e47\u0e19',coolant:true},
+{id:'cs5',name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07',subs:['5w30','10w40','15w40']},
+{id:'cs5b',name:'\u0e01\u0e23\u0e2d\u0e07\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07'},
+{id:'cs6',name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e01\u0e35\u0e22\u0e23\u0e4c',subs:['10w40','75w90','ATF','CVT']},
+{id:'cs7',name:'\u0e19\u0e49\u0e33\u0e21\u0e31\u0e19\u0e40\u0e1a\u0e23\u0e01',subs:['DOT3','DOT4']},
+{id:'cs8',name:'\u0e02\u0e31\u0e14\u0e17\u0e33\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e30\u0e2d\u0e32\u0e14\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e19\u0e49\u0e32'},
+{id:'cs9',name:'\u0e02\u0e31\u0e14\u0e17\u0e33\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e30\u0e2d\u0e32\u0e14\u0e40\u0e1a\u0e23\u0e01\u0e2b\u0e25\u0e31\u0e07'},
+{id:'cs10',name:'\u0e41\u0e1a\u0e15\u0e40\u0e15\u0e2d\u0e23\u0e35\u0e48',subs:['19L','24L','31L','Ln0','Ln1','Ln2','Ln3','Ln4','Ln5']}
+];
+(function buildChk20Sol(){
+var area = document.getElementById('chk20_sol_area');
+CHK20_SOL.forEach(function(item){
+var row = document.createElement('div');
+row.className = 'chk20-sol-row';
+row.style.cssText = 'padding:10px 8px;border-bottom:1px solid #e8f5e9;';
+var hasSub = (item.subs || item.multi || item.coolant);
+var html = '<label style="display:flex;align-items:center;gap:8px;margin-bottom:'+(hasSub?'6':'0')+'px;cursor:pointer;">';
+html += '<input type="checkbox" class="chk20-sol-chk" data-sol-id="'+item.id+'" data-sol-name="'+item.name+'" style="accent-color:#2e7d32;flex-shrink:0;">';
+html += '<span style="font-size:14px;font-weight:600;color:#2e7d32;">'+item.name+'</span></label>';
+if (item.coolant) {
+var emojis = ['🩷','🩵','💚','🧡'];
+html += '<div style="display:flex;flex-wrap:wrap;gap:6px;padding-left:28px;margin-bottom:6px;">';
+emojis.forEach(function(em){
+html += '<label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:6px 12px;border-radius:8px;border:1px solid #ddd;background:#fafafa;font-size:16px;"><input type="radio" name="chk20_sol_cs4_color" value="'+em+'" onchange="autoChk20SolCheck(this)" style="accent-color:#2e7d32;"> '+em+'</label>';
+});
+html += '</div>';
+html += '<div style="display:flex;align-items:center;gap:6px;padding-left:28px;">';
+html += '<input type="number" id="cs4_liters" placeholder="จำนวน" min="0" step="0.5" style="width:80px;padding:6px;border:1px solid #ddd;border-radius:8px;font-size:13px;" oninput="autoChk20SolCoolant()">';
+html += '<span style="font-size:13px;">ลิตร</span></div>';
+} else if (item.subs) {
+html += '<div style="display:flex;flex-wrap:wrap;gap:6px;padding-left:28px;">';
+item.subs.forEach(function(sub){
+html += '<label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:6px 12px;border-radius:8px;border:1px solid #ddd;background:#fafafa;font-size:13px;color:#555;"><input type="radio" name="chk20_sol_'+item.id+'_sub" value="'+sub+'" onchange="autoChk20SolCheck(this)" style="accent-color:#2e7d32;">'+sub+'</label>';
+});
+html += '</div>';
+} else if (item.multi) {
+if (item.id === 'cs0') {
+html += '<div style="display:flex;flex-wrap:wrap;gap:4px;padding-left:28px;">';
+item.multi.forEach(function(m){
+html += '<div class="cs0-light-item" style="display:inline-flex;align-items:center;gap:3px;padding:4px 8px;border:1px solid #c8e6c9;border-radius:8px;background:#f9fff9;margin:2px;">';
+html += '<label style="display:flex;align-items:center;gap:4px;cursor:pointer;font-size:12px;color:#2e7d32;white-space:nowrap;margin:0;min-height:auto;"><input type="checkbox" class="chk20_multi_cs0" value="'+m+'" onchange="autoChk20SolCheckMulti(this,\'cs0\')" style="accent-color:#2e7d32;width:14px;height:14px;min-width:14px;">'+m+'</label>';
+html += '<input type="number" class="cs0-light-qty" placeholder="#" min="1" max="99" style="width:34px;padding:2px 3px;border:1px solid #ddd;border-radius:4px;font-size:11px;text-align:center;">';
+html += '</div>';
+});
+html += '</div>';
+} else {
+html += '<div style="display:flex;flex-wrap:wrap;gap:6px;padding-left:28px;">';
+item.multi.forEach(function(m){
+html += '<label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:6px 10px;border-radius:8px;border:1px solid #c8e6c9;background:#f9fff9;font-size:13px;color:#2e7d32;"><input type="checkbox" class="chk20_multi_'+item.id+'" value="'+m+'" onchange="autoChk20SolCheckMulti(this,\''+item.id+'\')" style="accent-color:#2e7d32;">'+m+'</label>';
+});
+html += '</div>';
+}
+}
+row.innerHTML = html;
+area.appendChild(row);
+});
+})();
+function autoChk20SolCheck(radio) {
+var row = radio.closest('.chk20-sol-row');
+if (row) {
+var chk = row.querySelector('.chk20-sol-chk');
+if (chk && !chk.checked) chk.checked = true;
+}
+}
+function autoChk20SolCheckMulti(cb, solId) {
+var row = cb.closest('.chk20-sol-row');
+if (row) {
+var mainChk = row.querySelector('.chk20-sol-chk');
+if (mainChk && cb.checked && !mainChk.checked) mainChk.checked = true;
+}
+}
+function autoChk20SolCoolant() {
+var litersInp = document.getElementById('cs4_liters');
+if (litersInp && litersInp.value.trim()) {
+var row = litersInp.closest('.chk20-sol-row');
+if (row) {
+var chk = row.querySelector('.chk20-sol-chk');
+if (chk && !chk.checked) chk.checked = true;
+}
+}
+}
+function collectChk20Diag() {
+var lines = [];
+document.querySelectorAll('.chk20-diag-row').forEach(function(row, i){
+var cb = row.querySelector('.chk20-cb');
+if (!cb || !cb.checked) return;
+var nm = row.querySelector('.part-name');
+var name = nm ? _dec(nm.textContent.trim()) : '';
+var res = [];
+var r = row.querySelector('input[type="radio"]:checked');
+if (r) {
+var isOk = (r.value === '\u0e1b\u0e01\u0e15\u0e34' || r.value === '\u0e44\u0e21\u0e48\u0e21\u0e35');
+res.push(isOk ? '\u2705'+r.value : '\u274c'+r.value);
+var litersInp = document.getElementById('chk20_liters_'+i);
+if (litersInp && litersInp.value.trim()) res.push(litersInp.value.trim()+' \u0e25\u0e34\u0e15\u0e23');
+}
+row.querySelectorAll('.chk20-multi:checked').forEach(function(mc){
+res.push(_dec(mc.value));
+});
+var extra = row.querySelector('.chk20-extra');
+if (extra && extra.value.trim()) res.push(_dec(extra.value.trim()));
+
+if (res.length) lines.push('- '+name+' '+res.join(' '));
+else lines.push('- '+name+' \u2705\u0e1b\u0e01\u0e15\u0e34');
+});
+return lines.join('\n');
+}
+function collectChk20Sol() {
+var lines = [];
+document.querySelectorAll('.chk20-sol-chk:checked').forEach(function(chk){
+var name = _dec(chk.getAttribute('data-sol-name'));
+var solId = chk.getAttribute('data-sol-id') || '';
+var row = chk.closest('.chk20-sol-row');
+var detail = '';
+if (solId === 'cs4') {
+var colorRadio = row.querySelector('input[name="chk20_sol_cs4_color"]:checked');
+var litersInp = document.getElementById('cs4_liters');
+var parts = [];
+if (colorRadio) parts.push(colorRadio.value);
+if (litersInp && litersInp.value.trim()) parts.push(litersInp.value.trim()+' ลิตร');
+if (parts.length) detail = ' - '+parts.join(' ');
+} else if (solId === 'cs0') {
+var lightParts = [];
+row.querySelectorAll('.cs0-light-item').forEach(function(itemDiv){
+var cb2 = itemDiv.querySelector('input[type="checkbox"]');
+var qtyInp = itemDiv.querySelector('.cs0-light-qty');
+if (cb2 && cb2.checked) {
+var lightName = _dec(cb2.value);
+var qty = qtyInp ? qtyInp.value.trim() : '';
+lightParts.push(qty ? lightName+'('+qty+')' : lightName);
+}
+});
+if (lightParts.length) detail = ' - '+lightParts.join(', ');
+} else {
+var sub = row.querySelector('input[type="radio"]:checked');
+detail = sub ? ' - '+_dec(sub.value) : '';
+if (!sub) {
+var multiVals = [];
+row.querySelectorAll('input[type="checkbox"]:checked:not(.chk20-sol-chk)').forEach(function(mc){
+multiVals.push(_dec(mc.value));
+});
+if (multiVals.length) detail = ' - '+multiVals.join(', ');
+}
+}
+lines.push('- '+name+detail);
+});
+return lines.join('\n');
+}
+function validateChk20() {
+var allChecked = true;
+document.querySelectorAll('.chk20-diag-row').forEach(function(row){
+var cb = row.querySelector('.chk20-cb');
+if (!cb || !cb.checked) allChecked = false;
+});
+return allChecked;
+}
+// ===================================================================
+// UTILITY FUNCTIONS
+// ===================================================================
+window.handleAdd = function(inputId,targetId,icon,cls){ var el=document.getElementById(inputId);var val=el.value.trim();if(val==='')return;var d=document.createElement('div');d.className=cls;d.setAttribute('data-val',val);d.style.cssText='display:flex;justify-content:space-between;background:#f8f9fa;padding:10px;margin-top:8px;border:1px solid #ddd;border-radius:8px;font-size:14px;';d.innerHTML='<span>'+icon+' '+val+'</span> <span onclick="this.parentElement.remove()" style="color:red;font-weight:bold;cursor:pointer;">\u2715</span>';document.getElementById(targetId).appendChild(d);el.value=''; };
+window.clearAllData = function(){ if(confirm("\u0e25\u0e49\u0e32\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14?")) location.reload(); };
+(function(){
+['ac','susp','brake','eng_p','eng_d','cool','clutch','chk20','starter'].forEach(function(id){
+var ct=document.getElementById(id+'_content');
+if(ct){ct.addEventListener('click',function(){_sectionUsed[id]=true;});ct.addEventListener('change',function(){_sectionUsed[id]=true;});}
+});
+})();
+function saveToSheet(data){
+fetch('https://script.google.com/macros/s/AKfycbxPH0t-H7vjvnAsRfM9ZioAEC3iSS__HwdqmBeHFk1zEp3S_0dSAALrRMaG1dIuk4_l/exec',{
+method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)
+}).catch(function(err){console.log('Sheet error:',err);});
+}
+function _dec(str) {
+if (!str) return str;
+var ta = document.createElement('textarea');
+ta.innerHTML = str;
+return ta.value;
+}
+// ===================================================================
+// BUILD FULL OUTPUT — แก้ไข: เพิ่ม solCounter สำหรับ numbered list
+// ในส่วน ♻️ วิธีแก้ไข/นำเสนอลูกค้า ทุกหมวด รันต่อเนื่องกัน
+// ===================================================================
+function buildFullOutput(){
+var lines=[];
+var solCounter=0; // ← counter เรียงเลขต่อเนื่องทุกหมวด
+
+// helper: แปลง "- รายการ" เป็น "1. รายการ" (เฉพาะบรรทัดที่เป็น solution item)
+function addSolLines(txt){
+  if(!txt) return;
+  txt.split('\n').forEach(function(l){
+    if(!l) return;
+    if(l.indexOf('- ')===0){
+      solCounter++;
+      lines.push(solCounter+'. '+l.substring(2));
+    } else {
+      lines.push(l); // บรรทัดย่อย (เช่น "  - โอริง") คงไว้
+    }
+  });
+}
+
+var m=document.getElementById('m_input').value.trim()||'-';
+var p=document.getElementById('p_input').value.trim()||'-';
+var divider = '----------------';
+lines.push('\ud83d\ude97 *\u0e22\u0e35\u0e48\u0e2b\u0e49\u0e2d/\u0e23\u0e38\u0e48\u0e19\u0e23\u0e16 :* '+m);
+lines.push('\ud83d\udccb *\u0e17\u0e30\u0e40\u0e1a\u0e35\u0e22\u0e19\u0e23\u0e16 :* '+p);
+var chk20Diag = collectChk20Diag();
+if (chk20Diag) {
+lines.push('');
+lines.push(divider);
+lines.push('\ud83d\udea8 *\u0e40\u0e0a\u0e47\u0e04\u0e23\u0e30\u0e22\u0e30\u0e1b\u0e23\u0e30\u0e08\u0e33\u0e04\u0e31\u0e19*');
+lines.push(divider);
+chk20Diag.split('\n').forEach(function(l){if(l)lines.push(l);});
+}
+var chk20Sol = collectChk20Sol();
+if (chk20Sol) {
+lines.push('');
+lines.push('\ud83d\udfe2 *\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e19\u0e33\u0e40\u0e2a\u0e19\u0e2d*');
+addSolLines(chk20Sol); // ← numbered
+}
+if(_sectionUsed['ac']){
+var acDiag=collectACDiag();
+var acSol=collectACSol();
+var acParts=collectACParts();
+if(acDiag || acSol || acParts){
+lines.push('');
+lines.push(divider);
+lines.push('\u2744\ufe0f *\u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e2d\u0e23\u0e4c*');
+lines.push(divider);
+}
+if(acDiag){lines.push('\ud83d\udca2 \u0e2d\u0e32\u0e01\u0e32\u0e28:');acDiag.split('\n').forEach(function(l){if(l)lines.push(l);});}
+if(acSol){lines.push('');lines.push('\u267b\ufe0f \u0e41\u0e01\u0e49\u0e44\u0e02/\u0e19\u0e33\u0e40\u0e2a\u0e19\u0e2d:');addSolLines(acSol);} // ← numbered
+if(acParts){lines.push('');lines.push('\u2b55 \u0e2d\u0e30\u0e44\u0e2b\u0e25\u0e48:');addSolLines(acParts);}
+}
+function pushSection(sid, emoji, label) {
+var diag = collectDiag(sid);
+var sol = collectSol(sid);
+if (!diag && !sol) return;
+lines.push('');
+lines.push(divider);
+lines.push(emoji+' *'+label+'*');
+lines.push(divider);
+if (diag) { lines.push('\ud83d\udca2 \u0e2d\u0e32\u0e01\u0e32\u0e28:'); diag.split('\n').forEach(function(l){if(l)lines.push(l);}); }
+if (sol) { lines.push(''); lines.push('\u267b\ufe0f \u0e41\u0e01\u0e49\u0e44\u0e02/\u0e19\u0e33\u0e40\u0e2a\u0e19\u0e2d:'); addSolLines(sol); } // ← numbered
+}
+pushSection('susp', '\ud83d\udd29', '\u0e0a\u0e48\u0e27\u0e07\u0e25\u0e48\u0e32\u0e07');
+pushSection('brake', '\ud83d\uded1', '\u0e23\u0e30\u0e1a\u0e1a\u0e40\u0e1a\u0e23\u0e01');
+pushSection('eng_p', '\ud83d\udd27', '\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e40\u0e1a\u0e19\u0e0b\u0e34\u0e19');
+pushSection('eng_d', '\u26fd', '\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e14\u0e35\u0e40\u0e0b\u0e25');
+pushSection('cool', '\ud83c\udf21\ufe0f', '\u0e23\u0e30\u0e1a\u0e1a\u0e23\u0e30\u0e1a\u0e32\u0e22\u0e04\u0e27\u0e32\u0e21\u0e23\u0e49\u0e2d\u0e19');
+pushSection('clutch', '\ud83e\uddb4', '\u0e0a\u0e38\u0e14\u0e04\u0e25\u0e31\u0e17\u0e0b\u0e4c');
+var starterDiag = collectDiag('starter');
+if (starterDiag) {
+lines.push('');
+lines.push(divider);
+lines.push('\u26a1 *\u0e23\u0e30\u0e1a\u0e1a\u0e44\u0e14\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17*');
+lines.push(divider);
+lines.push('\ud83d\udca2 \u0e2d\u0e32\u0e01\u0e32\u0e28:');
+starterDiag.split('\n').forEach(function(l){if(l)lines.push(l);});
+}
+var starterSol = collectSol('starter');
+if (starterSol) {
+lines.push('');
+lines.push(divider);
+lines.push('\ud83d\udd27 *\u0e41\u0e01\u0e49\u0e0a\u0e38\u0e14\u0e23\u0e31\u0e48\u0e27\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e22\u0e19\u0e15\u0e4c*');
+lines.push(divider);
+lines.push('\u267b\ufe0f \u0e41\u0e01\u0e49\u0e44\u0e02/\u0e19\u0e33\u0e40\u0e2a\u0e19\u0e2d:');
+addSolLines(starterSol);
+}
+var t=document.getElementById('t_input').value.trim();
+var r=document.getElementById('r_input').value.trim();
+if(t){lines.push('');lines.push('\u23f0 *\u0e43\u0e0a\u0e49\u0e40\u0e27\u0e25\u0e32 :* '+t);}
+if(r) lines.push('\ud83d\udcdd *\u0e2b\u0e21\u0e32\u0e22\u0e40\u0e2b\u0e15\u0e38 :* '+r);
+return _dec(lines.join('\n'));
+}
+
+window.switchPvTab = function(tab) {
+  var tabText = document.getElementById('pv_tab_text');
+  var tabImage = document.getElementById('pv_tab_image');
+  var contentText = document.getElementById('pv_tab_content_text');
+  var contentImage = document.getElementById('pv_tab_content_image');
+  if (!tabText || !tabImage || !contentText || !contentImage) return;
+  if (tab === 'text') {
+    tabText.style.background = '#0056b3';
+    tabText.style.color = 'white';
+    tabImage.style.background = '#f0f0f0';
+    tabImage.style.color = '#555';
+    contentText.style.display = 'block';
+    contentImage.style.display = 'none';
+  } else {
+    tabText.style.background = '#f0f0f0';
+    tabText.style.color = '#555';
+    tabImage.style.background = '#0056b3';
+    tabImage.style.color = 'white';
+    contentText.style.display = 'none';
+    contentImage.style.display = 'block';
+  }
+};
+
+window.buildSlipHTML = function() {
+  var m = document.getElementById('m_input').value.trim() || '-';
+  var p = document.getElementById('p_input').value.trim() || '-';
+  var dateStr = new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+  var timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+
+  var html = '';
+  // 1. Slip Header (Black background, red accent border)
+  html += '<div style="background: #1a1a1a; padding: 22px 20px; text-align: center; border-bottom: 5px solid #e53935; color: #ffffff;">';
+  html += '  <div style="margin-bottom: 12px; display: flex; justify-content: center; align-items: center;">';
+  html += '    <img src="โลโก้.png" style="max-height: 70px; max-width: 100%; object-fit: contain;" />';
+  html += '  </div>';
+  html += '  <h2 style="margin: 0; font-size: 23px; font-weight: 700; letter-spacing: 0.5px;">ใบส่งงานและรายงานผลตรวจเช็ค</h2>';
+  html += '  <p style="margin: 6px 0 0 0; font-size: 13px; color: #b0bec5; font-weight: 300;">อู่บริการซ่อมและบำรุงรักษามาตรฐาน</p>';
+  html += '</div>';
+
+  // 2. Car Details Section (White background, light grey box with red accent left border)
+  html += '<div style="padding: 20px; background: #ffffff;">';
+  html += '  <div style="background: #fafafa; border: 1px solid #e0e0e0; border-left: 5px solid #e53935; border-radius: 8px; padding: 15px; margin-bottom: 20px;">';
+  html += '    <table style="width: 100%; border-collapse: collapse; font-size: 14px;">';
+  html += '      <tr>';
+  html += '        <td style="padding: 5px 0; color: #616161; width: 35%; font-weight: bold;">🚗 ยี่ห้อ/รุ่นรถ:</td>';
+  html += '        <td style="padding: 5px 0; font-weight: 700; color: #212121;">' + m + '</td>';
+  html += '      </tr>';
+  html += '      <tr>';
+  html += '        <td style="padding: 5px 0; color: #616161; font-weight: bold;">📋 ทะเบียนรถ:</td>';
+  html += '        <td style="padding: 5px 0; font-weight: 700; color: #212121;">' + p + '</td>';
+  html += '      </tr>';
+  html += '      <tr>';
+  html += '        <td style="padding: 5px 0; color: #616161; font-weight: bold;">📅 วันเวลาที่ตรวจ:</td>';
+  html += '        <td style="padding: 5px 0; color: #212121;">' + dateStr + ' ' + timeStr + ' น.</td>';
+  html += '      </tr>';
+  html += '    </table>';
+  html += '  </div>';
+
+  function renderSlipHeader(emoji, title) {
+    return '<div style="background: #1a1a1a; color: #ffffff; font-size: 14px; font-weight: 700; padding: 10px 14px; border-radius: 6px 6px 0 0; margin-top: 18px; display: flex; align-items: center; gap: 8px; border-left: 4px solid #e53935;">' +
+           '  <span>' + emoji + '</span>' +
+           '  <span>' + title + '</span>' +
+           '</div>';
+  }
+
+  // 3. Mandatory 20-item check
+  var hasChk20 = false;
+  var chk20Rows = '';
+  document.querySelectorAll('.chk20-diag-row').forEach(function(row, i) {
+    var cb = row.querySelector('.chk20-cb');
+    if (!cb || !cb.checked) return;
+    hasChk20 = true;
+    
+    var nm = row.querySelector('.part-name');
+    var name = nm ? _dec(nm.textContent.trim()) : '';
+    var statusText = 'ปกติ';
+    var isError = false;
+    var extraDetails = [];
+    
+    var r = row.querySelector('input[type="radio"]:checked');
+    if (r) {
+      statusText = r.value;
+      if (r.value !== 'ปกติ' && r.value !== 'ไม่มี') {
+        isError = true;
+      }
+      var litersInp = document.getElementById('chk20_liters_' + i);
+      if (litersInp && litersInp.value.trim()) {
+        extraDetails.push(litersInp.value.trim() + ' ลิตร');
+      }
+    }
+    
+    row.querySelectorAll('.chk20-multi:checked').forEach(function(mc) {
+      extraDetails.push(_dec(mc.value));
+      isError = true;
+    });
+    
+    var extra = row.querySelector('.chk20-extra');
+    if (extra && extra.value.trim()) {
+      extraDetails.push(_dec(extra.value.trim()));
+      isError = true;
+    }
+    
+    var detailStr = extraDetails.length ? ' (' + extraDetails.join(', ') + ')' : '';
+    var badgeColor = isError ? '#ffebee' : '#e8f5e9';
+    var textColor = isError ? '#c62828' : '#2e7d32';
+    var icon = isError ? '❌' : '✅';
+    
+    chk20Rows += '<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; border-bottom: 1px solid #eee; font-size: 13px; background: #fff;">';
+    chk20Rows += '  <span style="color: #424242; font-weight: 600;">' + name + '</span>';
+    chk20Rows += '  <span style="background: ' + badgeColor + '; color: ' + textColor + '; padding: 3px 10px; border-radius: 20px; font-weight: bold; font-size: 11px; display: inline-flex; align-items: center; gap: 4px;">';
+    chk20Rows += '    ' + icon + ' ' + statusText + detailStr;
+    chk20Rows += '  </span>';
+    chk20Rows += '</div>';
+  });
+
+  if (hasChk20) {
+    html += renderSlipHeader('🚨', 'ผลการตรวจเช็คระยะประจำคัน');
+    html += '<div style="border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 8px 8px; overflow: hidden; margin-bottom: 20px;">' + chk20Rows + '</div>';
+  }
+
+  // 4. Proposed solutions per system
+  var solCounter = 0;
+  function addSystemRepairs(sid, emoji, label) {
+    var diag = collectDiag(sid);
+    var sol = collectSol(sid);
+    var acParts = (sid === 'ac') ? collectACParts() : '';
+    
+    if (!diag && !sol && !acParts) return;
+    
+    html += renderSlipHeader(emoji, label);
+    html += '<div style="border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 8px 8px; padding: 14px; background: #fafafa; margin-bottom: 20px; font-size: 13px; line-height: 1.6;">';
+    
+    if (diag) {
+      html += '  <div style="margin-bottom: 10px;">';
+      html += '    <span style="color: #c62828; font-weight: 700; display: block; margin-bottom: 4px;">💥 อาการชำรุด:</span>';
+      diag.split('\n').forEach(function(line) {
+        if (line) html += '    <div style="padding-left: 12px; color: #424242;">' + line + '</div>';
+      });
+      html += '  </div>';
+    }
+    
+    if (sol) {
+      html += '  <div style="margin-bottom: 10px;">';
+      html += '    <span style="color: #2e7d32; font-weight: 700; display: block; margin-bottom: 4px;">♻️ วิธีแก้ไข/นำเสนอ:</span>';
+      sol.split('\n').forEach(function(line) {
+        if (line) {
+          if (line.indexOf('- ') === 0) {
+            solCounter++;
+            html += '    <div style="padding-left: 12px; color: #212121; font-weight: 600;">' + solCounter + '. ' + line.substring(2) + '</div>';
+          } else {
+            html += '    <div style="padding-left: 24px; color: #616161; font-size: 12px;">' + line + '</div>';
+          }
+        }
+      });
+      html += '  </div>';
+    }
+    
+    if (acParts) {
+      html += '  <div>';
+      html += '    <span style="color: #e65100; font-weight: 700; display: block; margin-bottom: 4px;">⭕ อะไหล่ที่เสนอแนะ:</span>';
+      acParts.split('\n').forEach(function(line) {
+        if (line) {
+          if (line.indexOf('- ') === 0) {
+            html += '    <div style="padding-left: 12px; color: #212121; font-weight: 600;">📍 ' + line.substring(2) + '</div>';
+          } else {
+            html += '    <div style="padding-left: 24px; color: #616161; font-size: 12px;">' + line + '</div>';
+          }
+        }
+      });
+      html += '  </div>';
+    }
+    
+    html += '</div>';
+  }
+
+  var chk20Sol = collectChk20Sol();
+  if (chk20Sol) {
+    html += renderSlipHeader('🟢', 'รายการนำเสนอทั่วไป');
+    html += '<div style="border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 8px 8px; padding: 14px; background: #fafafa; margin-bottom: 20px; font-size: 13px; line-height: 1.6;">';
+    chk20Sol.split('\n').forEach(function(line) {
+      if (line) {
+        if (line.indexOf('- ') === 0) {
+          solCounter++;
+          html += '    <div style="padding-left: 12px; color: #212121; font-weight: 600;">' + solCounter + '. ' + line.substring(2) + '</div>';
+        } else {
+          html += '    <div style="padding-left: 24px; color: #616161; font-size: 12px;">' + line + '</div>';
+        }
+      }
+    });
+    html += '</div>';
+  }
+
+  if (_sectionUsed['ac']) {
+    addSystemRepairs('ac', '❄️', 'ระบบแอร์');
+  }
+  addSystemRepairs('susp', '🔩', 'ช่วงล่าง');
+  addSystemRepairs('brake', '🛑', 'ระบบเบรก');
+  addSystemRepairs('eng_p', '🔧', 'เครื่องยนต์เบนซิน');
+  addSystemRepairs('eng_d', '⛽', 'เครื่องยนต์ดีเซล');
+  addSystemRepairs('cool', '🌡️', 'ระบบระบายความร้อน');
+  addSystemRepairs('clutch', '🦴', 'ชุดคลัทช์');
+  
+  var starterDiag = collectDiag('starter');
+  var starterSol = collectSol('starter');
+  if (starterDiag || starterSol) {
+    html += renderSlipHeader('🔧', 'ระบบไฟสตาร์ท / แก้ชุดรั่วเครื่องยนต์');
+    html += '<div style="border: 1px solid #e0e0e0; border-top: none; border-radius: 0 0 8px 8px; padding: 14px; background: #fafafa; margin-bottom: 20px; font-size: 13px; line-height: 1.6;">';
+    if (starterDiag) {
+      html += '  <div style="margin-bottom: 10px;">';
+      html += '    <span style="color: #c62828; font-weight: 700; display: block; margin-bottom: 4px;">💥 อาการชำรุด (ระบบไฟ):</span>';
+      starterDiag.split('\n').forEach(function(line) {
+        if (line) html += '    <div style="padding-left: 12px; color: #424242;">' + line + '</div>';
+      });
+      html += '  </div>';
+    }
+    if (starterSol) {
+      html += '  <div>';
+      html += '    <span style="color: #2e7d32; font-weight: 700; display: block; margin-bottom: 4px;">♻️ วิธีแก้ไข (แก้ชุดรั่วเครื่องยนต์):</span>';
+      starterSol.split('\n').forEach(function(line) {
+        if (line) {
+          if (line.indexOf('- ') === 0) {
+            solCounter++;
+            html += '    <div style="padding-left: 12px; color: #212121; font-weight: 600;">' + solCounter + '. ' + line.substring(2) + '</div>';
+          } else {
+            html += '    <div style="padding-left: 24px; color: #616161; font-size: 12px;">' + line + '</div>';
+          }
+        }
+      });
+      html += '  </div>';
+    }
+    html += '</div>';
+  }
+
+  // 5. Time and Remark
+  var t = document.getElementById('t_input').value.trim();
+  var r = document.getElementById('r_input').value.trim();
+  if (t || r) {
+    html += '<div style="border-top: 2px dashed #ccc; padding-top: 15px; margin-top: 20px; font-size: 13px; line-height: 1.6;">';
+    if (t) {
+      html += '  <div style="margin-bottom: 8px; color: #212121;">⏰ <b>ระยะเวลาดำเนินการ:</b> ' + t + '</div>';
+    }
+    if (r) {
+      html += '  <div style="color: #424242; background: #fafafa; padding: 12px; border-radius: 8px; border: 1px solid #eee; font-style: italic;">📝 <b>หมายเหตุ:</b> ' + r + '</div>';
+    }
+    html += '</div>';
+  }
+
+  // 6. Slip Footer (Standard banner in Black, Red accent top border)
+  html += '  <div style="margin-top: 30px; text-align: center; border-top: 3px solid #e53935; padding-top: 20px;">';
+  html += '    <p style="margin: 0; font-size: 14px; font-weight: 700; color: #1a1a1a; letter-spacing: 0.5px;">ขอบคุณที่เลือกใช้บริการของเรา</p>';
+  html += '    <p style="margin: 4px 0 0 0; font-size: 11px; color: #757575;">* เอกสารชี้แจงเพื่อประกอบการพิจารณาซ่อมบำรุง *</p>';
+  html += '  </div>';
+  html += '</div>';
+
+  document.getElementById('slip_container').innerHTML = html;
+};
+
+var _slipDataURL = null;
+
+window.generateSlipImage = function() {
+  var loading = document.getElementById('pv_slip_loading');
+  var img = document.getElementById('pv_slip_image');
+  var btn = document.getElementById('download_slip_btn');
+  
+  if (loading) { loading.textContent = 'กำลังสร้างรูปภาพสลิป...'; loading.style.display = 'block'; }
+  if (img) img.style.display = 'none';
+  if (btn) btn.style.display = 'none';
+  
+  _slipDataURL = null;
+  
+  buildSlipHTML();
+  
+  setTimeout(function() {
+    var container = document.getElementById('slip_container');
+    html2canvas(container, {
+      useCORS: true,
+      scale: 2, // Double resolution for clear fonts
+      logging: false,
+      backgroundColor: '#ffffff'
+    }).then(function(canvas) {
+      _slipDataURL = canvas.toDataURL('image/png');
+      if (img) {
+        img.src = _slipDataURL;
+        img.style.display = 'block';
+      }
+      if (loading) loading.style.display = 'none';
+      if (btn) btn.style.display = 'inline-flex';
+    }).catch(function(err) {
+      console.error('html2canvas error:', err);
+      if (loading) loading.textContent = 'เกิดข้อผิดพลาดในการแปลงเป็นภาพ';
+    });
+  }, 200);
+};
+
+window.downloadSlipImage = function() {
+  if (!_slipDataURL) return;
+  var plate = document.getElementById('p_input').value.trim() || 'car';
+  var link = document.createElement('a');
+  link.download = 'slip_' + plate + '.png';
+  link.href = _slipDataURL;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
+var _pvURL=null;
+window.previewResult=function(){
+var valid = validateChk20();
+var warn = document.getElementById('chk20_warning');
+if (!valid) {
+if (warn) warn.style.display = 'block';
+var ct = document.getElementById('chk20_content');
+if (ct && ct.style.display === 'none') toggleSection('chk20');
+} else {
+if (warn) warn.style.display = 'none';
+}
+var txt = buildFullOutput();
+if (!valid) txt = '\u26a0\ufe0f\u26a0\ufe0f \u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e01\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e47\u0e04\u0e04\u0e23\u0e1a! \u0e2a\u0e48\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u26a0\ufe0f\u26a0\ufe0f\n'+txt;
+_pvURL = valid ? "https://line.me/R/msg/text/?"+encodeURIComponent(buildFullOutput()) : null;
+document.getElementById('pv_content').textContent=txt;
+
+// Reset tabs and contents
+switchPvTab('text');
+
+document.getElementById('pv_modal').style.display='block';
+document.body.style.overflow='hidden';
+
+// Render slip if valid
+if (valid) {
+  generateSlipImage();
+} else {
+  var loading = document.getElementById('pv_slip_loading');
+  if (loading) loading.textContent = 'กรุณากรอกรายการตรวจเช็คให้ครบถ้วนเพื่อสร้างสลิป';
+  var img = document.getElementById('pv_slip_image');
+  if (img) img.style.display = 'none';
+  var btn = document.getElementById('download_slip_btn');
+  if (btn) btn.style.display = 'none';
+}
+};
+window.closePV=function(){document.getElementById('pv_modal').style.display='none';document.body.style.overflow='';_pvURL=null;};
+window.doSend=function(){
+if (!validateChk20()) { alert('\u0e01\u0e23\u0e38\u0e13\u0e32\u0e01\u0e23\u0e2d\u0e01\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e47\u0e04\u0e43\u0e2b\u0e49\u0e04\u0e23\u0e1a\u0e01\u0e48\u0e2d\u0e19\u0e2a\u0e48\u0e07!'); return; }
+if(_pvURL){window.location.href=_pvURL;closePV();}
+};
+document.addEventListener('click',function(e){if(e.target&&e.target.id==='pv_modal')closePV();});
+window.sendToLine=function(){
+if (!validateChk20()) {
+var warn = document.getElementById('chk20_warning');
+if (warn) warn.style.display = 'block';
+var ct = document.getElementById('chk20_content');
+if (ct && ct.style.display === 'none') toggleSection('chk20');
+alert('\u0e01\u0e23\u0e38\u0e13\u0e32\u0e01\u0e23\u0e2d\u0e01\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e47\u0e04 8 \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e43\u0e2b\u0e49\u0e04\u0e23\u0e1a\u0e01\u0e48\u0e2d\u0e19\u0e2a\u0e48\u0e07!');
+return;
+}
+var txt=buildFullOutput();
+saveToSheet({
+date:new Date().toLocaleDateString('th-TH'),
+model:document.getElementById('m_input').value.trim()||'-',
+plate:document.getElementById('p_input').value.trim()||'-',
+chk20Diag:collectChk20Diag(), chk20Sol:collectChk20Sol(),
+acDiag:collectACDiag(), acSol:collectACSol(), acParts:collectACParts(),
+suspDiag:collectDiag('susp'), suspSol:collectSol('susp'),
+brakeDiag:collectDiag('brake'), brakeSol:collectSol('brake'),
+engPDiag:collectDiag('eng_p'), engPSol:collectSol('eng_p'),
+engDDiag:collectDiag('eng_d'), engDSol:collectSol('eng_d'),
+coolDiag:collectDiag('cool'), coolSol:collectSol('cool'),
+clutchDiag:collectDiag('clutch'), clutchSol:collectSol('clutch'),
+starterDiag:collectDiag('starter'), starterSol:collectSol('starter'),
+time:document.getElementById('t_input').value.trim()||'-',
+remark:document.getElementById('r_input').value.trim()||'-'
+});
+window.location.href='https://line.me/R/msg/text/?'+encodeURIComponent(txt);
+};
+
+// ===================================================================
+// AUTOSAVE SYSTEM
+// ===================================================================
+(function(){
+    var KEY = 'car_service_autosave_v2';
+    var app = document.getElementById('service-app');
+    if(!app) return;
+
+    function saveState(){
+        try {
+            var state = {};
+            app.querySelectorAll('input, textarea').forEach(function(el, i){
+                var k = el.id || el.name || ('f_'+i);
+                if(el.type==='radio'){ if(el.checked) state[k]=el.value; }
+                else if(el.type==='checkbox'){ state[k]=el.checked; }
+                else { state[k]=el.value; }
+            });
+            localStorage.setItem(KEY, JSON.stringify(state));
+        } catch(e){}
+    }
+
+    function restoreState(){
+        try {
+            var raw = localStorage.getItem(KEY);
+            if(!raw) return;
+            var state = JSON.parse(raw);
+            app.querySelectorAll('input, textarea').forEach(function(el, i){
+                var k = el.id || el.name || ('f_'+i);
+                if(state[k]===undefined) return;
+                if(el.type==='radio'){ el.checked=(el.value==state[k]); }
+                else if(el.type==='checkbox'){ el.checked=!!state[k]; }
+                else { el.value=state[k]; }
+            });
+            ['ac','susp','brake','eng_p','eng_d','cool','clutch','chk20','starter'].forEach(function(sec){
+                var secEl = document.getElementById(sec+'_section');
+                if(!secEl) return;
+                var hasData = false;
+                secEl.querySelectorAll('input, textarea').forEach(function(inp){
+                    if(inp.type === 'radio' && inp.checked) hasData = true;
+                    else if(inp.type === 'checkbox' && inp.checked) hasData = true;
+                    else if(inp.value && inp.value.trim() !== '') hasData = true;
+                });
+                if(hasData) _sectionUsed[sec] = true;
+            });
+        } catch(e){}
+    }
+
+    var saveTimer;
+    app.addEventListener('input', function(){
+        clearTimeout(saveTimer);
+        saveTimer = setTimeout(saveState, 400);
+    });
+    app.addEventListener('change', saveState);
+    document.addEventListener('DOMContentLoaded', restoreState);
+
+    var origClear = window.clearAllData;
+    window.clearAllData = function(){
+        if(confirm("ล้างข้อมูลทั้งหมด?")){
+            try { localStorage.removeItem(KEY); } catch(e){}
+            if(typeof origClear === 'function') origClear(); else location.reload();
+        }
+    };
+})();
+</script>
+</body>
+</html>
