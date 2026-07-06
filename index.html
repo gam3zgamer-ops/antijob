@@ -1781,7 +1781,7 @@ lines.push(divider);
 lines.push('❄️ *ระบบแอร์*');
 lines.push(divider);
 }
-if(acDiag){lines.push('💢 อากาศ:');acDiag.split('\n').forEach(function(l){if(l)lines.push(l);});}
+if(acDiag){lines.push('💢 อาการ:');acDiag.split('\n').forEach(function(l){if(l)lines.push(l);});}
 if(acSol){lines.push('');lines.push('♻️ แก้ไข/นำเสนอ:');addSolLines(acSol);} // ← numbered
 if(acParts){lines.push('');lines.push('⭕ อะไหล่:');addSolLines(acParts);}
 }
@@ -1793,7 +1793,7 @@ lines.push('');
 lines.push(divider);
 lines.push(emoji+' *'+label+'*');
 lines.push(divider);
-if (diag) { lines.push('💢 อากาศ:'); diag.split('\n').forEach(function(l){if(l)lines.push(l);}); }
+if (diag) { lines.push('💢 อาการ:'); diag.split('\n').forEach(function(l){if(l)lines.push(l);}); }
 if (sol) { lines.push(''); lines.push('♻️ แก้ไข/นำเสนอ:'); addSolLines(sol); } // ← numbered
 }
 pushSection('susp', '🔩', 'ช่วงล่าง');
@@ -1808,7 +1808,7 @@ lines.push('');
 lines.push(divider);
 lines.push('⚡ *ระบบไดสตาร์ท*');
 lines.push(divider);
-lines.push('💢 อากาศ:');
+lines.push('💢 อาการ:');
 starterDiag.split('\n').forEach(function(l){if(l)lines.push(l);});
 }
 var starterSol = collectSol('starter');
