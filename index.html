@@ -941,7 +941,7 @@ AC_DIAG.forEach(function(item){
 var row = document.createElement('div');
 row.className = 'diag-row ac-diag-row';
 row.setAttribute('data-diag-id', item.id);
-var html = '<div class="diag-row-header">'+item.name+'</div>';
+var html = '<div class="diag-row-header part-name">'+item.name+'</div>';
 html += '<div class="options-container">';
 item.opts.forEach(function(opt, oi){
 var isOk = (opt === 'ปกติ');
@@ -992,7 +992,7 @@ var area = document.getElementById('ac_sol_area');
 AC_SOL.forEach(function(item){
 var row = document.createElement('div');
 row.className = 'sol-row ac-sol-row';
-var html = '<label class="sol-label-main" onclick="autoCheckSection(\'ac\')"><input type="checkbox" class="ac-sol-chk" data-sol-id="'+item.id+'"> <span style="color:var(--ac-color);">'+item.name+'</span></label>';
+var html = '<label class="sol-label-main" onclick="autoCheckSection(\'ac\')"><input type="checkbox" class="ac-sol-chk" data-sol-id="'+item.id+'" data-sol-name="'+item.name+'"> <span style="color:var(--ac-color);">'+item.name+'</span></label>';
 if (item.subs) {
 html += '<div class="sub-options-container">';
 item.subs.forEach(function(sub){
