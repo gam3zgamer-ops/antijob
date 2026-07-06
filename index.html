@@ -323,6 +323,22 @@ body {
   font-weight: 700;
 }
 
+/* Highlight checked rows in checklist */
+.chk20-diag-row {
+  transition: all 0.2s ease !important;
+  border-left: 4px solid var(--border-color) !important;
+  background: #f8fafc !important;
+}
+.chk20-diag-row:has(.chk20-cb:checked) {
+  border-left-color: var(--danger) !important;
+  background: white !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+.chk20-diag-row:has(.chk20-cb:checked) .part-name {
+  color: var(--primary) !important;
+  font-weight: 700 !important;
+}
+
 /* Solutions and list styling */
 .solution-container {
   margin-top: 14px;
@@ -1482,7 +1498,7 @@ var CHK20_DIAG = [
     
     var html = '<label class="sol-label-main">';
     html += '  <input type="checkbox" class="chk20-cb" style="width:18px;height:18px;accent-color:var(--danger);">';
-    html += '  <span>' + item.name + '</span>';
+    html += '  <span class="part-name">' + item.name + '</span>';
     html += '</label>';
     
     html += '<div class="options-container" style="padding-left: 28px;">';
@@ -1690,12 +1706,7 @@ lines.push('- '+name+detail);
 return lines.join('\n');
 }
 function validateChk20() {
-var allChecked = true;
-document.querySelectorAll('.chk20-diag-row').forEach(function(row){
-var cb = row.querySelector('.chk20-cb');
-if (!cb || !cb.checked) allChecked = false;
-});
-return allChecked;
+  return true;
 }
 // ===================================================================
 // UTILITY FUNCTIONS
