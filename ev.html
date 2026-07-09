@@ -8,53 +8,61 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root {
-  --primary: #0f172a;
-  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --border-color: #e2e8f0;
-  
-  --success: #10b981;
-  --success-bg: #ecfdf5;
-  --success-border: #a7f3d0;
-  
-  --danger: #ef4444;
-  --danger-bg: #fef2f2;
-  --danger-border: #fca5a5;
-  
-  --warning: #f59e0b;
-  --warning-bg: #fffbeb;
-  
-  --ev-blue: #2563eb;
-  --ev-blue-bg: #eff6ff;
-  --ev-blue-border: #bfdbfe;
+  --cyber-bg: linear-gradient(135deg, #080c16 0%, #03050a 100%);
+  --card-bg: rgba(15, 23, 42, 0.85);
+  --border-cyber: rgba(56, 189, 248, 0.2);
+  --neon-blue: #06b6d4;
+  --neon-blue-glow: rgba(6, 182, 212, 0.4);
+  --neon-green: #10b981;
+  --neon-green-glow: rgba(16, 185, 129, 0.3);
+  --neon-red: #ef4444;
+  --neon-red-glow: rgba(239, 68, 68, 0.3);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body { 
   font-family: 'Sarabun', 'Kanit', -apple-system, sans-serif;
-  background: var(--bg-gradient);
+  background: var(--cyber-bg);
   min-height: 100vh;
   padding: 16px 8px;
   color: var(--text-main);
+  background-attachment: fixed;
 }
 
-#service-app { 
+.container { 
   max-width: 600px; 
   margin: 0 auto; 
   width: 100%;
 }
 
-.app-title {
-  font-family: 'Kanit', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--primary);
+.header {
   text-align: center;
   margin-bottom: 24px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.header h1 { 
+  font-family: 'Kanit', sans-serif;
+  font-size: 26px; 
+  font-weight: 700; 
+  color: white;
+  margin-bottom: 4px; 
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px var(--neon-blue-glow);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header p { 
+  font-size: 13px; 
+  color: #38bdf8;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Tabs for switching between Oil and EV form */
@@ -62,9 +70,10 @@ body {
   display: flex;
   gap: 8px;
   margin-bottom: 20px;
-  background: rgba(226, 232, 240, 0.6);
+  background: rgba(15, 23, 42, 0.6);
   padding: 4px;
   border-radius: 12px;
+  border: 1px solid var(--border-cyber);
 }
 .switch-tab {
   flex: 1;
@@ -78,53 +87,13 @@ body {
   transition: all 0.2s ease;
 }
 .switch-tab:hover {
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.5);
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
 }
 .switch-tab.active {
-  background: var(--primary);
+  background: linear-gradient(135deg, #0284c7, #06b6d4);
   color: white;
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
-}
-
-/* Card components */
-.card {
-  background: var(--card-bg);
-  border-radius: 16px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-  padding: 20px;
-  margin-bottom: 16px;
-  backdrop-filter: blur(8px);
-}
-
-/* Form input styling */
-.form-group {
-  margin-bottom: 16px;
-}
-.form-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 8px;
-}
-.form-input {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 15px;
-  font-family: inherit;
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-  background: #fdfdfd;
-  color: var(--text-main);
-  transition: all 0.2s ease;
-  outline: none;
-}
-.form-input:focus {
-  border-color: var(--ev-blue);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-  background: #fff;
+  box-shadow: 0 0 15px var(--neon-blue-glow);
 }
 
 /* Technician Profile Card */
@@ -132,41 +101,42 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: var(--card-bg);
+  border: 1px solid var(--border-cyber);
   color: white;
   border-radius: 16px;
   padding: 18px;
-  margin-bottom: 16px;
-  box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.3);
+  margin-bottom: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
 }
-.tech-profile-card::before {
+.tech-profile-card::after {
   content: '';
   position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 150px;
-  height: 150px;
-  background: rgba(255,255,255,0.03);
-  border-radius: 50%;
-  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0284c7, #06b6d4);
 }
 .tech-avatar-wrapper {
   position: relative;
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  border: 3px solid rgba(255,255,255,0.2);
+  border: 3px solid rgba(56, 189, 248, 0.3);
   overflow: hidden;
   cursor: pointer;
-  background: #334155;
+  background: #1e293b;
   flex-shrink: 0;
   transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
 }
 .tech-avatar-wrapper:hover {
-  border-color: var(--success);
-  transform: scale(1.03);
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 15px var(--neon-blue);
 }
 .tech-avatar-wrapper img {
   width: 100%;
@@ -192,14 +162,14 @@ body {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #94a3b8;
+  color: var(--text-muted);
   display: block;
   margin-bottom: 4px;
 }
 .tech-info .tech-name-input {
   background: transparent;
   border: none;
-  border-bottom: 2px dashed rgba(255,255,255,0.3);
+  border-bottom: 2px dashed rgba(56, 189, 248, 0.3);
   color: white;
   font-size: 18px;
   font-weight: 700;
@@ -210,42 +180,306 @@ body {
   transition: all 0.2s ease;
 }
 .tech-info .tech-name-input:focus {
-  border-bottom-color: var(--success);
+  border-bottom-color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue-glow);
 }
 
-/* Accordion sections */
-.section-wrapper {
-  margin-bottom: 12px;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-  background: white;
+/* Steps Progress Wizard */
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  position: relative;
+  gap: 8px;
+  padding: 0 8px;
 }
-.section-header {
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: rgba(56, 189, 248, 0.15);
+  z-index: 0;
+}
+.step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.9);
+  border: 2px solid rgba(56, 189, 248, 0.3);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  cursor: pointer;
-  user-select: none;
+  justify-content: center;
+  color: var(--text-muted);
   font-weight: 700;
-  font-size: 16px;
-  transition: background 0.2s;
-  background: #fff;
+  font-size: 14px;
+  margin-bottom: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.section-header:hover {
-  background: #f8fafc;
+.step.active .step-circle {
+  background: #080c16;
+  color: white;
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 15px var(--neon-blue), inset 0 0 8px var(--neon-blue-glow);
+  transform: scale(1.1);
+  animation: pulseGlow 2s infinite alternate;
 }
-.section-arrow {
+.step-label {
+  color: var(--text-muted);
+  font-size: 11px;
+  text-align: center;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+.step.active .step-label {
+  color: white;
+  text-shadow: 0 0 5px var(--neon-blue-glow);
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px rgba(6, 182, 212, 0.3); }
+  100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.7), inset 0 0 10px rgba(6, 182, 212, 0.4); }
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  border: 1px solid var(--border-cyber);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  display: none;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(12px);
+  position: relative;
+}
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0284c7, #06b6d4);
+  border-radius: 16px 16px 0 0;
+}
+.card.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+}
+.card-icon { 
+  font-size: 24px; 
+}
+.card-title {
+  font-family: 'Kanit', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Grid & Inputs */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.f-group {
+  grid-column: span 1;
+}
+.f-group.full { 
+  grid-column: 1/-1; 
+}
+.f-label {
   font-size: 12px;
-  transition: transform 0.3s;
+  font-weight: 700;
+  color: #38bdf8;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.f-input {
+  width: 100%;
+  border: 1px solid var(--border-cyber);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  background: rgba(15, 23, 42, 0.6);
+  color: white;
+  transition: all 0.2s;
+  outline: none;
+  font-family: inherit;
+}
+.f-input:focus {
+  border-color: var(--neon-blue);
+  background: rgba(15, 23, 42, 0.85);
+  box-shadow: 0 0 10px var(--neon-blue-glow);
+}
+
+/* Section Title */
+.sec-title {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.7), rgba(6, 182, 212, 0.4));
+  color: white;
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  margin-top: 24px;
+  font-weight: 700;
+  font-size: 14px;
+  border-left: 4px solid var(--neon-blue);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+.sec-title:first-child {
+  margin-top: 0;
+}
+
+/* Checklist Items */
+.section-item {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid var(--border-cyber);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.25s ease;
+}
+.section-item:has(input[type="checkbox"]:checked) {
+  background: rgba(15, 23, 42, 0.75);
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.item-num-name-desc {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.item-num {
+  background: linear-gradient(135deg, #0284c7, #06b6d4);
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  box-shadow: 0 0 5px var(--neon-blue-glow);
+}
+.item-info {
+  flex: 1;
+}
+.item-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.35;
+  margin-bottom: 2px;
+}
+.item-detail {
+  font-size: 11px;
   color: var(--text-muted);
 }
-.section-content {
+.item-controls-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 34px;
+}
+.item-controls {
+  display: flex;
+  gap: 8px;
+}
+.mini-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid var(--border-cyber);
+  background: rgba(15, 23, 42, 0.5);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  flex: 1;
+}
+.mini-btn input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.mini-btn:hover {
+  border-color: rgba(56, 189, 248, 0.5);
+  color: white;
+}
+.mini-ok-btn.active {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--neon-green);
+  color: #10b981;
+  box-shadow: 0 0 10px var(--neon-green-glow);
+}
+.mini-ng-btn.active {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: var(--neon-red);
+  color: #ef4444;
+  box-shadow: 0 0 10px var(--neon-red-glow);
+}
+.note-input {
+  width: 100%;
+  border: 1px solid var(--neon-red-glow);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  background: rgba(239, 68, 68, 0.05);
+  color: white;
+  font-family: inherit;
+  transition: all 0.2s;
+  outline: none;
   display: none;
-  padding: 16px;
-  border-top: 1px solid var(--border-color);
-  animation: slideDown 0.2s ease-out;
+}
+.note-input.show { 
+  display: block; 
+  animation: slideDown 0.15s ease-out;
+}
+.note-input:focus {
+  border-color: var(--neon-red);
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 0 8px var(--neon-red-glow);
 }
 
 @keyframes slideDown {
@@ -253,274 +487,107 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Diagnostic Row & Option Pills styling */
-.diag-row {
-  display: flex;
-  flex-direction: column;
-  background: #f8fafc;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 10px;
-  transition: all 0.2s ease;
-}
-.diag-row:has(input[type="radio"]:checked) {
-  background: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-.diag-row:has(input[type="radio"]:checked:not([value="ปกติ"])) {
-  border-left: 4px solid var(--danger);
-}
-.diag-row:has(input[type="radio"][value="ปกติ"]:checked) {
-  border-left: 4px solid var(--success);
-}
-.diag-row-header {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-bottom: 8px;
-}
-.diag-detail {
-  font-size: 11px;
-  color: var(--text-muted);
-  margin-bottom: 8px;
-  padding-left: 2px;
-}
-.options-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.option-pill {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 16px;
-  border-radius: 30px;
-  background: white;
-  border: 1px solid var(--border-color);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-main);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  user-select: none;
-}
-.option-pill input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.option-pill:hover {
-  border-color: var(--text-muted);
-  background: #f1f5f9;
-}
-.option-pill:has(input:checked).opt-ok {
-  background: var(--success-bg);
-  border-color: var(--success);
-  color: var(--success);
-  font-weight: 700;
-}
-.option-pill:has(input:checked).opt-bad {
-  background: var(--danger-bg);
-  border-color: var(--danger);
-  color: var(--danger);
-  font-weight: 700;
-}
-
-.note-input {
-  width: 100%;
-  border: 1.5px solid var(--danger-border);
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 12px;
-  background: #fefcfc;
-  font-family: inherit;
-  transition: border-color 0.2s;
-  outline: none;
-  display: none;
-  margin-top: 8px;
-}
-.note-input.show { 
-  display: block; 
-  animation: slideDown 0.15s ease-out;
-}
-.note-input:focus {
-  border-color: var(--danger);
-  background: white;
-}
-
 /* Overall Status Box */
 .overall-status-box {
-  background: #f8fafc;
+  background: rgba(15, 23, 42, 0.4);
   padding: 16px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-cyber);
   border-radius: 12px;
   margin-bottom: 16px;
 }
 .overall-label {
   font-weight: 700;
-  font-size: 13px;
-  color: var(--ev-blue);
-  margin-bottom: 10px;
+  font-size: 13.5px;
+  color: #38bdf8;
+  margin-bottom: 12px;
 }
 .overall-options {
   display: flex;
   gap: 8px;
 }
 
-/* Buttons */
+/* Buttons layout */
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
 .btn {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  width: 100%;
-  padding: 16px;
-  font-size: 16px;
-  font-weight: 700;
+  padding: 14px 20px;
   border: none;
   border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
+  font-family: inherit;
   transition: all 0.2s ease;
-  margin-bottom: 12px;
+  outline: none;
   text-decoration: none;
 }
 .btn-primary {
-  background: var(--ev-blue);
+  background: linear-gradient(135deg, #0284c7, #06b6d4);
   color: white;
-  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 4px 15px var(--neon-blue-glow);
 }
 .btn-primary:hover {
-  background: #1d4ed8;
   transform: translateY(-1px);
+  box-shadow: 0 6px 20px var(--neon-blue);
+}
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border-cyber);
+  color: var(--text-muted);
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
 }
 .btn-success {
   background: #06C755;
   color: white;
-  box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+  box-shadow: 0 4px 12px rgba(6, 199, 85, 0.2);
 }
 .btn-success:hover {
-  background: #059669;
+  background: #05a747;
   transform: translateY(-1px);
-}
-.btn-muted {
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
-}
-.btn-muted:hover {
-  background: #f1f5f9;
-  color: var(--text-main);
+  box-shadow: 0 6px 16px rgba(6, 199, 85, 0.4);
 }
 
-/* Modal styling */
-.modal {
-  position: fixed;
-  inset: 0;
+/* Preview Box */
+.preview-box {
   background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.modal-container {
-  background: white;
-  border-radius: 20px;
-  max-width: 480px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  animation: slideDown 0.3s ease-out;
-}
-.modal-header {
-  background: var(--primary);
-  color: white;
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.modal-title {
-  font-size: 16px;
-  font-weight: 700;
-}
-.modal-close {
-  background: rgba(255,255,255,0.15);
-  border: none;
-  color: white;
-  font-size: 20px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-body {
-  padding: 20px;
-}
-.modal-tabs {
-  display: flex;
-  gap: 8px;
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 12px;
-  margin-bottom: 16px;
-}
-.modal-tab-btn {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  background: #f1f5f9;
-  color: var(--text-muted);
-  font-weight: 700;
-  font-size: 13px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.modal-tab-btn.active {
-  background: var(--primary);
-  color: white;
-}
-.text-preview-box {
-  background: #f8fafc;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-cyber);
+  padding: 14px;
   border-radius: 12px;
-  padding: 16px;
-  font-size: 13px;
+  font-size: 12.5px;
   line-height: 1.8;
-  max-height: 40vh;
-  overflow-y: auto;
   white-space: pre-wrap;
   word-break: break-all;
+  margin-bottom: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  color: white;
 }
-.slip-preview-container {
-  background: #f8fafc;
-  border: 1px dashed var(--border-color);
-  border-radius: 12px;
-  padding: 12px;
-  min-height: 250px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.slip-image {
-  max-width: 100%;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+@media (max-width: 480px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .button-group { flex-direction: column; gap: 8px; }
+  .btn { width: 100%; }
 }
 </style>
 </head>
 <body>
 
-<div id="service-app">
-  <h3 class="app-title">📋 แบบฟอร์มส่งงานช่าง</h3>
+<div class="container">
+  <div class="header">
+    <h1>⚡ xEV Check Sheet</h1>
+    <p>แบบฟอร์มตรวจสอบรถไฟฟ้าและไฮบริด - 185Service</p>
+  </div>
 
   <div class="form-switch-tabs">
     <a href="index.html" class="switch-tab">🚗 ฟอร์มรถน้ำมัน</a>
@@ -542,351 +609,406 @@ body {
     </div>
   </div>
 
-  <!-- รุ่นรถ / ทะเบียน -->
-  <div class="card">
-    <div class="form-group">
-      <label for="cust_model">🚗 ยี่ห้อ/รุ่นรถ :</label>
-      <input id="cust_model" placeholder="เช่น BYD Atto 3, Tesla Model Y" class="form-input" type="text" />
+  <div class="steps">
+    <div class="step active" onclick="goToStep(1)">
+      <div class="step-circle">1</div>
+      <div class="step-label">ข้อมูล</div>
     </div>
-    <div class="form-group">
-      <label for="cust_plate">📋 ทะเบียนรถ :</label>
-      <input id="cust_plate" placeholder="เลขทะเบียน" class="form-input" type="text" />
+    <div class="step" onclick="goToStep(2)">
+      <div class="step-circle">2</div>
+      <div class="step-label">ตรวจสอบ</div>
     </div>
-    <div class="form-group">
-      <label for="cust_name">👤 ชื่อลูกค้า :</label>
-      <input id="cust_name" placeholder="ชื่อ-นามสกุล" class="form-input" type="text" />
+    <div class="step" onclick="goToStep(3)">
+      <div class="step-circle">3</div>
+      <div class="step-label">สรุป</div>
     </div>
-    <div class="form-group">
-      <label for="cust_tel">📞 เบอร์โทรศัพท์ :</label>
-      <input id="cust_tel" placeholder="0xx-xxx-xxxx" class="form-input" type="text" />
-    </div>
-    <div class="form-group" style="margin-bottom: 0;">
-      <label for="cust_km">📍 เลขกิโลเมตร :</label>
-      <input id="cust_km" placeholder="ตัวเลขระยะกิโลเมตร" class="form-input" type="number" />
+    <div class="step" onclick="goToStep(4)">
+      <div class="step-circle">4</div>
+      <div class="step-label">ส่ง</div>
     </div>
   </div>
 
-  <!-- ========== ACCORDIONS SECTIONS ========== -->
-  
-  <!-- 1. การตรวจสอบทั่วไป -->
-  <div class="section-wrapper" id="sec_gen_section">
-    <div class="section-header" id="hdr_sec_gen" onclick="toggleSection('sec_gen')" style="border-left: 4px solid var(--ev-blue);">
-      <span style="color: var(--ev-blue); flex: 1; font-weight: 700;">🔍 การตรวจสอบทั่วไป</span>
-      <span id="sec_gen_arrow" class="section-arrow">▼</span>
+  <!-- Step 1: ข้อมูล -->
+  <div class="card active" id="step1">
+    <div class="card-header">
+      <div class="card-icon">👤</div>
+      <div>
+        <div class="card-title">ข้อมูลลูกค้า</div>
+      </div>
     </div>
-    <div class="section-content" id="sec_gen_content">
-      <div id="area_sec_gen"></div>
+
+    <div class="info-grid">
+      <div class="f-group full">
+        <div class="f-label">ชื่อลูกค้า</div>
+        <input class="f-input" type="text" id="cust_name" placeholder="ชื่อ-นามสกุล">
+      </div>
+      <div class="f-group">
+        <div class="f-label">เบอร์โทร</div>
+        <input class="f-input" type="tel" id="cust_tel" placeholder="0xx-xxx-xxxx">
+      </div>
+      <div class="f-group">
+        <div class="f-label">ทะเบียนรถ</div>
+        <input class="f-input" type="text" id="cust_plate" placeholder="กก 0000">
+      </div>
+      <div class="f-group full">
+        <div class="f-label">ยี่ห้อ/รุ่นรถ</div>
+        <input class="f-input" type="text" id="cust_model" placeholder="เช่น BYD Atto 3, Tesla Model Y">
+      </div>
+      <div class="f-group">
+        <div class="f-label">เลขกิโลเมตร</div>
+        <input class="f-input" type="number" id="cust_km" placeholder="00000">
+      </div>
+      <div class="f-group">
+        <div class="f-label">วันที่ตรวจ</div>
+        <input class="f-input" type="text" id="date_input" placeholder="วว/ดด/ปปปป">
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="btn btn-primary" onclick="goToStep(2)">ถัดไป →</button>
     </div>
   </div>
 
-  <!-- 2. การตรวจสอบระบบไฟฟ้าแรงสูง -->
-  <div class="section-wrapper" id="sec_hv_section">
-    <div class="section-header" id="hdr_sec_hv" onclick="toggleSection('sec_hv')" style="border-left: 4px solid #ea580c;">
-      <span style="color: #ea580c; flex: 1; font-weight: 700;">⚡ การตรวจสอบระบบไฟฟ้าแรงสูง</span>
-      <span id="sec_hv_arrow" class="section-arrow">▼</span>
+  <!-- Step 2: ตรวจสอบ -->
+  <div class="card" id="step2">
+    <div class="card-header">
+      <div class="card-icon">🔍</div>
+      <div>
+        <div class="card-title">ผลการตรวจสอบระบบ</div>
+      </div>
     </div>
-    <div class="section-content" id="sec_hv_content">
-      <div id="area_sec_hv"></div>
+
+    <div id="items_container"></div>
+
+    <div class="button-group">
+      <button class="btn btn-secondary" onclick="goToStep(1)">← ย้อนกลับ</button>
+      <button class="btn btn-primary" onclick="goToStep(3)">ถัดไป →</button>
     </div>
   </div>
 
-  <!-- 3. การตรวจสอบระบบเบรกและช่วงล่าง -->
-  <div class="section-wrapper" id="sec_chassis_section">
-    <div class="section-header" id="hdr_sec_chassis" onclick="toggleSection('sec_chassis')" style="border-left: 4px solid #7c3aed;">
-      <span style="color: #7c3aed; flex: 1; font-weight: 700;">🔩 การตรวจสอบระบบเบรกและช่วงล่าง</span>
-      <span id="sec_chassis_arrow" class="section-arrow">▼</span>
+  <!-- Step 3: สรุป -->
+  <div class="card" id="step3">
+    <div class="card-header">
+      <div class="card-icon">📊</div>
+      <div>
+        <div class="card-title">ผลการตรวจโดยรวม</div>
+      </div>
     </div>
-    <div class="section-content" id="sec_chassis_content">
-      <div id="area_sec_chassis"></div>
-    </div>
-  </div>
 
-  <!-- สรุปผลโดยรวม / หมายเหตุ -->
-  <div class="card" style="margin-top: 20px;">
     <div class="overall-status-box">
-      <div class="overall-label">📊 สรุปผลการตรวจสอบโดยรวม:</div>
+      <div class="overall-label">สรุปผลการตรวจสอบโดยรวม:</div>
       <div class="overall-options">
-        <label class="option-pill opt-ok" id="lbl_overall_ok">
-          <input type="radio" name="overall_status" id="chk_overall_ok" value="OK" onchange="updateOverall()"> <span>✅ ปกติ (OK)</span>
+        <label class="mini-btn mini-ok-btn" id="lbl_overall_ok" style="padding: 10px 20px;">
+          <input type="checkbox" id="chk_overall_ok" onchange="updateOverall('OK')"> ✅ ปกติ (OK)
         </label>
-        <label class="option-pill opt-bad" id="lbl_overall_ng">
-          <input type="radio" name="overall_status" id="chk_overall_ng" value="NG" onchange="updateOverall()"> <span>❌ ต้องแก้ไข (NG)</span>
+        <label class="mini-btn mini-ng-btn" id="lbl_overall_ng" style="padding: 10px 20px;">
+          <input type="checkbox" id="chk_overall_ng" onchange="updateOverall('NG')"> ❌ ต้องแก้ไข (NG)
         </label>
       </div>
     </div>
-    <div class="form-group" style="margin-bottom: 12px;">
-      <b style="font-size: 15px; font-weight: 700; display: block; margin-bottom: 6px;">⏰ ใช้เวลา :</b>
-      <input id="t_input" placeholder="เช่น 2 ชม." class="form-input" type="text" />
+
+    <div class="f-group full">
+      <div class="f-label">ข้อแนะนำของช่างโดยรวม</div>
+      <textarea class="f-input" id="overall_note" rows="3" placeholder="ระบุคำแนะนำเพิ่มเติมเกี่ยวกับรถคันนี้..."></textarea>
     </div>
-    <div class="form-group" style="margin-bottom: 0;">
-      <b style="font-size: 15px; font-weight: 700; display: block; margin-bottom: 6px;">📝 ข้อแนะนำเพิ่มเติม :</b>
-      <textarea id="overall_note" placeholder="รายละเอียดเพิ่มเติมของงานซ่อม..." rows="2" class="form-input" style="resize: vertical;"></textarea>
+
+    <div class="button-group">
+      <button class="btn btn-secondary" onclick="goToStep(2)">← ย้อนกลับ</button>
+      <button class="btn btn-primary" onclick="goToStep(4)">ถัดไป →</button>
     </div>
   </div>
 
-  <!-- Actions -->
-  <button onclick="previewResult()" class="btn btn-primary">👁️ ดูตัวอย่างก่อนส่ง</button>
-  <button onclick="sendToLine()" class="btn btn-success">ส่งเข้ากลุ่ม LINE ทันที 🚀</button>
-  <button onclick="clearAllData()" class="btn btn-muted">🔄 ล้างข้อมูลทั้งหมด</button>
-</div>
-
-<!-- Preview Modal -->
-<div id="pv_modal" class="modal" style="display: none;">
-  <div class="modal-container">
-    <div class="modal-header">
-      <b class="modal-title">👁️ ตัวอย่างผลลัพธ์</b>
-      <button onclick="closePV()" class="modal-close">×</button>
+  <!-- Step 4: ส่ง -->
+  <div class="card" id="step4">
+    <div class="card-header">
+      <div class="card-icon">📤</div>
+      <div>
+        <div class="card-title">ส่งออกข้อมูล</div>
+      </div>
     </div>
-    <div class="modal-body">
-      <div class="modal-tabs">
-        <button onclick="switchPvTab('text')" id="pv_tab_text" class="modal-tab-btn active">💬 ข้อความแชท LINE</button>
-        <button onclick="switchPvTab('image')" id="pv_tab_image" class="modal-tab-btn">📸 รูปสลิปส่งงาน</button>
-      </div>
 
-      <!-- Text Tab -->
-      <div id="pv_tab_content_text">
-        <div id="pv_content" class="text-preview-box"></div>
-      </div>
+    <h3 style="margin-bottom: 10px; color: #38bdf8; font-family: 'Kanit'; font-size: 14px;">📋 ตัวอย่างข้อความแชท LINE:</h3>
+    <div class="preview-box" id="previewText"></div>
 
-      <!-- Image Tab -->
-      <div id="pv_tab_content_image" style="display: none; text-align: center;">
-        <div id="pv_slip_image_container" class="slip-preview-container">
-          <span id="pv_slip_loading" style="color: #666; font-size: 13px;">กำลังสร้างรูปภาพสลิป...</span>
-          <img id="pv_slip_image" class="slip-image" style="display: none;" />
-        </div>
-        <button onclick="downloadSlipImage()" id="download_slip_btn" class="btn btn-success" style="display: none; margin-top: 10px; padding: 12px; font-size: 14px; margin-bottom: 0;">💾 บันทึกรูปภาพสลิปลงเครื่อง</button>
-      </div>
+    <h3 style="margin-bottom: 10px; color: #38bdf8; font-family: 'Kanit'; font-size: 14px;">📄 รูปภาพสลิปส่งงาน:</h3>
+    <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-cyber); padding: 12px; border-radius: 12px; text-align: center; margin-bottom: 15px;">
+      <img id="receiptImage" src="" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+    </div>
 
-      <div style="display: flex; gap: 10px; margin-top: 14px; border-top: 1px solid var(--border-color); padding-top: 14px;">
-        <button onclick="closePV()" class="btn btn-muted" style="margin: 0; padding: 12px; font-size: 14px;">← แก้ไข</button>
-        <button onclick="doSend()" class="btn btn-success" style="margin: 0; padding: 12px; font-size: 14px; flex: 2;">ยืนยันส่ง LINE 🚀</button>
-      </div>
+    <div class="button-group">
+      <button class="btn btn-secondary" onclick="goToStep(3)">← ย้อนกลับ</button>
+      <button class="btn btn-success" onclick="sendLine()">ส่งไป LINE + บันทึกรูป</button>
     </div>
   </div>
+
 </div>
 
 <!-- Off-screen container for rendering the slip image -->
-<div id="slip_container" style="position: absolute; left: -9999px; top: -9999px; width: 400px; background: #ffffff; font-family: 'Sarabun', 'Kanit', sans-serif; box-sizing: border-box; padding: 0;"></div>
-<img src="โลโก้.png" style="display: none;" id="logo_preload" />
+<div id="hiddenReceiptElement" style="position: absolute; left: -9999px; top: -9999px; width: 380px; background: #ffffff; font-family: 'Sarabun', 'Kanit', sans-serif; box-sizing: border-box; padding: 0;"></div>
 
 <script>
-// ===== GLOBAL STATE =====
-var _sectionUsed = {sec_gen:false, sec_hv:false, sec_chassis:false};
-
-function toggleSection(id) {
-  var el = document.getElementById(id+'_content');
-  var arr = document.getElementById(id+'_arrow');
-  if (!el) return;
-  var open = el.style.display !== 'none';
-  el.style.display = open ? 'none' : 'block';
-  if (arr) arr.style.transform = open ? '' : 'rotate(180deg)';
-}
-
-function autoCheckSection(id) { 
-  _sectionUsed[id] = true; 
-}
-
 // ===== SECTIONS DATA =====
-var SECTIONS = {
-  sec_gen: {
+var SECTIONS = [
+  {
     title: 'การตรวจสอบทั่วไป',
+    emoji: '🔍',
     items: [
-      { id: 'g1', name:'ระบบไฟส่องสว่าง/แตร', opts:['ปกติ','ผิดปกติ'] },
-      { id: 'g2', name:'ใบปัดน้ำฝน/ยางปัดน้ำฝน/น้ำฉีดกระจก', opts:['ปกติ','เสื่อมสภาพ'] },
-      { id: 'g3', name:'แบตเตอรี่ 12V และประสิทธิภาพ', opts:['ปกติ','เสื่อมสภาพ'] },
-      { id: 'g4', name:'ลมยางและระบบ TPMS', opts:['ปกติ','ผิดปกติ'] },
-      { id: 'g5', name:'กรองอากาศและระบบปรับอากาศ', opts:['ปกติ','สกปรก'] },
-      { id: 'g6', name:'การทำงานพัดลมระบายความร้อน', opts:['ปกติ','เสื่อมสภาพ'] },
-      { id: 'g7', name:'ระดับ/สภาพน้ำหล่อเย็นมอเตอร์', opts:['ปกติ','ระดับต่ำ'] },
-      { id: 'g8', name:'ระดับ/สภาพน้ำหล่อเย็นแบตเตอรี่', opts:['ปกติ','ระดับต่ำ'] },
-      { id: 'g9', name:'ระดับ/สภาพ/ท่อทางน้ำมันเบรก', opts:['ปกติ','เสื่อมสภาพ'] }
+      { id:1,  name:'ตรวจสอบระบบไฟส่องสว่าง/แตร',                         detail:'ทำงานดีปกติ' },
+      { id:2,  name:'ตรวจสอบใบปัดน้ำฝน/ยางปัดน้ำฝน/น้ำฉีดกระจก',          detail:'หลวมคลอน, ยางเสื่อมสภาพ' },
+      { id:3,  name:'ตรวจสอบแบตเตอรี่ 12V และประสิทธิภาพ',                 detail:'ทำงานดีปกติ, เสียหาย' },
+      { id:4,  name:'ตรวจสอบลมยางและระบบ TPMS',                             detail:'ทำงานดีปกติ, เสียหาย' },
+      { id:5,  name:'ตรวจสภาพกรองและระบบปรับอากาศ',                        detail:'สกปรก, ตัน, เสียหาย' },
+      { id:6,  name:'ตรวจสอบการทำงานพัดลมระบายความร้อน',                   detail:'ทำงานดีปกติ, เสียหาย' },
+      { id:7,  name:'ตรวจสอบระดับ/สภาพน้ำหล่อเย็นมอเตอร์',                detail:'เสื่อมสภาพ, ระดับต่ำ' },
+      { id:8,  name:'ตรวจสอบระดับ/สภาพน้ำหล่อเย็นแบตเตอรี่',              detail:'เสื่อมสภาพ, ระดับต่ำ' },
+      { id:9,  name:'ตรวจสอบระดับ/สภาพ/ท่อทางน้ำมันเบรก',                  detail:'เสื่อมสภาพ, ระดับต่ำ' },
     ]
   },
-  sec_hv: {
+  {
     title: 'การตรวจสอบระบบไฟฟ้าแรงสูง',
+    emoji: '⚡',
     items: [
-      { id: 'h1', name:'ชิ้นส่วนปกป้องมอเตอร์และขับเคลื่อน', opts:['ปกติ','ชำรุด'] },
-      { id: 'h2', name:'การหลวมของชุดสายไฟแรงสูง', opts:['ปกติ','หลวม'] },
-      { id: 'h3', name:'ความเสียหายสายไฟแรงสูงทั้งหมด', opts:['ปกติ','ชำรุด'] },
-      { id: 'h4', name:'ความจุและสุขภาพของแบตเตอรี่', opts:['ปกติ','เสื่อมสภาพ'] },
-      { id: 'h5', name:'ความเสียหายของชุดแบตเตอรี่', opts:['ปกติ','ชำรุด'] },
-      { id: 'h6', name:'ตรวจสอบและทำความสะอาดช่องชาร์จ', opts:['ปกติ','สกปรก'] },
-      { id: 'h7', name:'ทดสอบความจุและสุขภาพแบตเตอรี่ (SOH, SOC)', opts:['ปกติ','เสื่อมสภาพ'] }
+      { id:10, name:'ตรวจสอบชิ้นส่วนปกป้องมอเตอร์และขับเคลื่อน',           detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:11, name:'ตรวจสอบการหลวมของชุดสายไฟแรงสูง',                     detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:12, name:'ตรวจสอบความเสียหายสายไฟแรงสูงทั้งหมด',                detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:13, name:'ตรวจสอบความจุและสุขภาพของแบตเตอรี่',                  detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:14, name:'ตรวจสอบความเสียหายของชุดแบตเตอรี่',                   detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:15, name:'ตรวจสอบและทำความสะอาดช่องชาร์จ',                      detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:16, name:'ทดสอบความจุและสุขภาพแบตเตอรี่ (SOH, SOC)',             detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
     ]
   },
-  sec_chassis: {
+  {
     title: 'การตรวจสอบระบบเบรกและช่วงล่าง',
+    emoji: '🔩',
     items: [
-      { id: 'c1', name:'ความหนาผ้าเบรก/จานดิสก์เบรก', opts:['ปกติ','บาง'] },
-      { id: 'c2', name:'ชุดคาลิปเปอร์และความดันสลักเบรก', opts:['ปกติ','ติดขัด'] },
-      { id: 'c3', name:'ความหลวมลูกปืนล้อ', opts:['ปกติ','หลวม'] },
-      { id: 'c4', name:'คานรับแรงบิดและระบบพวงมาลัย', opts:['ปกติ','ชำรุด'] },
-      { id: 'c5', name:'คานทอร์ชันและยางกันฝุ่น', opts:['ปกติ','ชำรุด'] },
-      { id: 'c6', name:'ระดับ/สภาพน้ำมันเกียร์', opts:['ปกติ','เสื่อมสภาพ'] },
-      { id: 'c7', name:'โช้คอัพหน้า/หลัง', opts:['ปกติ','รั่วซึม'] },
-      { id: 'c8', name:'ช่วงล่างด้านหน้า', opts:['ปกติ','หลวม'] },
-      { id: 'c9', name:'ช่วงล่างด้านหลัง', opts:['ปกติ','หลวม'] }
+      { id:17, name:'ตรวจสอบความหนาผ้าเบรก/จานดิสก์เบรก',                  detail:'หน้า, หลัง, สภาพผ้า' },
+      { id:18, name:'ตรวจสอบชุดคาลิปเปอร์และความดันสลักเบรก',              detail:'ติดขัด, สนิมเกาะ' },
+      { id:19, name:'ตรวจสอบความหลวมลูกปืนล้อ',                             detail:'เสียงดัง, หลวม, คลอน' },
+      { id:20, name:'ตรวจสอบคานรับแรงบิดและระบบพวงมาลัย',               detail:'เสียงดัง, หลวม, เสียหาย' },
+      { id:21, name:'ตรวจสอบคานทอร์ชันและยางกันฝุ่น',                            detail:'เสียงดัง, สภาพยางหุ้ม' },
+      { id:22, name:'ตรวจสอบระดับ/สภาพน้ำมันเกียร์',                       detail:'เสื่อมสภาพ, ระดับต่ำ' },
+      { id:23, name:'ตรวจสอบโช้คอัพหน้า/หลัง',                              detail:'รั่วซึม, ยางหุ้มฉีกขาด' },
+      { id:24, name:'ตรวจสอบช่วงล่างด้านหน้า',                              detail:'เสียงดัง, หลวม' },
+      { id:25, name:'ตรวจสอบช่วงล่างด้านหลัง',                              detail:'เสียงดัง, หลวม' },
     ]
   }
-};
+];
+
+var currentStep = 1;
 
 // ===== BUILD UI =====
-(function buildUI(){
-  Object.keys(SECTIONS).forEach(function(secId) {
-    var area = document.getElementById('area_' + secId);
-    var data = SECTIONS[secId];
-    
-    data.items.forEach(function(item, idx) {
+(function buildUI() {
+  var container = document.getElementById('items_container');
+  SECTIONS.forEach(function(sec) {
+    var wrap = document.createElement('div');
+    wrap.style.marginBottom = '20px';
+
+    var hdr = document.createElement('div');
+    hdr.className = 'sec-title';
+    hdr.textContent = sec.emoji + ' ' + sec.title + ' (' + sec.items.length + ' รายการ)';
+    wrap.appendChild(hdr);
+
+    sec.items.forEach(function(item) {
       var row = document.createElement('div');
-      row.className = 'diag-row';
+      row.className = 'section-item';
       row.id = 'row_' + item.id;
       
-      var html = '<div class="diag-row-header part-name">' + item.name + '</div>';
-      html += '<div class="options-container">';
+      var numNameDesc = document.createElement('div');
+      numNameDesc.className = 'item-num-name-desc';
       
-      item.opts.forEach(function(opt, oi) {
-        var isOk = (opt === 'ปกติ');
-        var cls = isOk ? 'opt-ok' : 'opt-bad';
-        html += '<label class="option-pill ' + cls + '">';
-        html += '  <input type="radio" name="ev_chk_' + item.id + '" value="' + opt + '" onchange="onItemChange(\'' + item.id + '\', \'' + secId + '\')">';
-        html += '  <span>' + opt + '</span>';
-        html += '</label>';
-      });
+      var numEl = document.createElement('div');
+      numEl.className = 'item-num';
+      numEl.textContent = item.id;
       
-      html += '</div>';
-      html += '<input type="text" class="note-input" id="note_' + item.id + '" placeholder="ระบุอาการชำรุดเพิ่มเติม..." oninput="autoCheckSection(\'' + secId + '\')" />';
+      var infoEl = document.createElement('div');
+      infoEl.className = 'item-info';
+      infoEl.innerHTML = 
+        '<div class="item-name">' + item.name + '</div>' +
+        '<div class="item-detail">📎 ' + item.detail + '</div>';
       
-      row.innerHTML = html;
-      area.appendChild(row);
+      numNameDesc.appendChild(numEl);
+      numNameDesc.appendChild(infoEl);
+      row.appendChild(numNameDesc);
+      
+      var ctrlWrap = document.createElement('div');
+      ctrlWrap.className = 'item-controls-wrap';
+      
+      var ctrlEl = document.createElement('div');
+      ctrlEl.className = 'item-controls';
+      ctrlEl.innerHTML =
+        '<label class="mini-btn mini-ok-btn" id="lbl_ok_' + item.id + '">' +
+          '<input type="checkbox" id="chk_ok_' + item.id + '" onchange="onItemChange(' + item.id + ',\'OK\')"> OK' +
+        '</label>' +
+        '<label class="mini-btn mini-ng-btn" id="lbl_ng_' + item.id + '">' +
+          '<input type="checkbox" id="chk_ng_' + item.id + '" onchange="onItemChange(' + item.id + ',\'NG\')"> NG' +
+        '</label>';
+        
+      var noteEl = document.createElement('input');
+      noteEl.type = 'text';
+      noteEl.className = 'note-input';
+      noteEl.id = 'note_' + item.id;
+      noteEl.placeholder = 'ระบุอาการชำรุดเพิ่มเติม...';
+      
+      ctrlWrap.appendChild(ctrlEl);
+      ctrlWrap.appendChild(noteEl);
+      row.appendChild(ctrlWrap);
+      wrap.appendChild(row);
     });
+
+    container.appendChild(wrap);
   });
 })();
 
-function onItemChange(itemId, secId) {
-  var activeRadio = document.querySelector('input[name="ev_chk_' + itemId + '"]:checked');
-  var noteInp = document.getElementById('note_' + itemId);
+// ===== STEP NAVIGATION =====
+function goToStep(n) {
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.remove('active');
+    c.style.display = 'none';
+  });
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   
-  _sectionUsed[secId] = true;
+  var activeCard = document.getElementById('step' + n);
+  activeCard.style.display = 'block';
+  setTimeout(() => {
+    activeCard.classList.add('active');
+  }, 10);
   
-  if (activeRadio) {
-    var isOk = (activeRadio.value === 'ปกติ');
-    if (!isOk) {
-      noteInp.classList.add('show');
-    } else {
-      noteInp.classList.remove('show');
-      noteInp.value = '';
-    }
+  document.querySelectorAll('.step')[n - 1].classList.add('active');
+  
+  currentStep = n;
+  
+  if (n === 4) {
+    updatePreview();
+    generateReceiptPreview();
+  }
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== ITEM CONTROL =====
+function onItemChange(id, val) {
+  var okChk = document.getElementById('chk_ok_' + id);
+  var ngChk = document.getElementById('chk_ng_' + id);
+  
+  if (val === 'OK' && okChk.checked) ngChk.checked = false;
+  if (val === 'NG' && ngChk.checked) okChk.checked = false;
+
+  document.getElementById('lbl_ok_' + id).className = 'mini-btn mini-ok-btn' + (okChk.checked ? ' active' : '');
+  document.getElementById('lbl_ng_' + id).className = 'mini-btn mini-ng-btn' + (ngChk.checked ? ' active' : '');
+  
+  var row = document.getElementById('row_' + id);
+  if (okChk.checked) {
+    row.style.borderLeft = '4px solid var(--neon-green)';
+  } else if (ngChk.checked) {
+    row.style.borderLeft = '4px solid var(--neon-red)';
+  } else {
+    row.style.borderLeft = '1px solid var(--border-cyber)';
+  }
+
+  var noteEl = document.getElementById('note_' + id);
+  if (ngChk.checked) {
+    noteEl.classList.add('show');
+  } else {
+    noteEl.classList.remove('show');
+    noteEl.value = '';
   }
 }
 
-function updateOverall() {
-  // Styling update handled via CSS selector on option pills
-}
-
-// ===== COLLECT DATA =====
-function _dec(str) { 
-  return str || ''; 
-}
-
-function collectDiag(secId) {
-  if (!_sectionUsed[secId]) return '';
-  var lines = [];
-  var data = SECTIONS[secId];
+function updateOverall(val) {
+  var okChk = document.getElementById('chk_overall_ok');
+  var ngChk = document.getElementById('chk_overall_ng');
   
-  data.items.forEach(function(item) {
-    var r = document.querySelector('input[name="ev_chk_' + item.id + '"]:checked');
-    if (!r) return;
-    if (r.value === 'ปกติ') return;
-    
-    var note = document.getElementById('note_' + item.id).value.trim();
-    var detail = note ? ' (' + note + ')' : '';
-    lines.push('- ' + item.name + ' - ' + r.value + detail);
-  });
-  
-  return lines.join('\n');
+  if (val === 'OK' && okChk.checked) ngChk.checked = false;
+  if (val === 'NG' && ngChk.checked) okChk.checked = false;
+
+  document.getElementById('lbl_overall_ok').className = 'mini-btn mini-ok-btn' + (okChk.checked ? ' active' : '');
+  document.getElementById('lbl_overall_ng').className = 'mini-btn mini-ng-btn' + (ngChk.checked ? ' active' : '');
 }
 
-function buildFullOutput() {
-  var model = document.getElementById('cust_model').value.trim() || '-';
-  var plate = document.getElementById('cust_plate').value.trim() || '-';
+// ===== BUILD OUTPUT =====
+function buildOutput() {
   var name = document.getElementById('cust_name').value.trim() || '-';
   var tel = document.getElementById('cust_tel').value.trim() || '-';
+  var plate = document.getElementById('cust_plate').value.trim() || '-';
+  var model = document.getElementById('cust_model').value.trim() || '-';
   var km = document.getElementById('cust_km').value.trim() || '-';
-  var dateStr = new Date().toLocaleDateString('th-TH');
-  var techName = document.getElementById('tech_name_input').value.trim() || 'ไม่ได้ระบุ';
+  var date = document.getElementById('date_input').value.trim() || '-';
+  var ovOk = document.getElementById('chk_overall_ok').checked;
+  var ovNg = document.getElementById('chk_overall_ng').checked;
+  var ovVal = ovOk ? 'OK' : (ovNg ? 'NG' : '-');
+  var ovNote = document.getElementById('overall_note').value.trim();
+  var techName = document.getElementById('tech_name_input').value.trim() || '-';
 
-  var overallRadio = document.querySelector('input[name="overall_status"]:checked');
-  var overallText = overallRadio ? (overallRadio.value === 'OK' ? '✅ ปกติ (OK)' : '❌ ต้องแก้ไข (NG)') : '-';
-
-  var divider = '----------------------------------';
   var lines = [];
-  
-  lines.push('⚡ *ใบรายงานผลตรวจเช็คระบบรถไฟฟ้า xEV*');
-  lines.push(divider);
-  lines.push('🚗 ยี่ห้อ/รุ่นรถ: ' + model);
-  lines.push('📋 ทะเบียนรถ: ' + plate);
-  lines.push('👤 ชื่อลูกค้า: ' + name + ' | 📞 โทร: ' + tel);
-  lines.push('📍 เลขกิโลเมตร: ' + km + ' กม.');
-  lines.push('📅 วันที่ตรวจ: ' + dateStr);
-  lines.push('🧑‍🔧 ช่างผู้ตรวจเช็ค: ' + techName);
-  lines.push(divider);
-  lines.push('📊 สรุปผลโดยรวม: ' + overallText);
-  
-  var note = document.getElementById('overall_note').value.trim();
-  if (note) lines.push('📝 คำแนะนำช่าง: ' + note);
-  
-  Object.keys(SECTIONS).forEach(function(secId) {
-    var diag = collectDiag(secId);
-    if (diag) {
-      lines.push('');
-      lines.push(divider);
-      lines.push('⚡ *' + SECTIONS[secId].title + '*');
-      lines.push(divider);
-      lines.push(diag);
-    }
-  });
+  lines.push('⚡ *xEV CHECK SHEET REPORT V1*');
+  lines.push('-------------------------');
+  lines.push('📅 วันที่: ' + date);
+  lines.push('🧑‍🔧 ช่างผู้ตรวจ: ' + techName);
+  lines.push('-------------------------');
+  lines.push('👤 ลูกค้า: ' + name);
+  lines.push('📞 เบอร์โทร: ' + tel);
+  lines.push('🚗 รถ: ' + model + ' | 📋 ทะเบียน: ' + plate);
+  lines.push('📍 กิโลเมตร: ' + km + ' กม.');
+  lines.push('-------------------------');
+  lines.push('*ผลการตรวจโดยรวม:* ' + ovVal);
+  if (ovNote) lines.push('📝 คำแนะนำ: ' + ovNote);
 
-  var timeVal = document.getElementById('t_input').value.trim();
-  if (timeVal) {
+  SECTIONS.forEach(function(sec) {
     lines.push('');
-    lines.push('⏰ *ใช้เวลา:* ' + timeVal);
-  }
+    lines.push('*' + sec.emoji + ' ' + sec.title + '*');
+    lines.push('-------------------------');
+    sec.items.forEach(function(item) {
+      var okC = document.getElementById('chk_ok_' + item.id);
+      var ngC = document.getElementById('chk_ng_' + item.id);
+      var status = okC.checked ? '✅ OK' : (ngC.checked ? '❌ NG' : '⬜ ไม่ได้ตรวจ');
+      var note = document.getElementById('note_' + item.id).value.trim();
+      lines.push(item.id + '. ' + item.name + ' ➡️ [' + status + ']');
+      if (note) lines.push('   *อาการชำรุด:* ' + note);
+    });
+  });
 
   return lines.join('\n');
 }
 
-// ===== SLIP RENDERING =====
-window.buildSlipHTML = function() {
-  var model = document.getElementById('cust_model').value.trim() || '-';
-  var plate = document.getElementById('cust_plate').value.trim() || '-';
-  var name = document.getElementById('cust_name').value.trim() || '-';
-  var tel = document.getElementById('cust_tel').value.trim() || '-';
-  var km = document.getElementById('cust_km').value.trim() || '-';
-  var dateStr = new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
-  var timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
-  
+function updatePreview() {
+  document.getElementById('previewText').textContent = buildOutput();
+}
+
+// ===== RECEIPT PREVIEW =====
+function generateReceiptPreview() {
+  var name = document.getElementById('cust_name').value || '-';
+  var model = document.getElementById('cust_model').value || '-';
+  var plate = document.getElementById('cust_plate').value || '-';
+  var date = document.getElementById('date_input').value || '-';
+  var km = document.getElementById('cust_km').value || '-';
+
+  createBeautifulSlip(name, model, plate, date, km);
+}
+
+function createBeautifulSlip(name, model, plate, date, km) {
+  var hiddenReceipt = document.getElementById('hiddenReceiptElement');
   var techName = document.getElementById('tech_name_input').value.trim() || 'ไม่ได้ระบุ';
   var techAvatar = document.getElementById('tech_avatar_img').src;
 
   var html = '';
-  // Slip Header
-  html += '<div style="background: #1e293b; padding: 22px 20px; text-align: center; border-bottom: 5px solid #2563eb; color: #ffffff;">';
+  // 1. Slip Header
+  html += '<div style="background: #0f172a; padding: 22px 20px; text-align: center; border-bottom: 5px solid #06b6d4; color: #ffffff;">';
   html += '  <div style="margin-bottom: 12px; display: flex; justify-content: center; align-items: center;">';
   html += '    <img src="โลโก้.png" style="max-height: 70px; max-width: 100%; object-fit: contain;" />';
   html += '  </div>';
-  html += '  <h2 style="margin: 0; font-size: 23px; font-weight: 700; letter-spacing: 0.5px; font-family:\'Kanit\', sans-serif;">⚡ รายงานตรวจเช็คระบบ xEV</h2>';
-  html += '  <p style="margin: 6px 0 0 0; font-size: 13px; color: #94a3b8; font-weight: 300;">185Service EV & Hybrid Standard</p>';
+  html += '  <h2 style="margin: 0; font-size: 23px; font-weight: 700; letter-spacing: 0.5px; font-family:\'Kanit\', sans-serif;">⚡ รายงานตรวจเช็ค xEV</h2>';
+  html += '  <p style="margin: 6px 0 0 0; font-size: 13px; color: #67e8f9; font-weight: 300;">185Service EV & Hybrid Standard</p>';
   html += '</div>';
 
-  // Details
+  // 2. Details
   html += '<div style="padding: 20px; background: #ffffff;">';
-  html += '  <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #2563eb; border-radius: 8px; padding: 15px; margin-bottom: 15px;">';
+  html += '  <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #06b6d4; border-radius: 8px; padding: 15px; margin-bottom: 15px;">';
   html += '    <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">';
-  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold; width: 35%;">🚗 ยี่ห้อ/รุ่นรถ:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + model + '</td></tr>';
+  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold; width: 35%;">👤 ลูกค้า:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + name + '</td></tr>';
+  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">🚗 ยี่ห้อ/รุ่นรถ:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + model + '</td></tr>';
   html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">📋 ทะเบียนรถ:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + plate + '</td></tr>';
-  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">👤 ลูกค้า:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + name + ' | ' + tel + '</td></tr>';
   html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">📍 เลขกิโลเมตร:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + km + ' กม.</td></tr>';
-  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">📅 วันเวลาที่ตรวจ:</td><td style="padding: 4px 0; color: #1e293b;">' + dateStr + ' ' + timeStr + ' น.</td></tr>';
+  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">📅 วันที่ตรวจ:</td><td style="padding: 4px 0; color: #1e293b;">' + date + '</td></tr>';
   html += '      <tr>';
   html += '        <td style="padding: 4px 0; color: #64748b; font-weight: bold;">🧑‍🔧 ช่างผู้ตรวจเช็ค:</td>';
   html += '        <td style="padding: 4px 0; font-weight: 700; color: #1e293b; vertical-align: middle;">';
@@ -897,176 +1019,103 @@ window.buildSlipHTML = function() {
   html += '    </table>';
   html += '  </div>';
 
-  var overallRadio = document.querySelector('input[name="overall_status"]:checked');
-  var overallText = overallRadio ? (overallRadio.value === 'OK' ? '✅ ปกติ (OK)' : '❌ ต้องแก้ไข (NG)') : '-';
-  var overallColor = overallRadio ? (overallRadio.value === 'OK' ? '#10b981' : '#ef4444') : '#64748b';
+  var overallOk = document.getElementById('chk_overall_ok').checked;
+  var overallNg = document.getElementById('chk_overall_ng').checked;
+  var overallText = overallOk ? '✅ ปกติ (OK)' : (overallNg ? '❌ ต้องแก้ไข (NG)' : '-');
+  var overallColor = overallOk ? '#10b981' : (overallNg ? '#ef4444' : '#64748b');
 
   html += '  <div style="background: #fafafa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 14px; text-align: left;">';
   html += '    <div style="font-weight: 700; margin-bottom: 4px;">สรุปผลโดยรวม: <span style="color: ' + overallColor + ';">' + overallText + '</span></div>';
-  var note = document.getElementById('overall_note').value.trim();
-  if (note) {
-    html += '    <div style="color: #475569; font-size: 13px; margin-top: 4px;">📝 ' + note + '</div>';
+  var overallNoteVal = document.getElementById('overall_note').value.trim();
+  if (overallNoteVal) {
+    html += '    <div style="color: #475569; font-size: 13px; margin-top: 4px;">📝 ' + overallNoteVal + '</div>';
   }
   html += '  </div>';
 
-  function renderSlipHeader(emoji, title, accent) {
-    return '<div style="background: #1e293b; color: #ffffff; font-size: 14px; font-weight: 700; padding: 10px 14px; border-radius: 6px 6px 0 0; margin-top: 18px; display: flex; align-items: center; gap: 8px; border-left: 4px solid ' + accent + '; text-align: left;">' +
-           '  <span>' + emoji + '</span>' +
-           '  <span>' + title + '</span>' +
-           '</div>';
-  }
-
-  // Display sections
-  Object.keys(SECTIONS).forEach(function(secId) {
-    var hasData = false;
-    var listHtml = '';
-    var accent = secId === 'sec_gen' ? 'var(--ev-blue)' : (secId === 'sec_hv' ? '#ea580c' : '#7c3aed');
+  // 3. Checked items
+  SECTIONS.forEach(function(sec) {
+    var sectionHasData = false;
+    var secHtml = '';
+    secHtml += '  <div style="background: #0f172a; color: white; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 13px; margin-top: 15px; text-align: left; border-left: 4px solid #06b6d4;">' + sec.emoji + ' ' + sec.title + '</div>';
+    secHtml += '  <div style="border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 8px 8px; padding: 8px 12px; text-align: left;">';
     
-    var data = SECTIONS[secId];
-    data.items.forEach(function(item) {
-      var r = document.querySelector('input[name="ev_chk_' + item.id + '"]:checked');
-      if (!r) return;
-      hasData = true;
+    sec.items.forEach(function(item) {
+      var okC = document.getElementById('chk_ok_' + item.id);
+      var ngC = document.getElementById('chk_ng_' + item.id);
+      if (!okC.checked && !ngC.checked) return;
+      sectionHasData = true;
       
-      var isError = (r.value !== 'ปกติ');
-      var statusColor = isError ? '#d32f2f' : '#2e7d32';
+      var statusIcon = okC.checked ? '🟢' : '🔴';
+      var statusColor = okC.checked ? '#2e7d32' : '#c62828';
+      var statusText = okC.checked ? 'OK' : 'NG';
       var note = document.getElementById('note_' + item.id).value.trim();
-      var noteText = note ? ' (' + note + ')' : '';
       
-      listHtml += '<tr style="border-bottom: 1px solid #eee;">' +
-                  '  <td style="padding: 10px 8px; font-size: 13.5px; width: 65%; color: #37474f;">' + item.name + '</td>' +
-                  '  <td style="padding: 10px 8px; font-size: 13px; font-weight: bold; color: ' + statusColor + '; text-align: right;">' + r.value + noteText + '</td>' +
-                  '</tr>';
+      secHtml += '    <div style="font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">';
+      secHtml += '      <div style="flex:1;">';
+      secHtml += '        <div style="font-weight: 600;">' + item.id + '. ' + item.name + '</div>';
+      if (note) {
+        secHtml += '        <div style="font-size: 11px; color: #c62828; margin-top: 2px;">⚠️ ' + note + '</div>';
+      }
+      secHtml += '      </div>';
+      secHtml += '      <div style="font-weight: 700; color: ' + statusColor + '; font-size: 12px; flex-shrink:0;">' + statusIcon + ' ' + statusText + '</div>';
+      secHtml += '    </div>';
     });
+    secHtml += '  </div>';
     
-    if (hasData) {
-      html += renderSlipHeader('⚡', data.title, accent);
-      html += '<div style="border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 6px 6px; padding: 5px 10px; background: #ffffff;">';
-      html += '  <table style="width: 100%; border-collapse: collapse;">' + listHtml + '</table>';
-      html += '</div>';
+    if (sectionHasData) {
+      html += secHtml;
     }
   });
 
+  // Footer message
   html += '  <div style="text-align: center; margin-top: 30px; border-top: 2px solid #e2e8f0; padding-top: 15px;">';
   html += '    <h3 style="margin: 0; font-size: 16px; font-weight: 700; color: #1e3a8a;">ขอบคุณที่เลือกใช้บริการของเรา</h3>';
   html += '    <p style="margin: 4px 0 0 0; font-size: 11px; color: #64748b;">* เอกสารชี้แจงเพื่อประกอบการพิจารณาซ่อมบำรุง *</p>';
   html += '  </div>';
   html += '</div>';
 
-  return html;
-};
+  hiddenReceipt.innerHTML = html;
 
-var _slipDataURL = null;
-function generateSlipImage() {
-  var container = document.getElementById('slip_container');
-  var loading = document.getElementById('pv_slip_loading');
-  var img = document.getElementById('pv_slip_image');
-  var btn = document.getElementById('download_slip_btn');
-
-  if (loading) {
-    loading.style.display = 'block';
-    loading.textContent = 'กำลังสร้างรูปภาพสลิป...';
-  }
-  if (img) img.style.display = 'none';
-  if (btn) btn.style.display = 'none';
-
-  container.innerHTML = window.buildSlipHTML();
-
-  // Wait for rendering
-  setTimeout(function() {
-    html2canvas(container, {
-      scale: 2,
-      backgroundColor: '#ffffff',
-      logging: false,
-      useCORS: true,
-      allowTaint: true
-    }).then(function(canvas) {
-      _slipDataURL = canvas.toDataURL('image/png');
-      if (loading) loading.style.display = 'none';
-      if (img) {
-        img.src = _slipDataURL;
-        img.style.display = 'inline-block';
-      }
-      if (btn) btn.style.display = 'flex';
-    }).catch(function(err) {
-      console.error('html2canvas error:', err);
-      if (loading) loading.textContent = 'เกิดข้อผิดพลาดในการแปลงเป็นภาพ';
-    });
-  }, 200);
+  // Let html2canvas generate image
+  html2canvas(hiddenReceipt, {
+    scale: 2,
+    backgroundColor: '#ffffff',
+    allowTaint: true,
+    useCORS: true
+  }).then(canvas => {
+    var imgData = canvas.toDataURL('image/png');
+    document.getElementById('receiptImage').src = imgData;
+    window.receiptImageData = imgData;
+  }).catch(err => {
+    console.error('Canvas error:', err);
+  });
 }
 
-window.downloadSlipImage = function() {
-  if (!_slipDataURL) return;
-  var plate = document.getElementById('cust_plate').value.trim() || 'ev';
-  var link = document.createElement('a');
-  link.download = 'slip_ev_' + plate + '.png';
-  link.href = _slipDataURL;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+// ===== SEND =====
+function sendLine() {
+  var txt = buildOutput();
+  var lineUrl = 'https://line.me/R/msg/text/?' + encodeURIComponent(txt);
+  window.location.href = lineUrl;
 
-var _pvURL = null;
-window.previewResult = function() {
-  var txt = buildFullOutput();
-  _pvURL = "https://line.me/R/msg/text/?" + encodeURIComponent(txt);
-  document.getElementById('pv_content').textContent = txt;
+  setTimeout(() => {
+    if (window.receiptImageData) {
+      var plate = document.getElementById('cust_plate').value.trim() || 'ev';
+      var link = document.createElement('a');
+      link.href = window.receiptImageData;
+      link.download = 'xEV-Receipt-' + plate + '-' + new Date().getTime() + '.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }, 500);
+}
 
-  switchPvTab('text');
-  document.getElementById('pv_modal').style.display = 'block';
-  document.body.style.overflow = 'hidden';
-  generateSlipImage();
-};
-
-window.closePV = function() {
-  document.getElementById('pv_modal').style.display = 'none';
-  document.body.style.overflow = '';
-  _pvURL = null;
-};
-
-window.doSend = function() {
-  if (_pvURL) {
-    window.location.href = _pvURL;
-    closePV();
-  }
-};
-
-document.addEventListener('click', function(e) {
-  if (e.target && e.target.id === 'pv_modal') closePV();
-});
-
-window.sendToLine = function() {
-  var txt = buildFullOutput();
-  window.location.href = 'https://line.me/R/msg/text/?' + encodeURIComponent(txt);
-};
-
-window.switchPvTab = function(tab) {
-  var tabText = document.getElementById('pv_tab_text');
-  var tabImage = document.getElementById('pv_tab_image');
-  var contentText = document.getElementById('pv_tab_content_text');
-  var contentImage = document.getElementById('pv_tab_content_image');
-
-  if (tab === 'text') {
-    tabText.classList.add('active');
-    tabImage.classList.remove('active');
-    contentText.style.display = 'block';
-    contentImage.style.display = 'none';
-  } else {
-    tabText.classList.remove('active');
-    tabImage.classList.add('active');
-    contentText.style.display = 'none';
-    contentImage.style.display = 'block';
-  }
-};
-
-// ===== AUTOSAVE & PROFILE SYNC =====
-(function(){
-  var KEY = 'ev_service_autosave_v2';
-  var app = document.getElementById('service-app');
+// ===== AUTOSAVE & TECH PROFILE =====
+(function() {
+  var KEY = 'xev_form_v1';
   var nameInp = document.getElementById('tech_name_input');
   var avatarImg = document.getElementById('tech_avatar_img');
   var avatarInp = document.getElementById('tech_avatar_input');
-  if(!app) return;
 
   // Load technician profile
   try {
@@ -1077,7 +1126,7 @@ window.switchPvTab = function(tab) {
     if (savedAvatar && avatarImg) avatarImg.src = savedAvatar;
   } catch(e) {}
 
-  // Save technician profile name
+  // Save technician name
   if (nameInp) {
     nameInp.addEventListener('input', function() {
       try {
@@ -1086,7 +1135,7 @@ window.switchPvTab = function(tab) {
     });
   }
 
-  // Save technician profile avatar
+  // Save technician avatar
   if (avatarInp) {
     avatarInp.addEventListener('change', function(e) {
       var file = e.target.files[0];
@@ -1103,84 +1152,82 @@ window.switchPvTab = function(tab) {
     });
   }
 
-  function saveState(){
+  function save() {
     try {
-      var state = {};
-      app.querySelectorAll('input, textarea').forEach(function(el, i){
-        var k = el.id || el.name || ('f_'+i);
-        if (k === 'tech_name_input' || k === 'tech_avatar_input') return;
-        if(el.type==='radio'){ if(el.checked) state[k]=el.value; }
-        else if(el.type==='checkbox'){ state[k]=el.checked; }
-        else { state[k]=el.value; }
+      var s = {};
+      document.querySelectorAll('input[type=text],input[type=tel],input[type=number],textarea').forEach(function(el) {
+        if (el.id && el.id !== 'tech_name_input') s[el.id] = el.value;
       });
-      localStorage.setItem(KEY, JSON.stringify(state));
-    } catch(e){}
+      // Save item checks
+      SECTIONS.forEach(sec => {
+        sec.items.forEach(item => {
+          var okC = document.getElementById('chk_ok_' + item.id);
+          var ngC = document.getElementById('chk_ng_' + item.id);
+          s['chk_ok_' + item.id] = okC.checked;
+          s['chk_ng_' + item.id] = ngC.checked;
+          s['note_' + item.id] = document.getElementById('note_' + item.id).value;
+        });
+      });
+      // Save overall
+      s['chk_overall_ok'] = document.getElementById('chk_overall_ok').checked;
+      s['chk_overall_ng'] = document.getElementById('chk_overall_ng').checked;
+
+      localStorage.setItem(KEY, JSON.stringify(s));
+    } catch(e) {}
   }
 
-  function restoreState(){
+  function restore() {
     try {
       var raw = localStorage.getItem(KEY);
-      if(!raw) return;
-      var state = JSON.parse(raw);
-      app.querySelectorAll('input, textarea').forEach(function(el, i){
-        var k = el.id || el.name || ('f_'+i);
-        if (k === 'tech_name_input' || k === 'tech_avatar_input') return;
-        if(state[k]===undefined) return;
-        if(el.type==='radio'){ 
-          el.checked=(el.value==state[k]);
-          // Trigger change handler
-          if (el.checked && el.name.startsWith('ev_chk_')) {
-            var itemId = el.name.replace('ev_chk_', '');
-            // Find secId
-            var secId = '';
-            Object.keys(SECTIONS).forEach(function(sId) {
-              SECTIONS[sId].items.forEach(function(item) {
-                if (item.id === itemId) secId = sId;
-              });
-            });
-            onItemChange(itemId, secId);
+      if (!raw) return;
+      var s = JSON.parse(raw);
+      Object.keys(s).forEach(function(k) {
+        var el = document.getElementById(k);
+        if (el) {
+          if (el.type === 'checkbox') {
+            el.checked = s[k];
+            // Trigger UI update
+            if (k.startsWith('chk_ok_')) {
+              var id = k.replace('chk_ok_', '');
+              onItemChange(id, 'OK');
+            } else if (k.startsWith('chk_ng_')) {
+              var id = k.replace('chk_ng_', '');
+              onItemChange(id, 'NG');
+            } else if (k === 'chk_overall_ok') {
+              updateOverall('OK');
+            } else if (k === 'chk_overall_ng') {
+              updateOverall('NG');
+            }
+          } else {
+            el.value = s[k];
           }
         }
-        else if(el.type==='checkbox'){ el.checked=!!state[k]; }
-        else { el.value=state[k]; }
       });
-      
-      // Auto open active sections
-      Object.keys(SECTIONS).forEach(function(sec){
-        var hasData = false;
-        SECTIONS[sec].items.forEach(function(item) {
-          var radio = document.querySelector('input[name="ev_chk_' + item.id + '"]:checked');
-          if (radio) hasData = true;
-        });
-        if(hasData) {
-          _sectionUsed[sec] = true;
-          var content = document.getElementById(sec + '_content');
-          if (content) content.style.display = 'block';
-          var arrow = document.getElementById(sec + '_arrow');
-          if (arrow) arrow.style.transform = 'rotate(180deg)';
-        }
-      });
-    } catch(e){}
+    } catch(e) {}
   }
 
-  var saveTimer;
-  app.addEventListener('input', function(e){
+  var timer;
+  document.addEventListener('input', function(e) {
     if (e.target.id === 'tech_name_input') return;
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveState, 400);
+    clearTimeout(timer);
+    timer = setTimeout(save, 400);
   });
-  app.addEventListener('change', function(e){
+  document.addEventListener('change', function(e) {
     if (e.target.id === 'tech_avatar_input') return;
-    saveState();
+    save();
   });
-  document.addEventListener('DOMContentLoaded', restoreState);
+  
+  restore();
 
-  window.clearAllData = function(){
-    if(confirm("ล้างข้อมูลทั้งหมด?")){
-      try { localStorage.removeItem(KEY); } catch(e){}
-      location.reload();
-    }
-  };
+  // Set today as default
+  var d = document.getElementById('date_input');
+  if (d && !d.value) {
+    var now = new Date();
+    var dd = String(now.getDate()).padStart(2,'0');
+    var mm = String(now.getMonth()+1).padStart(2,'0');
+    var yyyy = now.getFullYear() + 543;
+    d.value = dd + '/' + mm + '/' + yyyy;
+  }
 })();
 </script>
 </body>
