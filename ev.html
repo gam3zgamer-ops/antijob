@@ -744,7 +744,7 @@ body {
 </div>
 
 <!-- Off-screen container for rendering the slip image -->
-<div id="hiddenReceiptElement" style="position: absolute; left: -9999px; top: -9999px; width: 380px; background: #ffffff; font-family: 'Sarabun', 'Kanit', sans-serif; box-sizing: border-box; padding: 0;"></div>
+<div id="hiddenReceiptElement" style="position: absolute; left: -9999px; top: -9999px; width: 380px; background: #080c16; font-family: 'Sarabun', 'Kanit', sans-serif; box-sizing: border-box; padding: 0;"></div>
 
 <script>
 // ===== SECTIONS DATA =====
@@ -991,95 +991,119 @@ function createBeautifulSlip(name, model, plate, date, km) {
   var techAvatar = document.getElementById('tech_avatar_img').src;
 
   var html = '';
-  // 1. Slip Header
-  html += '<div style="background: #0f172a; padding: 22px 20px; text-align: center; border-bottom: 5px solid #06b6d4; color: #ffffff;">';
-  html += '  <div style="margin-bottom: 12px; display: flex; justify-content: center; align-items: center;">';
-  html += '    <img src="โลโก้.png" style="max-height: 70px; max-width: 100%; object-fit: contain;" />';
+
+  // ===== SLIP WRAPPER (dark cyber theme) =====
+  html += '<div style="background: #080c16; font-family: Sarabun, Kanit, sans-serif; width: 380px; overflow: hidden;">';
+
+  // 1. Header
+  html += '<div style="background: linear-gradient(135deg, #0c1a30 0%, #0f172a 100%); padding: 24px 20px; text-align: center; border-bottom: 3px solid #06b6d4; position: relative; overflow: hidden;">';
+  html += '  <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #0284c7, #06b6d4, #38bdf8);"></div>';
+  html += '  <div style="margin-bottom: 10px; display: flex; justify-content: center; align-items: center;">';
+  html += '    <img src="โลโก้.png" style="max-height: 60px; max-width: 200px; object-fit: contain;" />';
   html += '  </div>';
-  html += '  <h2 style="margin: 0; font-size: 23px; font-weight: 700; letter-spacing: 0.5px; font-family:\'Kanit\', sans-serif;">⚡ รายงานตรวจเช็ค xEV</h2>';
-  html += '  <p style="margin: 6px 0 0 0; font-size: 13px; color: #67e8f9; font-weight: 300;">185Service EV & Hybrid Standard</p>';
+  html += '  <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #ffffff; letter-spacing: 1px;">⚡ รายงานตรวจเช็ค xEV</h2>';
+  html += '  <p style="margin: 6px 0 0 0; font-size: 11px; color: #67e8f9; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;">185Service EV &amp; Hybrid Standard</p>';
   html += '</div>';
 
-  // 2. Details
-  html += '<div style="padding: 20px; background: #ffffff;">';
-  html += '  <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #06b6d4; border-radius: 8px; padding: 15px; margin-bottom: 15px;">';
-  html += '    <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">';
-  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold; width: 35%;">👤 ลูกค้า:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + name + '</td></tr>';
-  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">🚗 ยี่ห้อ/รุ่นรถ:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + model + '</td></tr>';
-  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">📋 ทะเบียนรถ:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + plate + '</td></tr>';
-  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">📍 เลขกิโลเมตร:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + km + ' กม.</td></tr>';
-  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">📅 วันที่ตรวจ:</td><td style="padding: 4px 0; color: #1e293b;">' + date + '</td></tr>';
+  // 2. Customer Info Block
+  html += '<div style="padding: 16px 18px 10px 18px; background: #0f172a;">';
+  html += '  <div style="background: #1e293b; border: 1px solid rgba(56,189,248,0.25); border-left: 4px solid #06b6d4; border-radius: 10px; padding: 14px; margin-bottom: 12px;">';
+  html += '    <table style="width: 100%; border-collapse: collapse; font-size: 13px;">';
+
+  var rows = [
+    ['👤 ลูกค้า', name],
+    ['🚗 ยี่ห้อ/รุ่นรถ', model],
+    ['📋 ทะเบียนรถ', plate],
+    ['📍 เลขกิโลเมตร', km + ' กม.'],
+    ['📅 วันที่ตรวจ', date]
+  ];
+  rows.forEach(function(r) {
+    html += '<tr>';
+    html += '  <td style="padding: 5px 4px; color: #67e8f9; font-weight: 700; width: 38%; font-size: 12px;">' + r[0] + ':</td>';
+    html += '  <td style="padding: 5px 4px; color: #f1f5f9; font-weight: 700; font-size: 13px;">' + r[1] + '</td>';
+    html += '</tr>';
+  });
+
   html += '      <tr>';
-  html += '        <td style="padding: 4px 0; color: #64748b; font-weight: bold;">🧑‍🔧 ช่างผู้ตรวจเช็ค:</td>';
-  html += '        <td style="padding: 4px 0; font-weight: 700; color: #1e293b; vertical-align: middle;">';
-  html += '          <img src="' + techAvatar + '" style="width: 24px; height: 24px; border-radius: 12px; border: 1px solid #ccc; object-fit: cover; vertical-align: middle; margin-right: 6px; display: inline-block;" />';
-  html += '          <span style="vertical-align: middle; display: inline-block;">' + techName + '</span>';
+  html += '        <td style="padding: 5px 4px; color: #67e8f9; font-weight: 700; font-size: 12px;">🧑‍🔧 ช่างผู้ตรวจ:</td>';
+  html += '        <td style="padding: 5px 4px; color: #f1f5f9; font-weight: 700; vertical-align: middle;">';
+  html += '          <img src="' + techAvatar + '" style="width: 22px; height: 22px; border-radius: 11px; border: 1px solid #38bdf8; object-fit: cover; vertical-align: middle; margin-right: 6px;" />';
+  html += '          <span style="vertical-align: middle;">' + techName + '</span>';
   html += '        </td>';
   html += '      </tr>';
   html += '    </table>';
   html += '  </div>';
 
+  // 3. Overall result
   var overallOk = document.getElementById('chk_overall_ok').checked;
   var overallNg = document.getElementById('chk_overall_ng').checked;
-  var overallText = overallOk ? '✅ ปกติ (OK)' : (overallNg ? '❌ ต้องแก้ไข (NG)' : '-');
-  var overallColor = overallOk ? '#10b981' : (overallNg ? '#ef4444' : '#64748b');
+  var overallText = overallOk ? '✅ ปกติ (OK)' : (overallNg ? '❌ ต้องแก้ไข (NG)' : '—');
+  var overallBg  = overallOk ? 'rgba(16,185,129,0.12)' : (overallNg ? 'rgba(239,68,68,0.12)' : 'rgba(100,116,139,0.15)');
+  var overallBdr = overallOk ? '#10b981' : (overallNg ? '#ef4444' : '#475569');
+  var overallClr = overallOk ? '#34d399' : (overallNg ? '#f87171' : '#94a3b8');
 
-  html += '  <div style="background: #fafafa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 14px; text-align: left;">';
-  html += '    <div style="font-weight: 700; margin-bottom: 4px;">สรุปผลโดยรวม: <span style="color: ' + overallColor + ';">' + overallText + '</span></div>';
+  html += '  <div style="background: ' + overallBg + '; border: 1px solid ' + overallBdr + '; border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-size: 13px;">';
+  html += '    <div style="font-weight: 700; color: #e2e8f0;">สรุปผลโดยรวม: <span style="color: ' + overallClr + ';">' + overallText + '</span></div>';
   var overallNoteVal = document.getElementById('overall_note').value.trim();
   if (overallNoteVal) {
-    html += '    <div style="color: #475569; font-size: 13px; margin-top: 4px;">📝 ' + overallNoteVal + '</div>';
+    html += '    <div style="color: #94a3b8; font-size: 12px; margin-top: 4px;">📝 ' + overallNoteVal + '</div>';
   }
   html += '  </div>';
 
-  // 3. Checked items
+  html += '</div>'; // close info block
+
+  // 4. Checked items by section
   SECTIONS.forEach(function(sec) {
     var sectionHasData = false;
     var secHtml = '';
-    secHtml += '  <div style="background: #0f172a; color: white; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 13px; margin-top: 15px; text-align: left; border-left: 4px solid #06b6d4;">' + sec.emoji + ' ' + sec.title + '</div>';
-    secHtml += '  <div style="border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 8px 8px; padding: 8px 12px; text-align: left;">';
-    
+
+    secHtml += '<div style="margin: 0 18px 0 18px;">';
+    secHtml += '  <div style="background: linear-gradient(135deg, #1e3a5f, #164e63); color: #e0f2fe; padding: 7px 12px; border-radius: 7px 7px 0 0; font-weight: 700; font-size: 12px; border-left: 3px solid #06b6d4; letter-spacing: 0.3px;">' + sec.emoji + ' ' + sec.title + '</div>';
+    secHtml += '  <div style="background: #1e293b; border: 1px solid rgba(56,189,248,0.15); border-top: none; border-radius: 0 0 7px 7px; padding: 4px 10px 6px 10px; margin-bottom: 12px;">';
+
     sec.items.forEach(function(item) {
       var okC = document.getElementById('chk_ok_' + item.id);
       var ngC = document.getElementById('chk_ng_' + item.id);
       if (!okC.checked && !ngC.checked) return;
       sectionHasData = true;
-      
-      var statusIcon = okC.checked ? '🟢' : '🔴';
-      var statusColor = okC.checked ? '#2e7d32' : '#c62828';
-      var statusText = okC.checked ? 'OK' : 'NG';
+
+      var statusBadgeBg  = okC.checked ? 'rgba(16,185,129,0.2)' : 'rgba(239,68,68,0.2)';
+      var statusBadgeClr = okC.checked ? '#34d399' : '#f87171';
+      var statusText     = okC.checked ? '✅ OK' : '❌ NG';
       var note = document.getElementById('note_' + item.id).value.trim();
-      
-      secHtml += '    <div style="font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">';
+
+      secHtml += '    <div style="padding: 7px 0; border-bottom: 1px solid rgba(56,189,248,0.08); display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">';
       secHtml += '      <div style="flex:1;">';
-      secHtml += '        <div style="font-weight: 600;">' + item.id + '. ' + item.name + '</div>';
+      secHtml += '        <div style="font-size: 12.5px; font-weight: 600; color: #e2e8f0;">' + item.id + '. ' + item.name + '</div>';
       if (note) {
-        secHtml += '        <div style="font-size: 11px; color: #c62828; margin-top: 2px;">⚠️ ' + note + '</div>';
+        secHtml += '        <div style="font-size: 11px; color: #f87171; margin-top: 2px;">⚠️ ' + note + '</div>';
       }
       secHtml += '      </div>';
-      secHtml += '      <div style="font-weight: 700; color: ' + statusColor + '; font-size: 12px; flex-shrink:0;">' + statusIcon + ' ' + statusText + '</div>';
+      secHtml += '      <div style="background: ' + statusBadgeBg + '; color: ' + statusBadgeClr + '; font-weight: 700; font-size: 11px; padding: 3px 8px; border-radius: 20px; flex-shrink: 0; white-space: nowrap;">' + statusText + '</div>';
       secHtml += '    </div>';
     });
+
     secHtml += '  </div>';
-    
+    secHtml += '</div>';
+
     if (sectionHasData) {
       html += secHtml;
     }
   });
 
-  // Footer message
-  html += '  <div style="text-align: center; margin-top: 30px; border-top: 2px solid #e2e8f0; padding-top: 15px;">';
-  html += '    <h3 style="margin: 0; font-size: 16px; font-weight: 700; color: #1e3a8a;">ขอบคุณที่เลือกใช้บริการของเรา</h3>';
-  html += '    <p style="margin: 4px 0 0 0; font-size: 11px; color: #64748b;">* เอกสารชี้แจงเพื่อประกอบการพิจารณาซ่อมบำรุง *</p>';
-  html += '  </div>';
+  // 5. Footer
+  html += '<div style="text-align: center; padding: 20px 18px 24px 18px; background: #0f172a; border-top: 1px solid rgba(56,189,248,0.15); margin-top: 8px;">';
+  html += '  <div style="font-size: 11px; color: #38bdf8; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 4px;">⚡ 185Service</div>';
+  html += '  <div style="font-size: 11px; color: #475569;">เอกสารประกอบการพิจารณาซ่อมบำรุง</div>';
   html += '</div>';
+
+  html += '</div>'; // close slip wrapper
 
   hiddenReceipt.innerHTML = html;
 
-  // Let html2canvas generate image
   html2canvas(hiddenReceipt, {
     scale: 2,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#080c16',
     allowTaint: true,
     useCORS: true
   }).then(canvas => {
