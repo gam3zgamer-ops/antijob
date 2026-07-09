@@ -579,6 +579,308 @@ body {
   .button-group { flex-direction: column; gap: 8px; }
   .btn { width: 100%; }
 }
+
+/* ===== RPG SYSTEM STYLES ===== */
+
+/* XP bar inside tech card */
+.rpg-stats {
+  flex: 1;
+}
+.rpg-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.rpg-level-badge {
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 8px rgba(124,58,237,0.5);
+}
+.rpg-class-name {
+  font-family: 'Kanit', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: 0.3px;
+}
+.xp-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  margin-top: 6px;
+}
+.xp-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(124,58,237,0.3);
+}
+.xp-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #7c3aed, #a855f7, #c084fc);
+  box-shadow: 0 0 8px rgba(168,85,247,0.7);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.combo-badge {
+  display: none;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fbbf24;
+  text-shadow: 0 0 6px rgba(251,191,36,0.6);
+  margin-top: 4px;
+  animation: comboPulse 0.4s ease;
+}
+@keyframes comboPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Quest section header */
+.quest-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(30,58,138,0.8), rgba(6,182,212,0.5));
+  color: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-top: 24px;
+  border-left: 4px solid #7c3aed;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+.quest-header:first-child { margin-top: 0; }
+.quest-header::before {
+  content: 'QUEST';
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.15);
+}
+.quest-title-text {
+  font-weight: 700;
+  font-size: 13px;
+}
+.quest-progress-ring {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+.quest-progress-ring circle {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease;
+}
+.quest-ring-bg { stroke: rgba(255,255,255,0.15); }
+.quest-ring-fill { stroke: #a855f7; stroke-dasharray: 88; stroke-dashoffset: 88; }
+.quest-badge-complete {
+  display: none;
+  font-size: 18px;
+  animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Floating XP text */
+.xp-float {
+  position: fixed;
+  font-family: 'Kanit', sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  pointer-events: none;
+  z-index: 9999;
+  text-shadow: 0 0 10px currentColor;
+  animation: xpFloat 1.2s ease-out forwards;
+}
+@keyframes xpFloat {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  60%  { opacity: 1; transform: translateY(-55px) scale(1.15); }
+  100% { opacity: 0; transform: translateY(-90px) scale(0.8); }
+}
+
+/* Achievement Toast */
+#achievement-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-120px);
+  background: linear-gradient(135deg, #1e1b4b, #312e81);
+  border: 1px solid #7c3aed;
+  border-radius: 16px;
+  padding: 14px 22px;
+  z-index: 9998;
+  box-shadow: 0 0 30px rgba(124,58,237,0.5), 0 10px 40px rgba(0,0,0,0.5);
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  text-align: center;
+  min-width: 260px;
+}
+#achievement-toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+.toast-icon { font-size: 28px; display: block; margin-bottom: 4px; }
+.toast-label { font-size: 10px; color: #a78bfa; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.toast-title { font-family: 'Kanit', sans-serif; font-size: 16px; font-weight: 700; color: white; margin-top: 2px; }
+.toast-sub { font-size: 12px; color: #c4b5fd; margin-top: 2px; }
+
+/* Level-Up Overlay */
+#levelup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+#levelup-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+.levelup-box {
+  text-align: center;
+  animation: levelUpAnim 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes levelUpAnim {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.levelup-stars {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 10px;
+  animation: starSpin 1s ease;
+}
+@keyframes starSpin {
+  0% { transform: rotate(-30deg) scale(0); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+.levelup-text {
+  font-family: 'Kanit', sans-serif;
+  font-size: 14px;
+  color: #a78bfa;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.levelup-name {
+  font-family: 'Kanit', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #a855f7, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 6px 0 14px;
+  text-shadow: none;
+}
+.levelup-dismiss {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  padding: 8px 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  background: none;
+  color: rgba(255,255,255,0.5);
+  font-family: inherit;
+}
+
+/* Mission Report (step 4) */
+.mission-report-header {
+  text-align: center;
+  padding: 10px 0 20px;
+}
+.mission-status-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+.mission-status-badge.complete {
+  background: rgba(16,185,129,0.2);
+  border: 1px solid #10b981;
+  color: #34d399;
+}
+.mission-status-badge.partial {
+  background: rgba(251,191,36,0.15);
+  border: 1px solid #f59e0b;
+  color: #fbbf24;
+}
+.mission-final-xp {
+  font-family: 'Kanit', sans-serif;
+  font-size: 42px;
+  font-weight: 900;
+  background: linear-gradient(135deg, #7c3aed, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  line-height: 1;
+}
+.mission-final-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  display: block;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+.mission-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 16px 0;
+}
+.mission-stat-card {
+  background: rgba(15,23,42,0.5);
+  border: 1px solid var(--border-cyber);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+}
+.mission-stat-val {
+  font-family: 'Kanit', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  display: block;
+}
+.mission-stat-lbl {
+  font-size: 11px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
 </style>
 </head>
 <body>
@@ -594,7 +896,7 @@ body {
     <a href="ev.html" class="switch-tab active">⚡ ฟอร์มรถไฟฟ้า EV</a>
   </div>
 
-  <!-- Technician Profile Card -->
+  <!-- Technician Profile Card (RPG) -->
   <div class="tech-profile-card">
     <div class="tech-avatar-wrapper" onclick="document.getElementById('tech_avatar_input').click()">
       <img id="tech_avatar_img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100%' height='100%' fill='%23334155'/><text x='50%' y='55%' font-size='24' font-family='sans-serif' fill='%2394a3b8' text-anchor='middle' font-weight='bold'>รูปช่าง</text></svg>" alt="Technician Avatar">
@@ -603,9 +905,20 @@ body {
         <span>เปลี่ยนรูป</span>
       </div>
     </div>
-    <div class="tech-info">
-      <span class="tech-label">ช่างผู้ตรวจเช็ค (ชื่อจะบันทึกอัตโนมัติ)</span>
-      <input type="text" id="tech_name_input" placeholder="ระบุชื่อช่างของคุณ" class="tech-name-input">
+    <div class="rpg-stats">
+      <div class="rpg-title-row">
+        <span class="rpg-class-name" id="rpg_class">⚡ มือใหม่</span>
+        <span class="rpg-level-badge" id="rpg_level">LV. 1</span>
+      </div>
+      <input type="text" id="tech_name_input" placeholder="ระบุชื่อช่างของคุณ" class="tech-name-input" style="font-size:14px;">
+      <div class="xp-label-row">
+        <span id="rpg_xp_cur">0 XP</span>
+        <span id="rpg_xp_next">ถึง LV.2: 500 XP</span>
+      </div>
+      <div class="xp-bar-bg">
+        <div class="xp-bar-fill" id="xp_bar_fill"></div>
+      </div>
+      <div class="combo-badge" id="combo_badge">🔥 COMBO ×<span id="combo_count">2</span></div>
     </div>
   </div>
 
@@ -718,26 +1031,52 @@ body {
     </div>
   </div>
 
-  <!-- Step 4: ส่ง -->
+  <!-- Step 4: Mission Report -->
   <div class="card" id="step4">
     <div class="card-header">
-      <div class="card-icon">📤</div>
+      <div class="card-icon">🏆</div>
       <div>
-        <div class="card-title">ส่งออกข้อมูล</div>
+        <div class="card-title">MISSION REPORT</div>
       </div>
     </div>
 
-    <h3 style="margin-bottom: 10px; color: #38bdf8; font-family: 'Kanit'; font-size: 14px;">📋 ตัวอย่างข้อความแชท LINE:</h3>
+    <!-- RPG Mission Summary -->
+    <div class="mission-report-header">
+      <div class="mission-status-badge complete" id="mission_badge">✅ MISSION COMPLETE</div>
+      <span class="mission-final-xp" id="mission_total_xp">0</span>
+      <span class="mission-final-label">Total XP Earned</span>
+    </div>
+
+    <div class="mission-stat-grid">
+      <div class="mission-stat-card">
+        <span class="mission-stat-val" id="stat_ok" style="color:#34d399;">0</span>
+        <span class="mission-stat-lbl">✅ รายการปกติ</span>
+      </div>
+      <div class="mission-stat-card">
+        <span class="mission-stat-val" id="stat_ng" style="color:#f87171;">0</span>
+        <span class="mission-stat-lbl">❌ รายการผิดปกติ</span>
+      </div>
+      <div class="mission-stat-card">
+        <span class="mission-stat-val" id="stat_quests" style="color:#a855f7;">0/3</span>
+        <span class="mission-stat-lbl">🗺️ Quests สำเร็จ</span>
+      </div>
+      <div class="mission-stat-card">
+        <span class="mission-stat-val" id="stat_level" style="color:#38bdf8;">LV.1</span>
+        <span class="mission-stat-lbl">⭐ ระดับสุดท้าย</span>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom: 10px; color: #a855f7; font-family: 'Kanit'; font-size: 13px;">📋 ข้อความแชท LINE:</h3>
     <div class="preview-box" id="previewText"></div>
 
-    <h3 style="margin-bottom: 10px; color: #38bdf8; font-family: 'Kanit'; font-size: 14px;">📄 รูปภาพสลิปส่งงาน:</h3>
+    <h3 style="margin-bottom: 10px; color: #a855f7; font-family: 'Kanit'; font-size: 13px;">📄 สลิปส่งงาน:</h3>
     <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-cyber); padding: 12px; border-radius: 12px; text-align: center; margin-bottom: 15px;">
       <img id="receiptImage" src="" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
     </div>
 
     <div class="button-group">
       <button class="btn btn-secondary" onclick="goToStep(3)">← ย้อนกลับ</button>
-      <button class="btn btn-success" onclick="sendLine()">ส่งไป LINE + บันทึกรูป</button>
+      <button class="btn btn-success" onclick="sendLine()">📤 ส่ง LINE + บันทึกรูป</button>
     </div>
   </div>
 
@@ -745,6 +1084,24 @@ body {
 
 <!-- Off-screen container for rendering the slip image -->
 <div id="hiddenReceiptElement" style="position: absolute; left: -9999px; top: -9999px; width: 380px; background: #080c16; font-family: 'Sarabun', 'Kanit', sans-serif; box-sizing: border-box; padding: 0;"></div>
+
+<!-- Achievement Toast -->
+<div id="achievement-toast">
+  <span class="toast-icon" id="toast_icon">🏆</span>
+  <div class="toast-label">Achievement Unlocked</div>
+  <div class="toast-title" id="toast_title">Quest Complete!</div>
+  <div class="toast-sub" id="toast_sub">+500 Bonus XP</div>
+</div>
+
+<!-- Level-Up Overlay -->
+<div id="levelup-overlay">
+  <div class="levelup-box">
+    <span class="levelup-stars">✨⭐✨</span>
+    <div class="levelup-text">Level Up!</div>
+    <div class="levelup-name" id="levelup_name">ช่างมีฝีมือ</div>
+    <button class="levelup-dismiss" onclick="document.getElementById('levelup-overlay').classList.remove('show')">แตะเพื่อปิด</button>
+  </div>
+</div>
 
 <script>
 // ===== SECTIONS DATA =====
@@ -803,9 +1160,24 @@ var currentStep = 1;
     var wrap = document.createElement('div');
     wrap.style.marginBottom = '20px';
 
+    // Build Quest Header
+    var questIdx = SECTIONS.indexOf(sec);
     var hdr = document.createElement('div');
-    hdr.className = 'sec-title';
-    hdr.textContent = sec.emoji + ' ' + sec.title + ' (' + sec.items.length + ' รายการ)';
+    hdr.className = 'quest-header';
+    hdr.id = 'quest_hdr_' + questIdx;
+    hdr.innerHTML =
+      '<div>' +
+        '<div style="font-size:9px; color:#a78bfa; font-weight:700; letter-spacing:2px; margin-bottom:2px;">QUEST ' + (questIdx+1) + '</div>' +
+        '<div class="quest-title-text">' + sec.emoji + ' ' + sec.title + '</div>' +
+        '<div style="font-size:10px; color:rgba(255,255,255,0.5); margin-top:2px;">' + sec.items.length + ' รายการ</div>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:8px;">' +
+        '<div class="quest-badge-complete" id="quest_done_' + questIdx + '">✅</div>' +
+        '<svg class="quest-progress-ring" viewBox="0 0 30 30">' +
+          '<circle class="quest-ring-bg" cx="15" cy="15" r="12"/>' +
+          '<circle class="quest-ring-fill" id="quest_ring_' + questIdx + '" cx="15" cy="15" r="12" transform="rotate(-90 15 15)"/>' +
+        '</svg>' +
+      '</div>';
     wrap.appendChild(hdr);
 
     sec.items.forEach(function(item) {
@@ -880,6 +1252,7 @@ function goToStep(n) {
   if (n === 4) {
     updatePreview();
     generateReceiptPreview();
+    updateMissionReport();
   }
   
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -889,6 +1262,7 @@ function goToStep(n) {
 function onItemChange(id, val) {
   var okChk = document.getElementById('chk_ok_' + id);
   var ngChk = document.getElementById('chk_ng_' + id);
+  var wasChecked = (val === 'OK' && okChk.checked) || (val === 'NG' && ngChk.checked);
   
   if (val === 'OK' && okChk.checked) ngChk.checked = false;
   if (val === 'NG' && ngChk.checked) okChk.checked = false;
@@ -912,6 +1286,9 @@ function onItemChange(id, val) {
     noteEl.classList.remove('show');
     noteEl.value = '';
   }
+
+  // ===== RPG XP TRIGGER =====
+  rpgOnCheck(id, val, wasChecked, okChk.checked || ngChk.checked);
 }
 
 function updateOverall(val) {
@@ -923,6 +1300,174 @@ function updateOverall(val) {
 
   document.getElementById('lbl_overall_ok').className = 'mini-btn mini-ok-btn' + (okChk.checked ? ' active' : '');
   document.getElementById('lbl_overall_ng').className = 'mini-btn mini-ng-btn' + (ngChk.checked ? ' active' : '');
+}
+
+// ===== RPG SYSTEM =====
+var RPG_LEVELS = [
+  { lv:1, name:'⚡ มือใหม่',       xp:0,    next:500  },
+  { lv:2, name:'🔧 ช่างฝึกหัด',    xp:500,  next:1200 },
+  { lv:3, name:'🛠️ ช่างมีฝีมือ',   xp:1200, next:2200 },
+  { lv:4, name:'🏅 ผู้เชี่ยวชาญ',  xp:2200, next:3200 },
+  { lv:5, name:'👑 MASTER EV',      xp:3200, next:9999 }
+];
+
+var rpgXP = 0;
+var rpgCombo = 0;
+var comboTimer = null;
+var lastLevel = 1;
+
+function rpgOnCheck(id, val, wasNowChecked, isNowChecked) {
+  var xpGain = 0;
+  if (isNowChecked) {
+    xpGain = (val === 'OK') ? 100 : 75;
+    rpgCombo++;
+    clearTimeout(comboTimer);
+    comboTimer = setTimeout(function() {
+      rpgCombo = 0;
+      document.getElementById('combo_badge').style.display = 'none';
+    }, 3000);
+    if (rpgCombo >= 2) {
+      xpGain = Math.round(xpGain * (1 + (rpgCombo - 1) * 0.1));
+      var cb = document.getElementById('combo_badge');
+      cb.style.display = 'block';
+      cb.style.animation = 'none';
+      document.getElementById('combo_count').textContent = rpgCombo;
+      setTimeout(function() { cb.style.animation = 'comboPulse 0.4s ease'; }, 10);
+    }
+    rpgXP += xpGain;
+    showXpFloat(xpGain, val);
+  } else {
+    // unchecked — remove XP
+    var removeXp = (val === 'OK') ? 100 : 75;
+    rpgXP = Math.max(0, rpgXP - removeXp);
+  }
+
+  updateRpgUI();
+  checkQuestComplete();
+}
+
+function showXpFloat(amount, val) {
+  var el = document.createElement('div');
+  el.className = 'xp-float';
+  el.textContent = (val === 'OK' ? '✅' : '⚠️') + ' +' + amount + ' XP';
+  el.style.color = (val === 'OK') ? '#34d399' : '#fbbf24';
+  el.style.left = (window.innerWidth / 2 - 50) + 'px';
+  el.style.top = (window.innerHeight / 2) + 'px';
+  document.body.appendChild(el);
+  setTimeout(function() { el.remove(); }, 1300);
+}
+
+function updateRpgUI() {
+  // Find current level
+  var lv = RPG_LEVELS[0];
+  for (var i = RPG_LEVELS.length - 1; i >= 0; i--) {
+    if (rpgXP >= RPG_LEVELS[i].xp) { lv = RPG_LEVELS[i]; break; }
+  }
+
+  // Level-up detection
+  if (lv.lv > lastLevel) {
+    triggerLevelUp(lv.name);
+    lastLevel = lv.lv;
+  }
+
+  // Update UI elements
+  document.getElementById('rpg_class').textContent = lv.name;
+  document.getElementById('rpg_level').textContent = 'LV. ' + lv.lv;
+  document.getElementById('rpg_xp_cur').textContent = rpgXP + ' XP';
+
+  if (lv.lv < 5) {
+    var toNext = lv.next - lv.xp;
+    var progress = ((rpgXP - lv.xp) / toNext) * 100;
+    document.getElementById('xp_bar_fill').style.width = Math.min(100, progress) + '%';
+    document.getElementById('rpg_xp_next').textContent = 'ถึง LV.' + (lv.lv+1) + ': ' + lv.next + ' XP';
+  } else {
+    document.getElementById('xp_bar_fill').style.width = '100%';
+    document.getElementById('rpg_xp_next').textContent = '🏆 MAX LEVEL!';
+  }
+}
+
+function triggerLevelUp(name) {
+  document.getElementById('levelup_name').textContent = name;
+  var ol = document.getElementById('levelup-overlay');
+  ol.classList.add('show');
+  setTimeout(function() { ol.classList.remove('show'); }, 3500);
+}
+
+function checkQuestComplete() {
+  SECTIONS.forEach(function(sec, idx) {
+    var total = sec.items.length;
+    var done = 0;
+    sec.items.forEach(function(item) {
+      var ok = document.getElementById('chk_ok_' + item.id);
+      var ng = document.getElementById('chk_ng_' + item.id);
+      if (ok.checked || ng.checked) done++;
+    });
+
+    // Update ring
+    var circ = 75.4; // 2 * pi * 12
+    var offset = circ - (done / total) * circ;
+    var ring = document.getElementById('quest_ring_' + idx);
+    if (ring) ring.style.strokeDashoffset = offset;
+    ring.style.strokeDasharray = circ;
+
+    // Quest complete badge
+    var badge = document.getElementById('quest_done_' + idx);
+    if (done === total) {
+      if (badge && badge.style.display !== 'block') {
+        badge.style.display = 'block';
+        // Bonus XP for quest completion
+        rpgXP += 300;
+        updateRpgUI();
+        showAchievement('🗺️', 'QUEST COMPLETE!', sec.emoji + ' ' + sec.title, '+300 Bonus XP');
+      }
+    } else {
+      if (badge) badge.style.display = 'none';
+    }
+  });
+}
+
+function showAchievement(icon, title, sub, xpText) {
+  var toast = document.getElementById('achievement-toast');
+  document.getElementById('toast_icon').textContent = icon;
+  document.getElementById('toast_title').textContent = title;
+  document.getElementById('toast_sub').textContent = sub + '  ' + xpText;
+  toast.classList.add('show');
+  setTimeout(function() { toast.classList.remove('show'); }, 3000);
+}
+
+function updateMissionReport() {
+  var okCount = 0, ngCount = 0, questsDone = 0;
+  SECTIONS.forEach(function(sec, idx) {
+    var total = sec.items.length;
+    var done = 0;
+    sec.items.forEach(function(item) {
+      var ok = document.getElementById('chk_ok_' + item.id);
+      var ng = document.getElementById('chk_ng_' + item.id);
+      if (ok.checked) { okCount++; done++; }
+      if (ng.checked) { ngCount++; done++; }
+    });
+    if (done === total) questsDone++;
+  });
+
+  document.getElementById('mission_total_xp').textContent = rpgXP;
+  document.getElementById('stat_ok').textContent = okCount;
+  document.getElementById('stat_ng').textContent = ngCount;
+  document.getElementById('stat_quests').textContent = questsDone + '/3';
+
+  var lv = RPG_LEVELS[0];
+  for (var i = RPG_LEVELS.length - 1; i >= 0; i--) {
+    if (rpgXP >= RPG_LEVELS[i].xp) { lv = RPG_LEVELS[i]; break; }
+  }
+  document.getElementById('stat_level').textContent = 'LV.' + lv.lv;
+
+  var badge = document.getElementById('mission_badge');
+  if (questsDone === 3) {
+    badge.textContent = '🏆 MISSION COMPLETE';
+    badge.className = 'mission-status-badge complete';
+  } else {
+    badge.textContent = '⚡ MISSION IN PROGRESS';
+    badge.className = 'mission-status-badge partial';
+  }
 }
 
 // ===== BUILD OUTPUT =====
