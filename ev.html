@@ -1076,7 +1076,7 @@ body {
 
     <div class="button-group">
       <button class="btn btn-secondary" onclick="goToStep(3)">← ย้อนกลับ</button>
-      <button class="btn btn-success" onclick="sendLine()">📤 ส่ง LINE + บันทึกรูป</button>
+      <button id="btn_send_line" class="btn btn-success" onclick="sendLine()" style="display:none;">📤 ส่ง LINE + บันทึกรูป</button>
     </div>
   </div>
 
@@ -1252,7 +1252,7 @@ function goToStep(n) {
   if (n === 4) {
     updatePreview();
     generateReceiptPreview();
-    updateMissionReport();
+    rpgFinishJob();
   }
   
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1330,19 +1330,19 @@ var _rpgRestoring = false; // flag ป้องกัน restore trigger XP
 
 // โหลด XP ถาวรจาก localStorage
 try {
-  var _savedXP = localStorage.getItem('ev_rpg_xp_total');
+  var _savedXP = localStorage.getItem('tech_rpg_xp');
   if (_savedXP) rpgXP = parseInt(_savedXP) || 0;
-  var _savedLv = localStorage.getItem('ev_rpg_last_level');
+  var _savedLv = localStorage.getItem('tech_rpg_level');
   if (_savedLv) lastLevel = parseInt(_savedLv) || 1;
-  var _savedCars = localStorage.getItem('ev_rpg_cars');
+  var _savedCars = localStorage.getItem('tech_rpg_cars');
   if (_savedCars) rpgCarsInspected = parseInt(_savedCars) || 0;
 } catch(e) {}
 
 function saveRpgXP() {
   try {
-    localStorage.setItem('ev_rpg_xp_total', rpgXP);
-    localStorage.setItem('ev_rpg_last_level', lastLevel);
-    localStorage.setItem('ev_rpg_cars', rpgCarsInspected);
+    localStorage.setItem('tech_rpg_xp', rpgXP);
+    localStorage.setItem('tech_rpg_level', lastLevel);
+    localStorage.setItem('tech_rpg_cars', rpgCarsInspected);
   } catch(e) {}
 }
 
@@ -1404,12 +1404,7 @@ function updateRpgUI() {
     if (rpgXP >= RPG_LEVELS[i].xp) { lv = RPG_LEVELS[i]; break; }
   }
 
-  // Level-up detection (เฉพาะเมื่อไม่ได้ restore)
-  if (!_rpgRestoring && lv.lv > lastLevel) {
-    triggerLevelUp(lv.name);
-    lastLevel = lv.lv;
-    saveRpgXP();
-  }
+  // level-up detection ถูกย้ายไปที่ rpgFinishJob() แล้ว
 
   // Update UI elements
   document.getElementById('rpg_class').textContent = lv.name;
@@ -1479,6 +1474,28 @@ function showAchievement(icon, title, sub, xpText) {
   document.getElementById('toast_sub').textContent = sub + '  ' + xpText;
   toast.classList.add('show');
   setTimeout(function() { toast.classList.remove('show'); }, 3000);
+}
+
+function rpgFinishJob() {
+  updateMissionReport();
+  // ตรวจว่า level up ไหม
+  var lv = RPG_LEVELS[0];
+  for (var i = RPG_LEVELS.length - 1; i >= 0; i--) {
+    if (rpgXP >= RPG_LEVELS[i].xp) { lv = RPG_LEVELS[i]; break; }
+  }
+  if (lv.lv > lastLevel) {
+    // Level up!
+    triggerLevelUp(lv.name);
+    lastLevel = lv.lv;
+    saveRpgXP();
+    // แสดงปุ่ม LINE หลัง animation 3.5 วินาที
+    setTimeout(function() {
+      document.getElementById('btn_send_line').style.display = 'flex';
+    }, 3600);
+  } else {
+    // ไม่ level up แสดงปุ่ม LINE ทันที
+    document.getElementById('btn_send_line').style.display = 'flex';
+  }
 }
 
 function updateMissionReport() {
