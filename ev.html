@@ -1303,20 +1303,55 @@ function updateOverall(val) {
 }
 
 // ===== RPG SYSTEM =====
+// ===== RPG LEVELS (10 ระดับ สะสมข้าม session) =====
+// XP ต่อคัน (ครบ 25 OK + 3 quest bonus) ~ 3,400 XP
+// LV.10 ต้องตรวจประมาณ 30+ คัน
 var RPG_LEVELS = [
-  { lv:1, name:'⚡ มือใหม่',       xp:0,    next:500  },
-  { lv:2, name:'🔧 ช่างฝึกหัด',    xp:500,  next:1200 },
-  { lv:3, name:'🛠️ ช่างมีฝีมือ',   xp:1200, next:2200 },
-  { lv:4, name:'🏅 ผู้เชี่ยวชาญ',  xp:2200, next:3200 },
-  { lv:5, name:'👑 MASTER EV',      xp:3200, next:9999 }
+  { lv:1,  name:'⚡ มือใหม่',            xp:0,      next:500    },
+  { lv:2,  name:'🔧 ช่างฝึกหัด',         xp:500,    next:2000   },
+  { lv:3,  name:'🛠️ ช่างมีฝีมือ',        xp:2000,   next:5000   },
+  { lv:4,  name:'🏅 ช่างอาวุโส',          xp:5000,   next:10000  },
+  { lv:5,  name:'💎 ช่างเชี่ยวชาญ',       xp:10000,  next:18000  },
+  { lv:6,  name:'🌟 นักตรวจอาวุโส',      xp:18000,  next:30000  },
+  { lv:7,  name:'🚀 ผู้เชี่ยวชาญ EV',     xp:30000,  next:50000  },
+  { lv:8,  name:'⚔️ ช่างตำนาน',          xp:50000,  next:80000  },
+  { lv:9,  name:'🏆 Elite Technician', xp:80000,  next:120000 },
+  { lv:10, name:'👑 MASTER EV LEGEND',  xp:120000, next:999999 }
 ];
 
+// XP ถาวร (โหลดจาก localStorage)
 var rpgXP = 0;
+var rpgSessionXP = 0;  // XP ที่ได้ใน session นี้ (รีเซ็ตต่องาน)
 var rpgCombo = 0;
 var comboTimer = null;
 var lastLevel = 1;
+var rpgCarsInspected = 0;
+var _rpgRestoring = false; // flag ป้องกัน restore trigger XP
+
+// โหลด XP ถาวรจาก localStorage
+try {
+  var _savedXP = localStorage.getItem('ev_rpg_xp_total');
+  if (_savedXP) rpgXP = parseInt(_savedXP) || 0;
+  var _savedLv = localStorage.getItem('ev_rpg_last_level');
+  if (_savedLv) lastLevel = parseInt(_savedLv) || 1;
+  var _savedCars = localStorage.getItem('ev_rpg_cars');
+  if (_savedCars) rpgCarsInspected = parseInt(_savedCars) || 0;
+} catch(e) {}
+
+function saveRpgXP() {
+  try {
+    localStorage.setItem('ev_rpg_xp_total', rpgXP);
+    localStorage.setItem('ev_rpg_last_level', lastLevel);
+    localStorage.setItem('ev_rpg_cars', rpgCarsInspected);
+  } catch(e) {}
+}
+
+// เรียกหลัง init เพื่อแสดง XP ที่มีอยู่แล้ว
+setTimeout(function() { updateRpgUI(); }, 100);
+
 
 function rpgOnCheck(id, val, wasNowChecked, isNowChecked) {
+  if (_rpgRestoring) return; // ไม่ให้ restore trigger XP
   var xpGain = 0;
   if (isNowChecked) {
     xpGain = (val === 'OK') ? 100 : 75;
@@ -1335,11 +1370,16 @@ function rpgOnCheck(id, val, wasNowChecked, isNowChecked) {
       setTimeout(function() { cb.style.animation = 'comboPulse 0.4s ease'; }, 10);
     }
     rpgXP += xpGain;
+    rpgSessionXP += xpGain;
     showXpFloat(xpGain, val);
+    saveRpgXP();
   } else {
-    // unchecked — remove XP
+    // unchecked — คืน XP เฉพาะ session นี้ (ไม่ดึง XP จาก session เก่า)
     var removeXp = (val === 'OK') ? 100 : 75;
-    rpgXP = Math.max(0, rpgXP - removeXp);
+    var canRemove = Math.min(removeXp, rpgSessionXP);
+    rpgXP = Math.max(0, rpgXP - canRemove);
+    rpgSessionXP = Math.max(0, rpgSessionXP - canRemove);
+    saveRpgXP();
   }
 
   updateRpgUI();
@@ -1364,25 +1404,27 @@ function updateRpgUI() {
     if (rpgXP >= RPG_LEVELS[i].xp) { lv = RPG_LEVELS[i]; break; }
   }
 
-  // Level-up detection
-  if (lv.lv > lastLevel) {
+  // Level-up detection (เฉพาะเมื่อไม่ได้ restore)
+  if (!_rpgRestoring && lv.lv > lastLevel) {
     triggerLevelUp(lv.name);
     lastLevel = lv.lv;
+    saveRpgXP();
   }
 
   // Update UI elements
   document.getElementById('rpg_class').textContent = lv.name;
   document.getElementById('rpg_level').textContent = 'LV. ' + lv.lv;
-  document.getElementById('rpg_xp_cur').textContent = rpgXP + ' XP';
+  document.getElementById('rpg_xp_cur').textContent = rpgXP.toLocaleString() + ' XP';
 
-  if (lv.lv < 5) {
+  var maxLv = RPG_LEVELS.length;
+  if (lv.lv < maxLv) {
     var toNext = lv.next - lv.xp;
     var progress = ((rpgXP - lv.xp) / toNext) * 100;
     document.getElementById('xp_bar_fill').style.width = Math.min(100, progress) + '%';
-    document.getElementById('rpg_xp_next').textContent = 'ถึง LV.' + (lv.lv+1) + ': ' + lv.next + ' XP';
+    document.getElementById('rpg_xp_next').textContent = 'ถึง LV.' + (lv.lv+1) + ': ' + lv.next.toLocaleString() + ' XP';
   } else {
     document.getElementById('xp_bar_fill').style.width = '100%';
-    document.getElementById('rpg_xp_next').textContent = '🏆 MAX LEVEL!';
+    document.getElementById('rpg_xp_next').textContent = '👑 MAX LEVEL REACHED!';
   }
 }
 
@@ -1415,10 +1457,14 @@ function checkQuestComplete() {
     if (done === total) {
       if (badge && badge.style.display !== 'block') {
         badge.style.display = 'block';
-        // Bonus XP for quest completion
-        rpgXP += 300;
-        updateRpgUI();
-        showAchievement('🗺️', 'QUEST COMPLETE!', sec.emoji + ' ' + sec.title, '+300 Bonus XP');
+        if (!_rpgRestoring) {
+          // Bonus XP for quest completion
+          rpgXP += 300;
+          rpgSessionXP += 300;
+          saveRpgXP();
+          updateRpgUI();
+          showAchievement('🗺️', 'QUEST COMPLETE!', sec.emoji + ' ' + sec.title, '+300 Bonus XP');
+        }
       }
     } else {
       if (badge) badge.style.display = 'none';
@@ -1449,7 +1495,13 @@ function updateMissionReport() {
     if (done === total) questsDone++;
   });
 
-  document.getElementById('mission_total_xp').textContent = rpgXP;
+  // นับรถที่เสร็จแล้วในรอบนี้ (ถ้า quest ครบ 3)
+  if (questsDone === 3) {
+    rpgCarsInspected++;
+    saveRpgXP();
+  }
+
+  document.getElementById('mission_total_xp').textContent = rpgXP.toLocaleString();
   document.getElementById('stat_ok').textContent = okCount;
   document.getElementById('stat_ng').textContent = ngCount;
   document.getElementById('stat_quests').textContent = questsDone + '/3';
@@ -1458,11 +1510,11 @@ function updateMissionReport() {
   for (var i = RPG_LEVELS.length - 1; i >= 0; i--) {
     if (rpgXP >= RPG_LEVELS[i].xp) { lv = RPG_LEVELS[i]; break; }
   }
-  document.getElementById('stat_level').textContent = 'LV.' + lv.lv;
+  document.getElementById('stat_level').textContent = 'LV.' + lv.lv + ' ' + lv.name;
 
   var badge = document.getElementById('mission_badge');
   if (questsDone === 3) {
-    badge.textContent = '🏆 MISSION COMPLETE';
+    badge.textContent = '🏆 MISSION COMPLETE (ตรวจแล้ว ' + rpgCarsInspected + ' คัน)';
     badge.className = 'mission-status-badge complete';
   } else {
     badge.textContent = '⚡ MISSION IN PROGRESS';
@@ -1750,18 +1802,39 @@ function sendLine() {
       var raw = localStorage.getItem(KEY);
       if (!raw) return;
       var s = JSON.parse(raw);
+      _rpgRestoring = true; // หยุด RPG XP ระหว่าง restore
       Object.keys(s).forEach(function(k) {
         var el = document.getElementById(k);
         if (el) {
           if (el.type === 'checkbox') {
             el.checked = s[k];
-            // Trigger UI update
+            // อัพเดท UI เท่านั้น ไม่ trigger XP
             if (k.startsWith('chk_ok_')) {
               var id = k.replace('chk_ok_', '');
-              onItemChange(id, 'OK');
+              var okC = document.getElementById('chk_ok_' + id);
+              var ngC = document.getElementById('chk_ng_' + id);
+              document.getElementById('lbl_ok_' + id).className = 'mini-btn mini-ok-btn' + (okC.checked ? ' active' : '');
+              document.getElementById('lbl_ng_' + id).className = 'mini-btn mini-ng-btn' + (ngC.checked ? ' active' : '');
+              var row = document.getElementById('row_' + id);
+              if (row) {
+                if (okC.checked) row.style.borderLeft = '4px solid var(--neon-green)';
+                else if (ngC.checked) row.style.borderLeft = '4px solid var(--neon-red)';
+              }
             } else if (k.startsWith('chk_ng_')) {
               var id = k.replace('chk_ng_', '');
-              onItemChange(id, 'NG');
+              var okC = document.getElementById('chk_ok_' + id);
+              var ngC = document.getElementById('chk_ng_' + id);
+              document.getElementById('lbl_ok_' + id).className = 'mini-btn mini-ok-btn' + (okC.checked ? ' active' : '');
+              document.getElementById('lbl_ng_' + id).className = 'mini-btn mini-ng-btn' + (ngC.checked ? ' active' : '');
+              var row = document.getElementById('row_' + id);
+              if (row) {
+                if (okC.checked) row.style.borderLeft = '4px solid var(--neon-green)';
+                else if (ngC.checked) row.style.borderLeft = '4px solid var(--neon-red)';
+              }
+              if (ngC.checked) {
+                var noteEl = document.getElementById('note_' + id);
+                if (noteEl) noteEl.classList.add('show');
+              }
             } else if (k === 'chk_overall_ok') {
               updateOverall('OK');
             } else if (k === 'chk_overall_ng') {
@@ -1772,7 +1845,11 @@ function sendLine() {
           }
         }
       });
-    } catch(e) {}
+      _rpgRestoring = false;
+      // อัพเดท quest rings หลัง restore เสร็จ
+      checkQuestComplete();
+      updateRpgUI();
+    } catch(e) { _rpgRestoring = false; }
   }
 
   var timer;
