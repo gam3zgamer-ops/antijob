@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>⚡ xEV Check Sheet - 185Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+:root {
+  --primary: #0f172a;
+  --bg-gradient: linear-gradient(135deg, #0b1329 0%, #1e3a8a 100%);
+  --card-bg: rgba(255, 255, 255, 0.96);
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  
+  --success: #10b981;
+  --success-bg: #ecfdf5;
+  --success-border: #a7f3d0;
+  
+  --danger: #ef4444;
+  --danger-bg: #fef2f2;
+  --danger-border: #fca5a5;
+  
+  --warning: #f59e0b;
+  --warning-bg: #fffbeb;
+  
+  --ev-blue: #3b82f6;
+  --ev-blue-bg: #eff6ff;
+  --ev-blue-border: #bfdbfe;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+  font-family: 'Sarabun', 'Kanit', -apple-system, sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  padding: 16px 8px;
+  color: var(--text-main);
+}
+
+.container { 
+  max-width: 600px; 
+  margin: 0 auto; 
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 24px;
+}
+
+.header h1 { 
+  font-family: 'Kanit', sans-serif;
+  font-size: 24px; 
+  font-weight: 700; 
+  margin-bottom: 4px; 
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+}
+
+.header p { 
+  font-size: 13px; 
+  opacity: 0.8; 
+}
+
+/* Tabs for switching between Oil and EV form */
+.form-switch-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 4px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+.switch-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.2s ease;
+}
+.switch-tab:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+.switch-tab.active {
+  background: white;
+  color: #1e3a8a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Technician Profile Card */
+.tech-profile-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: white;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.3);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.tech-profile-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 150px;
+  height: 150px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.tech-avatar-wrapper {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.2);
+  overflow: hidden;
+  cursor: pointer;
+  background: #334155;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.tech-avatar-wrapper:hover {
+  border-color: var(--success);
+  transform: scale(1.03);
+}
+.tech-avatar-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.avatar-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 9px;
+  text-align: center;
+  padding: 3px 0;
+  font-weight: bold;
+}
+.tech-info {
+  flex-grow: 1;
+}
+.tech-info .tech-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+  display: block;
+  margin-bottom: 4px;
+}
+.tech-info .tech-name-input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px dashed rgba(255,255,255,0.3);
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: inherit;
+  width: 100%;
+  padding: 2px 0;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.tech-info .tech-name-input:focus {
+  border-bottom-color: var(--success);
+}
+
+/* Steps Progress Wizard */
+.steps {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  position: relative;
+  gap: 8px;
+}
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: rgba(255,255,255,0.2);
+  z-index: 0;
+}
+.step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 6px;
+  transition: all 0.25s ease;
+}
+.step.active .step-circle {
+  background: white;
+  color: #1e3a8a;
+  border-color: white;
+  box-shadow: 0 0 12px rgba(255,255,255,0.4);
+  transform: scale(1.08);
+}
+.step-label {
+  color: rgba(255,255,255,0.8);
+  font-size: 11px;
+  text-align: center;
+  font-weight: 600;
+}
+.step.active .step-label {
+  color: white;
+  font-weight: 700;
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+.card.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid var(--border-color);
+}
+.card-icon { 
+  font-size: 24px; 
+}
+.card-title {
+  font-family: 'Kanit', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+/* Grid & Inputs */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.f-group {
+  grid-column: span 1;
+}
+.f-group.full { 
+  grid-column: 1/-1; 
+}
+.f-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-bottom: 6px;
+}
+.f-input {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 15px;
+  background: #fdfdfd;
+  transition: all 0.2s;
+  outline: none;
+  font-family: inherit;
+  color: var(--text-main);
+}
+.f-input:focus {
+  border-color: var(--ev-blue);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Section Title */
+.sec-title {
+  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  margin-top: 20px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.15);
+}
+.sec-title:first-child {
+  margin-top: 0;
+}
+
+/* Checklist Items */
+.section-item {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.2s ease;
+}
+.section-item:has(input[type="checkbox"]:checked) {
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+.item-num-name-desc {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.item-num {
+  background: #1e3a8a;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.item-info {
+  flex: 1;
+}
+.item-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.3;
+  margin-bottom: 2px;
+}
+.item-detail {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.item-controls-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 34px;
+}
+.item-controls {
+  display: flex;
+  gap: 8px;
+}
+.mini-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid var(--border-color);
+  background: white;
+  transition: all 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  flex: 1;
+}
+.mini-btn input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.mini-ok-btn {
+  color: var(--text-muted);
+}
+.mini-ok-btn.active {
+  background: var(--success-bg);
+  border-color: var(--success);
+  color: var(--success);
+}
+.mini-ng-btn {
+  color: var(--text-muted);
+}
+.mini-ng-btn.active {
+  background: var(--danger-bg);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.note-input {
+  width: 100%;
+  border: 1.5px solid var(--danger-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 12px;
+  background: #fefcfc;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  outline: none;
+  display: none;
+}
+.note-input.show { 
+  display: block; 
+  animation: slideDown 0.15s ease-out;
+}
+.note-input:focus {
+  border-color: var(--danger);
+  background: white;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Overall Status Selector */
+.overall-status-box {
+  background: #f8fafc;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+.overall-label {
+  font-weight: 700;
+  font-size: 13px;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+.overall-options {
+  display: flex;
+  gap: 8px;
+}
+
+/* Button layout */
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  outline: none;
+  text-decoration: none;
+}
+.btn-primary {
+  background: #1e3a8a;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.2);
+}
+.btn-primary:hover {
+  background: #172d6b;
+  transform: translateY(-1px);
+}
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+}
+.btn-secondary:hover {
+  background: #f1f5f9;
+  color: var(--text-main);
+}
+.btn-success {
+  background: #06C755;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(6, 199, 85, 0.2);
+}
+.btn-success:hover {
+  background: #05a747;
+  transform: translateY(-1px);
+}
+
+/* Preview Box */
+.preview-box {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 12.5px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin-bottom: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  color: var(--text-main);
+}
+
+@media (max-width: 480px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .button-group { flex-direction: column; }
+  .btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>⚡ xEV Check Sheet</h1>
+    <p>แบบฟอร์มตรวจสอบรถไฟฟ้าและไฮบริด - 185Service</p>
+  </div>
+
+  <div class="form-switch-tabs">
+    <a href="index.html" class="switch-tab">🚗 ฟอร์มรถน้ำมัน</a>
+    <a href="ev.html" class="switch-tab active">⚡ ฟอร์มรถไฟฟ้า EV</a>
+  </div>
+
+  <!-- Technician Profile Card -->
+  <div class="tech-profile-card">
+    <div class="tech-avatar-wrapper" onclick="document.getElementById('tech_avatar_input').click()">
+      <img id="tech_avatar_img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100%' height='100%' fill='%23334155'/><text x='50%' y='55%' font-size='24' font-family='sans-serif' fill='%2394a3b8' text-anchor='middle' font-weight='bold'>รูปช่าง</text></svg>" alt="Technician Avatar">
+      <input type="file" id="tech_avatar_input" accept="image/*" style="display: none;">
+      <div class="avatar-overlay">
+        <span>เปลี่ยนรูป</span>
+      </div>
+    </div>
+    <div class="tech-info">
+      <span class="tech-label">ช่างผู้ตรวจเช็ค (ชื่อจะบันทึกอัตโนมัติ)</span>
+      <input type="text" id="tech_name_input" placeholder="ระบุชื่อช่างของคุณ" class="tech-name-input">
+    </div>
+  </div>
+
+  <div class="steps">
+    <div class="step active" onclick="goToStep(1)">
+      <div class="step-circle">1</div>
+      <div class="step-label">ข้อมูล</div>
+    </div>
+    <div class="step" onclick="goToStep(2)">
+      <div class="step-circle">2</div>
+      <div class="step-label">ตรวจสอบ</div>
+    </div>
+    <div class="step" onclick="goToStep(3)">
+      <div class="step-circle">3</div>
+      <div class="step-label">สรุป</div>
+    </div>
+    <div class="step" onclick="goToStep(4)">
+      <div class="step-circle">4</div>
+      <div class="step-label">ส่ง</div>
+    </div>
+  </div>
+
+  <!-- Step 1: ข้อมูล -->
+  <div class="card active" id="step1">
+    <div class="card-header">
+      <div class="card-icon">👤</div>
+      <div>
+        <div class="card-title">ข้อมูลลูกค้า</div>
+      </div>
+    </div>
+
+    <div class="info-grid">
+      <div class="f-group full">
+        <div class="f-label">ชื่อลูกค้า</div>
+        <input class="f-input" type="text" id="cust_name" placeholder="ชื่อ-นามสกุล">
+      </div>
+      <div class="f-group">
+        <div class="f-label">เบอร์โทร</div>
+        <input class="f-input" type="tel" id="cust_tel" placeholder="0xx-xxx-xxxx">
+      </div>
+      <div class="f-group">
+        <div class="f-label">ทะเบียนรถ</div>
+        <input class="f-input" type="text" id="cust_plate" placeholder="กก 0000">
+      </div>
+      <div class="f-group full">
+        <div class="f-label">ยี่ห้อ/รุ่นรถ</div>
+        <input class="f-input" type="text" id="cust_model" placeholder="เช่น BYD Atto 3, Tesla Model 3">
+      </div>
+      <div class="f-group">
+        <div class="f-label">เลขกิโลเมตร</div>
+        <input class="f-input" type="number" id="cust_km" placeholder="00000">
+      </div>
+      <div class="f-group">
+        <div class="f-label">วันที่ตรวจ</div>
+        <input class="f-input" type="text" id="date_input" placeholder="วว/ดด/ปปปป">
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button class="btn btn-primary" onclick="goToStep(2)">ถัดไป →</button>
+    </div>
+  </div>
+
+  <!-- Step 2: ตรวจสอบ -->
+  <div class="card" id="step2">
+    <div class="card-header">
+      <div class="card-icon">🔍</div>
+      <div>
+        <div class="card-title">ผลการตรวจสอบระบบ</div>
+      </div>
+    </div>
+
+    <div id="items_container"></div>
+
+    <div class="button-group">
+      <button class="btn btn-secondary" onclick="goToStep(1)">← ย้อนกลับ</button>
+      <button class="btn btn-primary" onclick="goToStep(3)">ถัดไป →</button>
+    </div>
+  </div>
+
+  <!-- Step 3: สรุป -->
+  <div class="card" id="step3">
+    <div class="card-header">
+      <div class="card-icon">📊</div>
+      <div>
+        <div class="card-title">ผลการตรวจโดยรวม</div>
+      </div>
+    </div>
+
+    <div class="overall-status-box">
+      <div class="overall-label">สรุปผลการตรวจสอบโดยรวม:</div>
+      <div class="overall-options">
+        <label class="mini-btn mini-ok-btn" id="lbl_overall_ok" style="padding: 10px 20px;">
+          <input type="checkbox" id="chk_overall_ok" onchange="updateOverall('OK')"> ✅ ปกติ (OK)
+        </label>
+        <label class="mini-btn mini-ng-btn" id="lbl_overall_ng" style="padding: 10px 20px;">
+          <input type="checkbox" id="chk_overall_ng" onchange="updateOverall('NG')"> ❌ ต้องแก้ไข (NG)
+        </label>
+      </div>
+    </div>
+
+    <div class="f-group full">
+      <div class="f-label">ข้อแนะนำของช่างโดยรวม</div>
+      <textarea class="f-input" id="overall_note" rows="3" placeholder="ระบุคำแนะนำเพิ่มเติมเกี่ยวกับรถคันนี้..."></textarea>
+    </div>
+
+    <div class="button-group">
+      <button class="btn btn-secondary" onclick="goToStep(2)">← ย้อนกลับ</button>
+      <button class="btn btn-primary" onclick="goToStep(4)">ถัดไป →</button>
+    </div>
+  </div>
+
+  <!-- Step 4: ส่ง -->
+  <div class="card" id="step4">
+    <div class="card-header">
+      <div class="card-icon">📤</div>
+      <div>
+        <div class="card-title">ส่งออกข้อมูล</div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom: 10px; color: #1e3a8a; font-family: 'Kanit'; font-size: 14px;">📋 ตัวอย่างข้อความแชท LINE:</h3>
+    <div class="preview-box" id="previewText"></div>
+
+    <h3 style="margin-bottom: 10px; color: #1e3a8a; font-family: 'Kanit'; font-size: 14px;">📄 รูปภาพสลิปส่งงาน:</h3>
+    <div style="background: #e2e8f0; padding: 10px; border-radius: 12px; text-align: center; margin-bottom: 15px;">
+      <img id="receiptImage" src="" style="max-width: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">
+    </div>
+
+    <div class="button-group">
+      <button class="btn btn-secondary" onclick="goToStep(3)">← ย้อนกลับ</button>
+      <button class="btn btn-success" onclick="sendLine()">ส่งไป LINE + บันทึกรูป</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Off-screen container for rendering the slip image -->
+<div id="hiddenReceiptElement" style="position: absolute; left: -9999px; top: -9999px; width: 380px; background: #ffffff; font-family: 'Sarabun', 'Kanit', sans-serif; box-sizing: border-box; padding: 0;"></div>
+
+<script>
+// ===== SECTIONS DATA =====
+var SECTIONS = [
+  {
+    title: 'การตรวจสอบทั่วไป',
+    emoji: '🔍',
+    items: [
+      { id:1,  name:'ตรวจสอบระบบไฟส่องสว่าง/แตร',                         detail:'ทำงานดีปกติ' },
+      { id:2,  name:'ตรวจสอบใบปัดน้ำฝน/ยางปัดน้ำฝน/น้ำฉีดกระจก',          detail:'หลวมคลอน, ยางเสื่อมสภาพ' },
+      { id:3,  name:'ตรวจสอบแบตเตอรี่ 12V และประสิทธิภาพ',                 detail:'ทำงานดีปกติ, เสียหาย' },
+      { id:4,  name:'ตรวจสอบลมยางและระบบ TPMS',                             detail:'ทำงานดีปกติ, เสียหาย' },
+      { id:5,  name:'ตรวจสภาพกรองและระบบปรับอากาศ',                        detail:'สกปรก, ตัน, เสียหาย' },
+      { id:6,  name:'ตรวจสอบการทำงานพัดลมระบายความร้อน',                   detail:'ทำงานดีปกติ, เสียหาย' },
+      { id:7,  name:'ตรวจสอบระดับ/สภาพน้ำหล่อเย็นมอเตอร์',                detail:'เสื่อมสภาพ, ระดับต่ำ' },
+      { id:8,  name:'ตรวจสอบระดับ/สภาพน้ำหล่อเย็นแบตเตอรี่',              detail:'เสื่อมสภาพ, ระดับต่ำ' },
+      { id:9,  name:'ตรวจสอบระดับ/สภาพ/ท่อทางน้ำมันเบรก',                  detail:'เสื่อมสภาพ, ระดับต่ำ' },
+    ]
+  },
+  {
+    title: 'การตรวจสอบระบบไฟฟ้าแรงสูง',
+    emoji: '⚡',
+    items: [
+      { id:10, name:'ตรวจสอบชิ้นส่วนปกป้องมอเตอร์และขับเคลื่อน',           detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:11, name:'ตรวจสอบการหลวมของชุดสายไฟแรงสูง',                     detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:12, name:'ตรวจสอบความเสียหายสายไฟแรงสูงทั้งหมด',                detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:13, name:'ตรวจสอบความจุและสุขภาพของแบตเตอรี่',                  detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:14, name:'ตรวจสอบความเสียหายของชุดแบตเตอรี่',                   detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:15, name:'ตรวจสอบและทำความสะอาดช่องชาร์จ',                      detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+      { id:16, name:'ทดสอบความจุและสุขภาพแบตเตอรี่ (SOH, SOC)',             detail:'ทุก 20,000 กม. หรือ 12 เดือน' },
+    ]
+  },
+  {
+    title: 'การตรวจสอบระบบเบรกและช่วงล่าง',
+    emoji: '🔩',
+    items: [
+      { id:17, name:'ตรวจสอบความหนาผ้าเบรก/จานดิสก์เบรก',                  detail:'หน้า, หลัง, สภาพผ้า' },
+      { id:18, name:'ตรวจสอบชุดคาลิปเปอร์และความดันสลักเบรก',              detail:'ติดขัด, สนิมเกาะ' },
+      { id:19, name:'ตรวจสอบความหลวมลูกปืนล้อ',                             detail:'เสียงดัง, หลวม, คลอน' },
+      { id:20, name:'ตรวจสอบคานรับแรงบิดและระบบพวงมาลัย',               detail:'เสียงดัง, หลวม, เสียหาย' },
+      { id:21, name:'ตรวจสอบคานทอร์ชันและยางกันฝุ่น',                            detail:'เสียงดัง, สภาพยางหุ้ม' },
+      { id:22, name:'ตรวจสอบระดับ/สภาพน้ำมันเกียร์',                       detail:'เสื่อมสภาพ, ระดับต่ำ' },
+      { id:23, name:'ตรวจสอบโช้คอัพหน้า/หลัง',                              detail:'รั่วซึม, ยางหุ้มฉีกขาด' },
+      { id:24, name:'ตรวจสอบช่วงล่างด้านหน้า',                              detail:'เสียงดัง, หลวม' },
+      { id:25, name:'ตรวจสอบช่วงล่างด้านหลัง',                              detail:'เสียงดัง, หลวม' },
+    ]
+  }
+];
+
+var currentStep = 1;
+
+// ===== BUILD UI =====
+(function buildUI() {
+  var container = document.getElementById('items_container');
+  SECTIONS.forEach(function(sec) {
+    var wrap = document.createElement('div');
+    wrap.style.marginBottom = '20px';
+
+    var hdr = document.createElement('div');
+    hdr.className = 'sec-title';
+    hdr.textContent = sec.emoji + ' ' + sec.title + ' (' + sec.items.length + ' รายการ)';
+    wrap.appendChild(hdr);
+
+    sec.items.forEach(function(item) {
+      var row = document.createElement('div');
+      row.className = 'section-item';
+      row.id = 'row_' + item.id;
+      
+      var numNameDesc = document.createElement('div');
+      numNameDesc.className = 'item-num-name-desc';
+      
+      var numEl = document.createElement('div');
+      numEl.className = 'item-num';
+      numEl.textContent = item.id;
+      
+      var infoEl = document.createElement('div');
+      infoEl.className = 'item-info';
+      infoEl.innerHTML = 
+        '<div class="item-name">' + item.name + '</div>' +
+        '<div class="item-detail">📎 ' + item.detail + '</div>';
+      
+      numNameDesc.appendChild(numEl);
+      numNameDesc.appendChild(infoEl);
+      row.appendChild(numNameDesc);
+      
+      var ctrlWrap = document.createElement('div');
+      ctrlWrap.className = 'item-controls-wrap';
+      
+      var ctrlEl = document.createElement('div');
+      ctrlEl.className = 'item-controls';
+      ctrlEl.innerHTML =
+        '<label class="mini-btn mini-ok-btn" id="lbl_ok_' + item.id + '">' +
+          '<input type="checkbox" id="chk_ok_' + item.id + '" onchange="onItemChange(' + item.id + ',\'OK\')"> OK' +
+        '</label>' +
+        '<label class="mini-btn mini-ng-btn" id="lbl_ng_' + item.id + '">' +
+          '<input type="checkbox" id="chk_ng_' + item.id + '" onchange="onItemChange(' + item.id + ',\'NG\')"> NG' +
+        '</label>';
+        
+      var noteEl = document.createElement('input');
+      noteEl.type = 'text';
+      noteEl.className = 'note-input';
+      noteEl.id = 'note_' + item.id;
+      noteEl.placeholder = 'ระบุอาการชำรุดเพิ่มเติม...';
+      
+      ctrlWrap.appendChild(ctrlEl);
+      ctrlWrap.appendChild(noteEl);
+      row.appendChild(ctrlWrap);
+      wrap.appendChild(row);
+    });
+
+    container.appendChild(wrap);
+  });
+})();
+
+// ===== STEP NAVIGATION =====
+function goToStep(n) {
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.remove('active');
+    c.style.display = 'none';
+  });
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  
+  var activeCard = document.getElementById('step' + n);
+  activeCard.style.display = 'block';
+  setTimeout(() => {
+    activeCard.classList.add('active');
+  }, 10);
+  
+  document.querySelectorAll('.step')[n - 1].classList.add('active');
+  
+  currentStep = n;
+  
+  if (n === 4) {
+    updatePreview();
+    generateReceiptPreview();
+  }
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ===== ITEM CONTROL =====
+function onItemChange(id, val) {
+  var okChk = document.getElementById('chk_ok_' + id);
+  var ngChk = document.getElementById('chk_ng_' + id);
+  
+  if (val === 'OK' && okChk.checked) ngChk.checked = false;
+  if (val === 'NG' && ngChk.checked) okChk.checked = false;
+
+  document.getElementById('lbl_ok_' + id).className = 'mini-btn mini-ok-btn' + (okChk.checked ? ' active' : '');
+  document.getElementById('lbl_ng_' + id).className = 'mini-btn mini-ng-btn' + (ngChk.checked ? ' active' : '');
+  
+  var row = document.getElementById('row_' + id);
+  if (okChk.checked) {
+    row.style.borderLeft = '4px solid var(--success)';
+  } else if (ngChk.checked) {
+    row.style.borderLeft = '4px solid var(--danger)';
+  } else {
+    row.style.borderLeft = '1px solid var(--border-color)';
+  }
+
+  var noteEl = document.getElementById('note_' + id);
+  if (ngChk.checked) {
+    noteEl.classList.add('show');
+  } else {
+    noteEl.classList.remove('show');
+    noteEl.value = '';
+  }
+}
+
+function updateOverall(val) {
+  var okChk = document.getElementById('chk_overall_ok');
+  var ngChk = document.getElementById('chk_overall_ng');
+  
+  if (val === 'OK' && okChk.checked) ngChk.checked = false;
+  if (val === 'NG' && ngChk.checked) okChk.checked = false;
+
+  document.getElementById('lbl_overall_ok').className = 'mini-btn mini-ok-btn' + (okChk.checked ? ' active' : '');
+  document.getElementById('lbl_overall_ng').className = 'mini-btn mini-ng-btn' + (ngChk.checked ? ' active' : '');
+}
+
+// ===== BUILD OUTPUT =====
+function buildOutput() {
+  var name = document.getElementById('cust_name').value.trim() || '-';
+  var tel = document.getElementById('cust_tel').value.trim() || '-';
+  var plate = document.getElementById('cust_plate').value.trim() || '-';
+  var model = document.getElementById('cust_model').value.trim() || '-';
+  var km = document.getElementById('cust_km').value.trim() || '-';
+  var date = document.getElementById('date_input').value.trim() || '-';
+  var ovOk = document.getElementById('chk_overall_ok').checked;
+  var ovNg = document.getElementById('chk_overall_ng').checked;
+  var ovVal = ovOk ? 'OK' : (ovNg ? 'NG' : '-');
+  var ovNote = document.getElementById('overall_note').value.trim();
+  var techName = document.getElementById('tech_name_input').value.trim() || '-';
+
+  var lines = [];
+  lines.push('⚡ *xEV CHECK SHEET REPORT V1*');
+  lines.push('-------------------------');
+  lines.push('📅 วันที่: ' + date);
+  lines.push('🧑‍🔧 ช่างผู้ตรวจ: ' + techName);
+  lines.push('-------------------------');
+  lines.push('👤 ลูกค้า: ' + name);
+  lines.push('📞 เบอร์โทร: ' + tel);
+  lines.push('🚗 รถ: ' + model + ' | 📋 ทะเบียน: ' + plate);
+  lines.push('📍 กิโลเมตร: ' + km + ' กม.');
+  lines.push('-------------------------');
+  lines.push('*ผลการตรวจโดยรวม:* ' + ovVal);
+  if (ovNote) lines.push('📝 ' + ovNote);
+
+  SECTIONS.forEach(function(sec) {
+    lines.push('');
+    lines.push('*' + sec.emoji + ' ' + sec.title + '*');
+    lines.push('-------------------------');
+    sec.items.forEach(function(item) {
+      var okC = document.getElementById('chk_ok_' + item.id);
+      var ngC = document.getElementById('chk_ng_' + item.id);
+      var status = okC.checked ? '✅ OK' : (ngC.checked ? '❌ NG' : '⬜ ไม่ได้ตรวจ');
+      var note = document.getElementById('note_' + item.id).value.trim();
+      lines.push(item.id + '. ' + item.name + ' ➡️ [' + status + ']');
+      if (note) lines.push('   *อาการชำรุด:* ' + note);
+    });
+  });
+
+  return lines.join('\n');
+}
+
+function updatePreview() {
+  document.getElementById('previewText').textContent = buildOutput();
+}
+
+// ===== RECEIPT PREVIEW =====
+function generateReceiptPreview() {
+  var name = document.getElementById('cust_name').value || '-';
+  var model = document.getElementById('cust_model').value || '-';
+  var plate = document.getElementById('cust_plate').value || '-';
+  var date = document.getElementById('date_input').value || '-';
+  var km = document.getElementById('cust_km').value || '-';
+
+  createBeautifulSlip(name, model, plate, date, km);
+}
+
+function createBeautifulSlip(name, model, plate, date, km) {
+  var hiddenReceipt = document.getElementById('hiddenReceiptElement');
+  var techName = document.getElementById('tech_name_input').value.trim() || 'ไม่ได้ระบุ';
+  var techAvatar = document.getElementById('tech_avatar_img').src;
+
+  var html = '';
+  // 1. Slip Header
+  html += '<div style="background: #1e3a8a; padding: 22px 20px; text-align: center; border-bottom: 5px solid #3b82f6; color: #ffffff;">';
+  html += '  <div style="margin-bottom: 12px; display: flex; justify-content: center; align-items: center;">';
+  html += '    <img src="โลโก้.png" style="max-height: 70px; max-width: 100%; object-fit: contain;" />';
+  html += '  </div>';
+  html += '  <h2 style="margin: 0; font-size: 23px; font-weight: 700; letter-spacing: 0.5px; font-family:\'Kanit\', sans-serif;">⚡ รายงานตรวจเช็ค xEV</h2>';
+  html += '  <p style="margin: 6px 0 0 0; font-size: 13px; color: #bfdbfe; font-weight: 300;">185Service EV & Hybrid Standard</p>';
+  html += '</div>';
+
+  // 2. Details
+  html += '<div style="padding: 20px; background: #ffffff;">';
+  html += '  <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #3b82f6; border-radius: 8px; padding: 15px; margin-bottom: 15px;">';
+  html += '    <table style="width: 100%; border-collapse: collapse; font-size: 14px; text-align: left;">';
+  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold; width: 35%;">👤 ลูกค้า:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + name + '</td></tr>';
+  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">🚗 ยี่ห้อ/รุ่นรถ:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + model + '</td></tr>';
+  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">📋 ทะเบียนรถ:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + plate + '</td></tr>';
+  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">📍 เลขกิโลเมตร:</td><td style="padding: 4px 0; font-weight: 700; color: #1e293b;">' + km + ' กม.</td></tr>';
+  html += '      <tr><td style="padding: 4px 0; color: #64748b; font-weight: bold;">📅 วันที่ตรวจ:</td><td style="padding: 4px 0; color: #1e293b;">' + date + '</td></tr>';
+  html += '      <tr>';
+  html += '        <td style="padding: 4px 0; color: #64748b; font-weight: bold;">🧑‍🔧 ช่างผู้ตรวจเช็ค:</td>';
+  html += '        <td style="padding: 4px 0; font-weight: 700; color: #1e293b; vertical-align: middle;">';
+  html += '          <img src="' + techAvatar + '" style="width: 24px; height: 24px; border-radius: 12px; border: 1px solid #ccc; object-fit: cover; vertical-align: middle; margin-right: 6px; display: inline-block;" />';
+  html += '          <span style="vertical-align: middle; display: inline-block;">' + techName + '</span>';
+  html += '        </td>';
+  html += '      </tr>';
+  html += '    </table>';
+  html += '  </div>';
+
+  var overallOk = document.getElementById('chk_overall_ok').checked;
+  var overallNg = document.getElementById('chk_overall_ng').checked;
+  var overallText = overallOk ? '✅ ปกติ (OK)' : (overallNg ? '❌ ต้องแก้ไข (NG)' : '-');
+  var overallColor = overallOk ? '#10b981' : (overallNg ? '#ef4444' : '#64748b');
+
+  html += '  <div style="background: #fafafa; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 14px; text-align: left;">';
+  html += '    <div style="font-weight: 700; margin-bottom: 4px;">สรุปผลโดยรวม: <span style="color: ' + overallColor + ';">' + overallText + '</span></div>';
+  var overallNoteVal = document.getElementById('overall_note').value.trim();
+  if (overallNoteVal) {
+    html += '    <div style="color: #475569; font-size: 13px; margin-top: 4px;">📝 ' + overallNoteVal + '</div>';
+  }
+  html += '  </div>';
+
+  // 3. Checked items
+  SECTIONS.forEach(function(sec) {
+    var sectionHasData = false;
+    var secHtml = '';
+    secHtml += '  <div style="background: #1e3a8a; color: white; padding: 6px 12px; border-radius: 6px; font-weight: 700; font-size: 13px; margin-top: 15px; text-align: left;">' + sec.emoji + ' ' + sec.title + '</div>';
+    secHtml += '  <div style="border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 8px 8px; padding: 8px 12px; text-align: left;">';
+    
+    sec.items.forEach(function(item) {
+      var okC = document.getElementById('chk_ok_' + item.id);
+      var ngC = document.getElementById('chk_ng_' + item.id);
+      if (!okC.checked && !ngC.checked) return;
+      sectionHasData = true;
+      
+      var statusIcon = okC.checked ? '🟢' : '🔴';
+      var statusColor = okC.checked ? '#2e7d32' : '#c62828';
+      var statusText = okC.checked ? 'OK' : 'NG';
+      var note = document.getElementById('note_' + item.id).value.trim();
+      
+      secHtml += '    <div style="font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">';
+      secHtml += '      <div style="flex:1;">';
+      secHtml += '        <div style="font-weight: 600;">' + item.id + '. ' + item.name + '</div>';
+      if (note) {
+        secHtml += '        <div style="font-size: 11px; color: #c62828; margin-top: 2px;">⚠️ ' + note + '</div>';
+      }
+      secHtml += '      </div>';
+      secHtml += '      <div style="font-weight: 700; color: ' + statusColor + '; font-size: 12px; flex-shrink:0;">' + statusIcon + ' ' + statusText + '</div>';
+      secHtml += '    </div>';
+    });
+    secHtml += '  </div>';
+    
+    if (sectionHasData) {
+      html += secHtml;
+    }
+  });
+
+  // Footer message
+  html += '  <div style="text-align: center; margin-top: 30px; border-top: 2px solid #e2e8f0; padding-top: 15px;">';
+  html += '    <h3 style="margin: 0; font-size: 16px; font-weight: 700; color: #1e3a8a;">ขอบคุณที่เลือกใช้บริการของเรา</h3>';
+  html += '    <p style="margin: 4px 0 0 0; font-size: 11px; color: #64748b;">* เอกสารชี้แจงเพื่อประกอบการพิจารณาซ่อมบำรุง *</p>';
+  html += '  </div>';
+  html += '</div>';
+
+  hiddenReceipt.innerHTML = html;
+
+  // Let html2canvas generate image
+  html2canvas(hiddenReceipt, {
+    scale: 2,
+    backgroundColor: '#ffffff',
+    allowTaint: true,
+    useCORS: true
+  }).then(canvas => {
+    var imgData = canvas.toDataURL('image/png');
+    document.getElementById('receiptImage').src = imgData;
+    window.receiptImageData = imgData;
+  }).catch(err => {
+    console.error('Canvas error:', err);
+  });
+}
+
+// ===== SEND =====
+function sendLine() {
+  var txt = buildOutput();
+  var lineUrl = 'https://line.me/R/msg/text/?' + encodeURIComponent(txt);
+  window.location.href = lineUrl;
+
+  setTimeout(() => {
+    if (window.receiptImageData) {
+      var plate = document.getElementById('cust_plate').value.trim() || 'ev';
+      var link = document.createElement('a');
+      link.href = window.receiptImageData;
+      link.download = 'xEV-Receipt-' + plate + '-' + new Date().getTime() + '.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }, 500);
+}
+
+// ===== AUTOSAVE & TECH PROFILE =====
+(function() {
+  var KEY = 'xev_form_v1';
+  var nameInp = document.getElementById('tech_name_input');
+  var avatarImg = document.getElementById('tech_avatar_img');
+  var avatarInp = document.getElementById('tech_avatar_input');
+
+  // Load technician profile
+  try {
+    var savedName = localStorage.getItem('car_service_tech_name');
+    if (savedName && nameInp) nameInp.value = savedName;
+
+    var savedAvatar = localStorage.getItem('car_service_tech_avatar');
+    if (savedAvatar && avatarImg) avatarImg.src = savedAvatar;
+  } catch(e) {}
+
+  // Save technician name
+  if (nameInp) {
+    nameInp.addEventListener('input', function() {
+      try {
+        localStorage.setItem('car_service_tech_name', nameInp.value);
+      } catch(e) {}
+    });
+  }
+
+  // Save technician avatar
+  if (avatarInp) {
+    avatarInp.addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        var dataUrl = evt.target.result;
+        if (avatarImg) avatarImg.src = dataUrl;
+        try {
+          localStorage.setItem('car_service_tech_avatar', dataUrl);
+        } catch(e) {}
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function save() {
+    try {
+      var s = {};
+      document.querySelectorAll('input[type=text],input[type=tel],input[type=number],textarea').forEach(function(el) {
+        if (el.id && el.id !== 'tech_name_input') s[el.id] = el.value;
+      });
+      // Save item checks
+      SECTIONS.forEach(sec => {
+        sec.items.forEach(item => {
+          var okC = document.getElementById('chk_ok_' + item.id);
+          var ngC = document.getElementById('chk_ng_' + item.id);
+          s['chk_ok_' + item.id] = okC.checked;
+          s['chk_ng_' + item.id] = ngC.checked;
+          s['note_' + item.id] = document.getElementById('note_' + item.id).value;
+        });
+      });
+      // Save overall
+      s['chk_overall_ok'] = document.getElementById('chk_overall_ok').checked;
+      s['chk_overall_ng'] = document.getElementById('chk_overall_ng').checked;
+
+      localStorage.setItem(KEY, JSON.stringify(s));
+    } catch(e) {}
+  }
+
+  function restore() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      var s = JSON.parse(raw);
+      Object.keys(s).forEach(function(k) {
+        var el = document.getElementById(k);
+        if (el) {
+          if (el.type === 'checkbox') {
+            el.checked = s[k];
+            // Trigger UI update
+            if (k.startsWith('chk_ok_')) {
+              var id = k.replace('chk_ok_', '');
+              onItemChange(id, 'OK');
+            } else if (k.startsWith('chk_ng_')) {
+              var id = k.replace('chk_ng_', '');
+              onItemChange(id, 'NG');
+            } else if (k === 'chk_overall_ok') {
+              updateOverall('OK');
+            } else if (k === 'chk_overall_ng') {
+              updateOverall('NG');
+            }
+          } else {
+            el.value = s[k];
+          }
+        }
+      });
+    } catch(e) {}
+  }
+
+  var timer;
+  document.addEventListener('input', function(e) {
+    if (e.target.id === 'tech_name_input') return;
+    clearTimeout(timer);
+    timer = setTimeout(save, 400);
+  });
+  document.addEventListener('change', function(e) {
+    if (e.target.id === 'tech_avatar_input') return;
+    save();
+  });
+  
+  restore();
+
+  // Set today as default
+  var d = document.getElementById('date_input');
+  if (d && !d.value) {
+    var now = new Date();
+    var dd = String(now.getDate()).padStart(2,'0');
+    var mm = String(now.getMonth()+1).padStart(2,'0');
+    var yyyy = now.getFullYear() + 543;
+    d.value = dd + '/' + mm + '/' + yyyy;
+  }
+})();
+</script>
+</body>
+</html>
