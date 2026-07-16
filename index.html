@@ -626,105 +626,6 @@ body {
   box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
 }
 
-/* ===== SHARED RPG SYSTEM (Oil + EV) ===== */
-.rpg-stats { flex: 1; }
-.rpg-title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 3px;
-}
-.rpg-level-badge {
-  background: linear-gradient(135deg, #7c3aed, #4f46e5);
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 20px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 0 8px rgba(124,58,237,0.4);
-}
-.rpg-class-name {
-  font-size: 13px;
-  font-weight: 700;
-  color: #e2e8f0;
-}
-.xp-label-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  color: rgba(255,255,255,0.45);
-  margin-bottom: 3px;
-  margin-top: 5px;
-}
-.xp-bar-bg {
-  width: 100%;
-  height: 7px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid rgba(124,58,237,0.3);
-}
-.xp-bar-fill {
-  height: 100%;
-  width: 0%;
-  border-radius: 20px;
-  background: linear-gradient(90deg, #7c3aed, #a855f7, #c084fc);
-  box-shadow: 0 0 6px rgba(168,85,247,0.6);
-  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-/* Level-Up Overlay (shared) */
-#rpg-levelup-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.88);
-  z-index: 99999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-}
-#rpg-levelup-overlay.show {
-  opacity: 1;
-  pointer-events: all;
-}
-.rpg-levelup-box { text-align: center; animation: rpgLvUp 0.6s cubic-bezier(0.34,1.56,0.64,1); }
-@keyframes rpgLvUp {
-  0% { transform: scale(0.5); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-.rpg-lv-stars { font-size: 44px; display: block; margin-bottom: 10px; }
-.rpg-lv-text {
-  font-family: 'Kanit', sans-serif;
-  font-size: 13px;
-  color: #a78bfa;
-  letter-spacing: 4px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-.rpg-lv-name {
-  font-family: 'Kanit', sans-serif;
-  font-size: 30px;
-  font-weight: 900;
-  background: linear-gradient(135deg, #a855f7, #38bdf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 6px 0 14px;
-}
-.rpg-lv-dismiss {
-  font-size: 12px;
-  cursor: pointer;
-  padding: 8px 20px;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 20px;
-  background: none;
-  color: rgba(255,255,255,0.5);
-  font-family: inherit;
-}
 </style>
 </head>
 <body>
@@ -736,7 +637,7 @@ body {
   <a href="ev.html" class="switch-tab">⚡ ฟอร์มรถไฟฟ้า EV</a>
 </div>
 
-<!-- Technician Profile Card (RPG) -->
+<!-- Technician Profile Card -->
 <div class="tech-profile-card">
   <div class="tech-avatar-wrapper" onclick="document.getElementById('tech_avatar_input').click()">
     <img id="tech_avatar_img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100%' height='100%' fill='%23334155'/><text x='50%' y='55%' font-size='24' font-family='sans-serif' fill='%2394a3b8' text-anchor='middle' font-weight='bold'>รูปช่าง</text></svg>" alt="Technician Avatar">
@@ -745,29 +646,9 @@ body {
       <span>เปลี่ยนรูป</span>
     </div>
   </div>
-  <div class="rpg-stats">
-    <div class="rpg-title-row">
-      <span class="rpg-class-name" id="rpg_class">⚡ มือใหม่</span>
-      <span class="rpg-level-badge" id="rpg_level">LV. 1</span>
-    </div>
-    <input type="text" id="tech_name_input" placeholder="ระบุชื่อช่างของคุณ" class="tech-name-input" style="font-size:14px;">
-    <div class="xp-label-row">
-      <span id="rpg_xp_cur">0 XP</span>
-      <span id="rpg_xp_next">ถึง LV.2: 500 XP</span>
-    </div>
-    <div class="xp-bar-bg">
-      <div class="xp-bar-fill" id="xp_bar_fill"></div>
-    </div>
-  </div>
-</div>
-
-<!-- RPG Level-Up Overlay (Oil Form) -->
-<div id="rpg-levelup-overlay">
-  <div class="rpg-levelup-box">
-    <span class="rpg-lv-stars">✨⭐✨</span>
-    <div class="rpg-lv-text">LEVEL UP!</div>
-    <div class="rpg-lv-name" id="rpg_lv_name">ช่างอาวุโส</div>
-    <button class="rpg-lv-dismiss" id="rpg_lv_dismiss">แตะเพื่อปิด</button>
+  <div class="tech-info">
+    <span class="tech-label">ช่างผู้ตรวจเช็ค (ชื่อจะบันทึกอัตโนมัติ)</span>
+    <input type="text" id="tech_name_input" placeholder="ระบุชื่อช่างของคุณ" class="tech-name-input">
   </div>
 </div>
 
@@ -2332,17 +2213,7 @@ if (valid) {
 window.closePV=function(){document.getElementById('pv_modal').style.display='none';document.body.style.overflow='';_pvURL=null;};
 window.doSend=function(){
 if (!validateChk20()) { alert('กรุณากรอกรายการเช็คให้ครบก่อนส่ง!'); return; }
-if(_pvURL){
-  if(typeof window.oilRpgFinishJob === 'function') {
-    window.oilRpgFinishJob(function() {
-      window.location.href = _pvURL;
-      closePV();
-    });
-  } else {
-    window.location.href = _pvURL;
-    closePV();
-  }
-}
+if(_pvURL){window.location.href=_pvURL;closePV();}
 };
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='pv_modal')closePV();});
 window.sendToLine=function(){
@@ -2372,44 +2243,6 @@ time:document.getElementById('t_input').value.trim()||'-',
 remark:document.getElementById('r_input').value.trim()||'-'
 });
 window.location.href='https://line.me/R/msg/text/?'+encodeURIComponent(txt);
-};
-
-// ส่งทันที (ไม่ผ่าน modal) — อัพเดท RPG ก่อน
-var _origSendToLine = window.sendToLine;
-window.sendToLine = function() {
-  if (!validateChk20()) {
-    var warn = document.getElementById('chk20_warning');
-    if (warn) warn.style.display = 'block';
-    var ct = document.getElementById('chk20_content');
-    if (ct && ct.style.display === 'none') toggleSection('chk20');
-    alert('กรุณากรอกรายการเช็ค 8 รายการให้ครบก่อนส่ง!');
-    return;
-  }
-  var txt = buildFullOutput();
-  function actualSend() {
-    saveToSheet({
-      date:new Date().toLocaleDateString('th-TH'),
-      model:document.getElementById('m_input').value.trim()||'-',
-      plate:document.getElementById('p_input').value.trim()||'-',
-      chk20Diag:collectChk20Diag(), chk20Sol:collectChk20Sol(),
-      acDiag:collectACDiag(), acSol:collectACSol(), acParts:collectACParts(),
-      suspDiag:collectDiag('susp'), suspSol:collectSol('susp'),
-      brakeDiag:collectDiag('brake'), brakeSol:collectSol('brake'),
-      engPDiag:collectDiag('eng_p'), engPSol:collectSol('eng_p'),
-      engDDiag:collectDiag('eng_d'), engDSol:collectSol('eng_d'),
-      coolDiag:collectDiag('cool'), coolSol:collectSol('cool'),
-      clutchDiag:collectDiag('clutch'), clutchSol:collectSol('clutch'),
-      starterDiag:collectDiag('starter'), starterSol:collectSol('starter'),
-      time:document.getElementById('t_input').value.trim()||'-',
-      remark:document.getElementById('r_input').value.trim()||'-'
-    });
-    window.location.href='https://line.me/R/msg/text/?'+encodeURIComponent(txt);
-  }
-  if (typeof window.oilRpgFinishJob === 'function') {
-    window.oilRpgFinishJob(actualSend);
-  } else {
-    actualSend();
-  }
 };
 
 // ===================================================================
@@ -2515,113 +2348,6 @@ window.sendToLine = function() {
             if(typeof origClear === 'function') origClear(); else location.reload();
         }
     };
-})();
-// ===================================================================
-// SHARED RPG SYSTEM (เลเวลรวม Oil + EV)
-// ===================================================================
-(function(){
-  var RPG_LEVELS = [
-    { lv:1,  name:'⚡ มือใหม่',            xp:0,      next:500    },
-    { lv:2,  name:'🔧 ช่างฝึกหัด',         xp:500,    next:2000   },
-    { lv:3,  name:'🛠️ ช่างมีฝีมือ',        xp:2000,   next:5000   },
-    { lv:4,  name:'🏅 ช่างอาวุโส',          xp:5000,   next:10000  },
-    { lv:5,  name:'💎 ช่างเชี่ยวชาญ',       xp:10000,  next:18000  },
-    { lv:6,  name:'🌟 นักตรวจอาวุโส',      xp:18000,  next:30000  },
-    { lv:7,  name:'🚀 ผู้เชี่ยวชาญ EV',     xp:30000,  next:50000  },
-    { lv:8,  name:'⚔️ ช่างตำนาน',          xp:50000,  next:80000  },
-    { lv:9,  name:'🏆 Elite Technician', xp:80000,  next:120000 },
-    { lv:10, name:'👑 MASTER EV LEGEND',  xp:120000, next:999999 }
-  ];
-
-  // โหลด XP จาก localStorage (shared key เดียวกันกับ EV form)
-  var rpgXP = 0;
-  var lastLevel = 1;
-  var oilSessionXP = 0;
-  try {
-    var s = localStorage.getItem('tech_rpg_xp');
-    if (s) rpgXP = parseInt(s) || 0;
-    var sl = localStorage.getItem('tech_rpg_level');
-    if (sl) lastLevel = parseInt(sl) || 1;
-  } catch(e) {}
-
-  function saveRpg() {
-    try {
-      localStorage.setItem('tech_rpg_xp', rpgXP);
-      localStorage.setItem('tech_rpg_level', lastLevel);
-    } catch(e) {}
-  }
-
-  function getLv() {
-    var lv = RPG_LEVELS[0];
-    for (var i = RPG_LEVELS.length - 1; i >= 0; i--) {
-      if (rpgXP >= RPG_LEVELS[i].xp) { lv = RPG_LEVELS[i]; break; }
-    }
-    return lv;
-  }
-
-  function updateUI() {
-    var lv = getLv();
-    var classEl = document.getElementById('rpg_class');
-    var levelEl = document.getElementById('rpg_level');
-    var xpCurEl = document.getElementById('rpg_xp_cur');
-    var xpNextEl = document.getElementById('rpg_xp_next');
-    var barEl = document.getElementById('xp_bar_fill');
-    if (classEl) classEl.textContent = lv.name;
-    if (levelEl) levelEl.textContent = 'LV. ' + lv.lv;
-    if (xpCurEl) xpCurEl.textContent = rpgXP.toLocaleString() + ' XP';
-    if (lv.lv < RPG_LEVELS.length) {
-      var pct = ((rpgXP - lv.xp) / (lv.next - lv.xp)) * 100;
-      if (barEl) barEl.style.width = Math.min(100, pct) + '%';
-      if (xpNextEl) xpNextEl.textContent = 'ถึง LV.' + (lv.lv+1) + ': ' + lv.next.toLocaleString() + ' XP';
-    } else {
-      if (barEl) barEl.style.width = '100%';
-      if (xpNextEl) xpNextEl.textContent = '👑 MAX LEVEL!';
-    }
-  }
-
-  function triggerLevelUpOil(name, onDone) {
-    var ol = document.getElementById('rpg-levelup-overlay');
-    var nm = document.getElementById('rpg_lv_name');
-    var btn = document.getElementById('rpg_lv_dismiss');
-    if (nm) nm.textContent = name;
-    if (ol) ol.classList.add('show');
-    function dismiss() {
-      if (ol) ol.classList.remove('show');
-      if (btn) btn.removeEventListener('click', dismiss);
-      if (onDone) onDone();
-    }
-    if (btn) btn.addEventListener('click', dismiss);
-    // ออโตเองหลัง 4 วินาที
-    setTimeout(dismiss, 4000);
-  }
-
-  // ฟังก์ชันสำหรับเรียกจากภายนอก (โดย sendToLine / doSend)
-  window.oilRpgFinishJob = function(onDone) {
-    // คำนวณ XP จากการตรวจรถ  1 คัน (+200 XP flat + bonus ถ้ามีหมวด)
-    var bonus = 200;
-    var usedSections = 0;
-    var sectionIds = ['ac','susp','brake','eng_p','eng_d','cool','clutch','starter'];
-    sectionIds.forEach(function(id) {
-      if (window._sectionUsed && window._sectionUsed[id]) usedSections++;
-    });
-    bonus += usedSections * 50; // +50 ต่อหมวดที่ใช้
-    oilSessionXP = bonus;
-    rpgXP += bonus;
-    saveRpg();
-    updateUI();
-
-    var lv = getLv();
-    if (lv.lv > lastLevel) {
-      lastLevel = lv.lv;
-      saveRpg();
-      triggerLevelUpOil(lv.name, onDone);
-    } else {
-      if (onDone) onDone();
-    }
-  };
-
-  // โหลด XP ทันที
-  updateUI();
 })();
 </script>
 </body>
